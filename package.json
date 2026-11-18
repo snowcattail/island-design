@@ -43,6 +43,7 @@
     "author": "snowcattail",
     "scripts": {
         "dev": "vite",
+        "gen": "node scripts/create-component.mjs",
         "build": "npm run build --workspace=@island-design/tokens && npm run build --workspace=@island-design/hooks && vite build && tsc --project tsconfig.build.json --emitDeclarationOnly && node scripts/fix-dts-extensions.mjs",
         "build:demo": "vite build --config vite.config.demo.ts",
         "prepublishOnly": "npm run build && npm run check:types",
