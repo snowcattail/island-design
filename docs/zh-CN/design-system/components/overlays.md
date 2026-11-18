@@ -212,7 +212,7 @@ transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
 
 ## Tooltip（default 与 island 变体）
 
-源码：`src/components/Tooltip/tooltip.module.less`。`default` 与 `island` 是两套**完全不同**的视觉，不要混淆。
+源码：`packages/components/src/components/Tooltip/tooltip.module.less`。`default` 与 `island` 是两套**完全不同**的视觉，不要混淆。
 
 **default 变体（标准温色 bubble）：**
 

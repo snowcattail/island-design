@@ -8,14 +8,14 @@ island-design 是一套受《治愈系海岛风格》启发的 React + TypeScrip
 
 设计语言核心：**温暖大地色系 + 大圆角 pill 形 + 游戏按键立体感 + 柔和动效 + 几何 / 有机形状并存**。几何代表：Title 飘带的 swallowtail clip-path、Countdown 的 12px 圆角数字块；有机代表：Modal 的 SVG blob。
 
-- 源码：`src/components/<ComponentName>/`
-- Demo 站：`demo/`
+- 源码：`packages/components/src/components/<ComponentName>/`
+- Demo 站：`apps/demo/`
 - 构建：Vite (library mode)，`vite.config.ts` 构建库，`vite.config.demo.ts` 构建 Demo
-- 样式系统：Less Modules + `src/styles/variables.less` 设计 token
+- 样式系统：Less Modules + `packages/tokens/src/variables.less` 设计 token
 
 ## 全量导出清单
 
-42 个组件，全部从 `src/index.ts` 导出（含 `FormItem` / `useForm` 伴生导出）：
+42 个组件，全部从 `packages/components/src/index.ts` 导出（含 `FormItem` / `useForm` 伴生导出）：
 
 | 组件           | 职责                                                                                                                                                                                    | 交互 | 装饰 / 纯展示 |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ------------- |

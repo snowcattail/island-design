@@ -4,7 +4,7 @@ Exact values for the components that present content: Table, Pagination, CodeBlo
 
 ## Table (dashed row rules, solid hover)
 
-Source: `src/components/Table/table.module.less`. **The shell has no solid border**; row separators are dashed rules drawn with `::after`; the hover row is a solid light-teal background.
+Source: `packages/components/src/components/Table/table.module.less`. **The shell has no solid border**; row separators are dashed rules drawn with `::after`; the hover row is a solid light-teal background.
 
 ```css
 /* outer wrapper */
@@ -70,7 +70,7 @@ padding: 10px 16px 8px;
 
 ## Pagination (ghost-cell pager, DatePicker visual language)
 
-Source: `src/components/Pagination/pagination.module.less`. **Ghost-cell pager sharing the DatePicker panel vocabulary**: transparent page cells that hover to light-teal, the active page as a solid teal circle, and the size-changer / jumper controls styled like the DatePicker trigger (cream capsule + 3px hard bottom shadow). Ellipses when pages exceed 7.
+Source: `packages/components/src/components/Pagination/pagination.module.less`. **Ghost-cell pager sharing the DatePicker panel vocabulary**: transparent page cells that hover to light-teal, the active page as a solid teal circle, and the size-changer / jumper controls styled like the DatePicker trigger (cream capsule + 3px hard bottom shadow). Ellipses when pages exceed 7.
 
 ```less
 // root — inline-flex row, gap 2px, colour #725d42
@@ -214,7 +214,7 @@ The top-right copy button uses the Clipboard API and reports `已复制` or `复
 
 ## Tag (pill, 12-colour palette)
 
-Source: `src/components/Tag/Tag.tsx` + `tag.module.less`. **Pill-shaped tag**: perfectly aligned with the Card palette (12 brand colours + 1 default), 3 sizes × 4 variants (solid / outlined / dashed / soft), supporting closable / onClick / disabled.
+Source: `packages/components/src/components/Tag/Tag.tsx` + `tag.module.less`. **Pill-shaped tag**: perfectly aligned with the Card palette (12 brand colours + 1 default), 3 sizes × 4 variants (solid / outlined / dashed / soft), supporting closable / onClick / disabled.
 
 ```less
 // root — full pill, 1.5px transparent border (reserves space for the variants so nothing jitters)
@@ -346,7 +346,7 @@ Source: `src/components/Tag/Tag.tsx` + `tag.module.less`. **Pill-shaped tag**: p
 
 ## Badge (corner count badge, 2px cream ring)
 
-Source: `src/components/Badge/Badge.tsx` + `badge.module.less`. **Corner count badge**: a `<sup>` pill pinned to the top-right of the wrapped element, showing a number, a capped number (`99+`) or a bare dot; it also works standalone (no wrapped element). The colour palette is shared with Card / Tag.
+Source: `packages/components/src/components/Badge/Badge.tsx` + `badge.module.less`. **Corner count badge**: a `<sup>` pill pinned to the top-right of the wrapped element, showing a number, a capped number (`99+`) or a bare dot; it also works standalone (no wrapped element). The colour palette is shared with Card / Tag.
 
 ```less
 /* wrapper — inline-flex so the sup anchors on the wrapped element */
@@ -455,7 +455,7 @@ The rule measures the **displayed text**, so numbers go through `String(value)` 
 
 ## Image (mat frame)
 
-Source: `src/components/Image/image.module.less`. **Mat frame**: `#fff` background by default (`color="white"` — plain; any other `color` renders the Card `pattern` base colour — soft pastel, dots omitted), 12px padding (the image sits inset like a photo mat), 8px radius, `0 8px 14px 0 rgba(0, 0, 0, 0.08)` soft shadow and a built-in error placeholder.
+Source: `packages/components/src/components/Image/image.module.less`. **Mat frame**: `#fff` background by default (`color="white"` — plain; any other `color` renders the Card `pattern` base colour — soft pastel, dots omitted), 12px padding (the image sits inset like a photo mat), 8px radius, `0 8px 14px 0 rgba(0, 0, 0, 0.08)` soft shadow and a built-in error placeholder.
 
 ```less
 // frame wrapper
@@ -583,7 +583,7 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
 
 ## Avatar (circle/squircle sticker head)
 
-Source: `src/components/Avatar/avatar.module.less`. A `<span>` that shows either an image, an icon, or text. Sizes are the Button ladder: **32 / 40 / 48px** for `small` / `middle` / `large`; any numeric `size` is used verbatim.
+Source: `packages/components/src/components/Avatar/avatar.module.less`. A `<span>` that shows either an image, an icon, or text. Sizes are the Button ladder: **32 / 40 / 48px** for `small` / `middle` / `large`; any numeric `size` is used verbatim.
 
 ```css
 /* root */
@@ -622,7 +622,7 @@ Source: `src/components/Avatar/avatar.module.less`. A `<span>` that shows either
 
 ## CountUp (score counter, digit plate + optional celebration)
 
-Source: `src/components/CountUp/CountUp.tsx` + `count-up.module.less`.
+Source: `packages/components/src/components/CountUp/CountUp.tsx` + `count-up.module.less`.
 
 A declarative count-up readout for score screens: animate `start` → `end` over `duration` seconds. The `requestAnimationFrame` timestamp is the clock (no `setInterval` drift), `isCounting` plays / pauses / resumes without losing elapsed progress, and the digit plate reuses Countdown's cream-gradient tile so a score screen and a deadline screen read as one family. No timer library: the easing curves and number formatting are local.
 
@@ -730,7 +730,7 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 
 ## Calendar (month panel, event bars that span days)
 
-Source: `src/components/Calendar/calendar.module.less`. A **standalone** month calendar (not a popup): the month panel is
+Source: `packages/components/src/components/Calendar/calendar.module.less`. A **standalone** month calendar (not a popup): the month panel is
 permanent, so the shell is a cream card rather than a positioned popover. It reuses DatePicker's visual language —
 `#fffdf7` card, `#e8dcc8` 1.5px border, 20px radius, day circles — and adds an event band under each week's dates.
 

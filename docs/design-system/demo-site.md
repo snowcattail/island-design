@@ -1,6 +1,6 @@
 # Demo Site
 
-These specs describe the demo and documentation site, not the shipped library. They are the actual layout values of `demo/App.tsx`, kept so the full page effect can be reproduced.
+These specs describe the demo and documentation site, not the shipped library. They are the actual layout values of `apps/demo/App.tsx`, kept so the full page effect can be reproduced.
 
 ## Overall layout
 
@@ -214,6 +214,6 @@ The **图表统计** category follows the component categories at the bottom of 
 | `time` | TimeSeries 时序图 |
 | `map` | Map 地图统计 |
 
-`demo/chartPages.ts` owns `type`, the Chinese `label`, the English `englishLabel` and `desc`. `demo/App.tsx` combines the two labels for the menu. Type routes remain `#/chart-${type}`; for example, **Mountain 山峰图** opens `#/chart-mount` and renders `<Chart type="mount" series={series} />`. Display names are not API values or exported components. Page headings, overview cards and gallery links continue to use the Chinese `label`.
+`apps/demo/chartPages.ts` owns `type`, the Chinese `label`, the English `englishLabel` and `desc`. `apps/demo/App.tsx` combines the two labels for the menu. Type routes remain `#/chart-${type}`; for example, **Mountain 山峰图** opens `#/chart-mount` and renders `<Chart type="mount" series={series} />`. Display names are not API values or exported components. Page headings, overview cards and gallery links continue to use the Chinese `label`.
 
 Chart visuals, interactions and gallery layout are defined in [Chart](components/charts.md).

@@ -212,7 +212,7 @@ transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
 
 ## Tooltip (default and island variants)
 
-Source: `src/components/Tooltip/tooltip.module.less`. `default` and `island` are two **completely different** visuals — do not mix them up.
+Source: `packages/components/src/components/Tooltip/tooltip.module.less`. `default` and `island` are two **completely different** visuals — do not mix them up.
 
 **`default` variant (standard warm bubble):**
 

@@ -1,6 +1,6 @@
 # NoData
 
-源码：`src/components/NoData/`。可复用空内容展示，沿用组件库字体、大地棕文字、奶油表面及 `naive-icons`。不增加请求、定时器或运行时依赖。
+源码：`packages/components/src/components/NoData/`。可复用空内容展示，沿用组件库字体、大地棕文字、奶油表面及 `naive-icons`。不增加请求、定时器或运行时依赖。
 
 # 变体与结构
 
@@ -29,4 +29,4 @@
 
 Chart 的无数据、缺少地图轮廓和图例全隐藏场景使用 small 变体；图例全隐藏提供恢复全部操作。Table 保留现有空态图标，在 emptyText 中放置 NoData 时可传 icon={null}。不改变原有 Table 行为。
 
-独立演示位于 **反馈 → NoData 空状态**，顶部新增独立的纸箱/搜索并排预览，随后保留基础用法、可操作的搜索恢复（通过持久的礼貌活区播报结果数量或无匹配）、表格新建操作、多尺寸、自定义图标和纯文字。属性与示例见 [NoData 参考](https://github.com/snowcattail/island-design/blob/main/skills/island-design-style/references/components/no-data.md)。
+独立演示位于 **反馈 → NoData 空状态**，顶部新增独立的纸箱/搜索并排预览，随后保留基础用法、可操作的搜索恢复（通过持久的礼貌活区播报结果数量或无匹配）、表格新建操作、多尺寸、自定义图标和纯文字。属性位于 `packages/components/src/components/NoData/`，示例位于 `apps/demo/`。

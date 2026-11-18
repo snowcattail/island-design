@@ -1,17 +1,17 @@
 # Component Development
 
 This is the end-to-end workflow for adding a component or changing an existing one. It stays at the structural level:
-individual component props live in `skills/island-design-style/references/components/*.md`, and individual component
+individual component props live in the TypeScript declarations, and individual component
 pixel specs live in [../design-system/components/](../design-system/components/). Never duplicate either here.
 
 ## Workflow
 
-1. Create `src/components/<ComponentName>/` containing:
+1. Create `packages/components/src/components/<ComponentName>/` containing:
     - `<ComponentName>.tsx` — implementation
     - `<component>.module.less` — styles (lowercase-hyphen filename, e.g. `button.module.less`)
     - `index.ts` — export entry
     - `<ComponentName>.test.tsx` — unit test, colocated
-2. Re-export the value and the types from `src/index.ts`.
+2. Re-export the value and the types from `packages/components/src/index.ts`.
 3. Register the demo — four places, see [Demo registration](#demo-registration).
 4. Sync documentation — see [Documentation sync](#documentation-sync).
 5. Run `npm run ci` before committing.
@@ -19,7 +19,7 @@ pixel specs live in [../design-system/components/](../design-system/components/)
 ## File Layout
 
 ```
-src/components/MyComponent/
+packages/components/src/components/MyComponent/
 ├── MyComponent.tsx          # component logic (must set displayName)
 ├── myComponent.module.less  # CSS Modules styles
 └── index.ts                 # single export entry
@@ -85,7 +85,7 @@ export type { FooProps, FooSize } from './Foo';
 
 ## Barrel Export
 
-Append to `src/index.ts`:
+Append to `packages/components/src/index.ts`:
 
 ```ts
 // 方式 A：组件用 default export
@@ -97,7 +97,7 @@ export { MyComponent } from './components/MyComponent';
 export type { MyComponentProps } from './components/MyComponent';
 ```
 
-Both styles coexist in the repository; pick either one for a new component as long as `src/index.ts` re-exports it
+Both styles coexist in the repository; pick either one for a new component as long as `packages/components/src/index.ts` re-exports it
 successfully. Values must use `export {}` and types must use `export type {}` — `isolatedModules` requires the split.
 
 ## Naming
@@ -110,8 +110,8 @@ successfully. Values must use `export {}` and types must use `export type {}` �
 
 ## Demo Page
 
-Each component gets a demo at `demo/components/<ComponentName>/index.tsx` with a default export. Shared building blocks
-come from `demo/tools`: `CodeBlock`, `ApiTable` (takes `rows: ApiRow[]`), `DemoTag`, `useIsMobile`, and the section
+Each component gets a demo at `apps/demo/components/<ComponentName>/index.tsx` with a default export. Shared building blocks
+come from `apps/demo/tools`: `CodeBlock`, `ApiTable` (takes `rows: ApiRow[]`), `DemoTag`, `useIsMobile`, and the section
 style objects.
 
 ```tsx
@@ -144,29 +144,29 @@ The demo site is Chinese-facing; keep demo copy in Chinese to match the surround
 A demo page is only reachable once its key is registered in all four places. They are independent literals — nothing
 derives one from another.
 
-1. `demo/App.tsx` → `MENU_ITEMS`: add `{ key, label }` under the right category, otherwise the sidebar has no entry.
-2. `demo/pageInfo.ts` → `PAGE_INFO[key] = { title, desc }`: drives the main-area heading and the mobile top bar.
-3. `demo/ComponentPage.tsx` → import the demo component and add `PAGES[key]`: mounts the page body.
-4. `demo/HomePage.tsx` → the `components` array: the card on the home page.
+1. `apps/demo/App.tsx` → `MENU_ITEMS`: add `{ key, label }` under the right category, otherwise the sidebar has no entry.
+2. `apps/demo/pageInfo.ts` → `PAGE_INFO[key] = { title, desc }`: drives the main-area heading and the mobile top bar.
+3. `apps/demo/ComponentPage.tsx` → import the demo component and add `PAGES[key]`: mounts the page body.
+4. `apps/demo/HomePage.tsx` → the `components` array: the card on the home page.
 
 Diagnostic tip: `ComponentPage` returns `null` when either `PAGES[activeKey]` or `PAGE_INFO[activeKey]` is missing
-(`demo/ComponentPage.tsx:108`). So if the menu item highlights but the main area stays blank, the first thing to check
+(`apps/demo/ComponentPage.tsx:108`). So if the menu item highlights but the main area stays blank, the first thing to check
 is whether the key exists in both `PAGES` and `PAGE_INFO` — not the component code. `npm run check:docs` does not cover
 demo registration; this check is manual.
 
 ## Documentation Sync
 
-| Change                                | Must sync                                                                                            |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Component API added or changed        | `skills/island-design-style/references/components/<category>.md` — props copied verbatim from source |
-| Component style added or changed      | `docs/design-system/components/<category>.md` + its `docs/zh-CN` mirror                              |
-| Visual token or rule changed          | `docs/design-system/design-tokens.md` / `design-rules.md` + their `docs/zh-CN` mirrors               |
-| New component                         | all of the above + the four demo registration points + README badges (`npm run badges`)              |
-| Any change to an English `docs/` file | the matching file under `docs/zh-CN/`                                                                |
+| Change                                | Must sync                                                                               |
+| ------------------------------------- | --------------------------------------------------------------------------------------- |
+| Component API added or changed        | TypeScript declarations and exports in `packages/components/src/`                       |
+| Component style added or changed      | `docs/design-system/components/<category>.md` + its `docs/zh-CN` mirror                 |
+| Visual token or rule changed          | `docs/design-system/design-tokens.md` / `design-rules.md` + their `docs/zh-CN` mirrors  |
+| New component                         | all of the above + the four demo registration points + README badges (`npm run badges`) |
+| Any change to an English `docs/` file | the matching file under `docs/zh-CN/`                                                   |
 
 `npm run check:docs` (`scripts/check-docs-sync.mjs`, wired into `npm run ci`) enforces that every component in
-`src/components/` is covered in the design-system docs and the skill references, that skill component reference files
-stay within their 200-line cap, and that `docs/zh-CN/` mirrors `docs/`. Any drift fails the build.
+`packages/components/src/components/` is covered in the design-system docs and that `docs/zh-CN/` mirrors `docs/`.
+Any drift fails the build.
 
 ## Checklist
 
@@ -174,8 +174,8 @@ stay within their 200-line cap, and that `docs/zh-CN/` mirrors `docs/`. Any drif
 - [ ] Stateful component supports both controlled (`value`) and uncontrolled (`defaultValue`) modes
 - [ ] Styles conform to [../design-system/design-rules.md](../design-system/design-rules.md) (radii, focus, shadows,
       disabled state, hover/active motion) and reference tokens instead of hardcoded values
-- [ ] Component exported from `src/index.ts` with the value/type split
-- [ ] Demo page created under `demo/components/` and registered in all four places
+- [ ] Component exported from `packages/components/src/index.ts` with the value/type split
+- [ ] Demo page created under `apps/demo/components/` and registered in all four places
 - [ ] Unit tests colocated and passing, accessibility roles and keyboard support covered — see
       [testing.md](./testing.md)
 - [ ] Documentation synced per the matrix above, `npm run badges` re-run if component count or coverage changed

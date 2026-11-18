@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 校验 dist/types 里的类型声明符合 ESM 的解析规则。
+ * 校验 packages/components/dist/types 里的类型声明符合 ESM 的解析规则。
  *
  * 为什么需要：包是 ESM，消费方用 `moduleResolution: "node16"` / `"nodenext"` 时，
  * ESM 的 .d.ts 必须写显式扩展名、且不能用目录导入 —— 否则模块图解析失败，
@@ -15,10 +15,10 @@ import { fileURLToPath } from 'url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ROOT = resolve(__dirname, '..');
-const TYPES_DIR = resolve(ROOT, 'dist/types');
+const TYPES_DIR = resolve(ROOT, 'packages/components/dist/types');
 
 if (!existsSync(TYPES_DIR)) {
-    console.error('[check:dts] 找不到 dist/types —— 请先运行 npm run build');
+    console.error('[check:dts] 找不到 packages/components/dist/types —— 请先运行 npm run build');
     process.exit(1);
 }
 

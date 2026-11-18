@@ -4,7 +4,7 @@
 
 ## Progress（描边轨道 + 渐变或场景图 fill）
 
-源码：`src/components/Progress/Progress.tsx`（受控渲染 + aria 适配）+ `types.ts`（类型定义）+ `progress.module.less`。
+源码：`packages/components/src/components/Progress/Progress.tsx`（受控渲染 + aria 适配）+ `types.ts`（类型定义）+ `progress.module.less`。
 **JSX 组件**（非命令式）：`percent` 受控传入，从 0 平滑动画到目标值。track 是奶油色 pill，带细波点纹理和 2px 沙色实描边；传 `variant` 时 fill 是场景图（`sweet-corner.svg`、`forest-grove.svg` …）由组件内联注入，`background-size` 等于整条轨道宽度，场景铺满整条轨道；未传 `variant` 时 fill 回退为薄荷色竖向渐变。百分比文字固定显示在进度条右侧。
 
 **props**：
@@ -98,11 +98,11 @@ interface ProgressProps {
 <Progress percent={58} wave animated={false} />
 ```
 
-海浪复用 `src/internal/Wave.tsx` 与 `wave.module.less`：128px 波长，6s / 9s 匀速反向循环，透明度 0.28 / 0.48；第二层顶部偏移 20%、相位偏移 -32px。同时提供 `-webkit-mask` / `mask` 及对应的位置声明，兼容需要前缀的 WebKit 引擎。固定纹理波长配合 transform 位移，fill 宽度仍对应真实百分比。轨道最小宽度为 0，可适配 Upload 的 84px 图片卡片。
+海浪复用 `packages/components/src/internal/Wave.tsx` 与 `wave.module.less`：128px 波长，6s / 9s 匀速反向循环，透明度 0.28 / 0.48；第二层顶部偏移 20%、相位偏移 -32px。同时提供 `-webkit-mask` / `mask` 及对应的位置声明，兼容需要前缀的 WebKit 引擎。固定纹理波长配合 transform 位移，fill 宽度仍对应真实百分比。轨道最小宽度为 0，可适配 Upload 的 84px 图片卡片。
 
 ## Loading（全屏落雪 / 圆形扩散展开）
 
-源码：`src/components/Loading/Loading.tsx` + `Sailboat.tsx` + `types.ts` + `loading.module.less` + `sailboat.module.less`。
+源码：`packages/components/src/components/Loading/Loading.tsx` + `Sailboat.tsx` + `types.ts` + `loading.module.less` + `sailboat.module.less`。
 同一个全屏外壳，由 `type` 选择两种形态：
 
 - `type="snow"`（默认）——全屏夜空落雪：50 片白色圆点雪花（1–6px 随机尺寸与位置）从视口上方旋转飘落，每片拥有独立的 6–12s 线性时长与负延迟，首屏即刻铺满。`active` 变为 false 时整体按 `fadeDuration` 秒渐变消失，随后卸载。
@@ -259,7 +259,7 @@ naive-icons 的波浪路径横跨 4.85 → 43.15，分成 4 段完全等长的 9
 
 ## Skeleton（流光占位）
 
-源码：`src/components/Skeleton/Skeleton.tsx` + `skeleton.module.less`。
+源码：`packages/components/src/components/Skeleton/Skeleton.tsx` + `skeleton.module.less`。
 
 骨架屏加载占位组件。四种变体：`text` / `circle` / `rect` / `paragraph`。`loading=false` 时直接渲染 children。
 
@@ -332,7 +332,7 @@ SkeletonAvatarProps { size?: 'small'|'middle'|'large'; shape?: 'circle'|'square'
 
 ## BackTop（上箭头返回顶部）
 
-源码：`src/components/BackTop/BackTop.tsx` + `back-top.module.less`。
+源码：`packages/components/src/components/BackTop/BackTop.tsx` + `back-top.module.less`。
 
 固定右下角的返回顶部按钮，使用 `naive-icons` 的 `RocketIcon`（48×48 viewBox：奶油 `#FAEDCD` 机身、青绿 `#2A9D8F` 舷窗、`#E76F51` 火焰与尾翼、墨色 `#2A2A2A` 描边），以 `size={64}` 渲染；点击后 easeInOutQuad 平滑滚动到顶部。该图标是纯装饰性的，带 `aria-hidden`，可读名称由按钮自身的 `aria-label` 提供。
 
@@ -393,7 +393,7 @@ border-radius: 16px;
 
 ## Countdown（截止倒计时）
 
-源码：`src/components/Countdown/Countdown.tsx` + `countdown.module.less`。
+源码：`packages/components/src/components/Countdown/Countdown.tsx` + `countdown.module.less`。
 
 组件计算 `value`（`number | Date`）与 `Date.now()` 的非负差值，每 250ms 刷新，使向上取整后的秒数准时变化。到零时 `onFinish` 只触发一次。
 
@@ -430,7 +430,7 @@ interface CountdownProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'
 
 ## Time（实时时钟卡片）
 
-源码：`src/components/Time/Time.tsx` + `time.module.less`。
+源码：`packages/components/src/components/Time/Time.tsx` + `time.module.less`。
 
 实时时钟卡片：上方是大号 `HH:MM` 时间，每秒从 `new Date()` 刷新一次；下方胶囊显示星期与月日。星期与月日都通过 dayjs 格式模板渲染，可改形状也可切换语言；其余 `div` 原生属性（`className`、`style`、`aria-*`…）全部透传到根节点。
 

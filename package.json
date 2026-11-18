@@ -1,61 +1,26 @@
 {
-    "name": "island-design",
+    "name": "island-design-workspace",
     "version": "1.0.0",
     "description": "A nature-inspired React component library",
     "type": "module",
     "workspaces": [
-        "packages/*"
+        "packages/*",
+        "apps/*"
     ],
-    "main": "dist/cjs/index.cjs",
-    "module": "dist/es/index.js",
-    "types": "dist/types/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/es/index.js",
-            "require": "./dist/cjs/index.cjs"
-        },
-        "./style": "./dist/index.css",
-        "./dist/index.css": "./dist/index.css",
-        "./package.json": "./package.json",
-        "./es/*": {
-            "types": "./dist/types/*",
-            "default": "./dist/es/*"
-        }
-    },
-    "files": [
-        "dist",
-        "CHANGELOG.md",
-        "README.md"
-    ],
-    "sideEffects": [
-        "**/*.css",
-        "**/*.less"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/snowcattail/island-design"
-    },
-    "homepage": "https://github.com/snowcattail/island-design#readme",
-    "bugs": {
-        "url": "https://github.com/snowcattail/island-design/issues"
-    },
-    "author": "snowcattail",
     "scripts": {
-        "dev": "vite",
+        "dev": "npm run dev --workspace=@island-design/demo",
         "gen": "node scripts/create-component.mjs",
-        "build": "npm run build --workspace=@island-design/tokens && npm run build --workspace=@island-design/hooks && vite build && tsc --project tsconfig.build.json --emitDeclarationOnly && node scripts/fix-dts-extensions.mjs",
-        "build:demo": "vite build --config vite.config.demo.ts",
-        "prepublishOnly": "npm run build && npm run check:types",
-        "deploy": "npm run build:demo && gh-pages -d demo-dist",
-        "test": "vitest",
-        "test:run": "vitest run && vitest run --config vitest.a11y.config.ts",
-        "test:cov": "vitest run --coverage --reporter=json --outputFile=coverage/vitest-results.json",
-        "test:a11y": "vitest run --config vitest.a11y.config.ts",
+        "build": "npm run build --workspace=@island-design/tokens && npm run build --workspace=@island-design/hooks && npm run build --workspace=island-design",
+        "build:demo": "npm run build --workspace=@island-design/demo",
+        "deploy": "npm run build:demo && gh-pages -d apps/demo/demo-dist",
+        "test": "npm run test --workspace=island-design",
+        "test:run": "npm run test:run --workspace=island-design && npm run test:a11y --workspace=island-design",
+        "test:cov": "npm run test:cov --workspace=island-design",
+        "test:a11y": "npm run test:a11y --workspace=island-design",
         "badges": "node scripts/generate-coverage-badges.mjs",
         "check:docs": "node scripts/check-docs-sync.mjs",
         "check:bundle": "node scripts/check-bundle.mjs",
-        "check:types": "node scripts/check-dts-esm.mjs",
+        "check:types": "npm run check:types --workspace=island-design && npm run check:types --workspace=@island-design/demo && node scripts/check-dts-esm.mjs",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "typecheck": "tsc --noEmit",
@@ -64,20 +29,6 @@
         "ci": "npm run format:check && npm run check:docs && npm run lint && npm run typecheck && npm run test:run && npm run build && npm run check:bundle && npm run check:types",
         "setup:hooks": "git config core.hooksPath .githooks",
         "prepare": "npm run setup:hooks"
-    },
-    "peerDependencies": {
-        "react": ">=18.0.0",
-        "react-dom": ">=18.0.0"
-    },
-    "dependencies": {
-        "@island-design/hooks": "file:packages/hooks",
-        "@island-design/tokens": "file:packages/tokens",
-        "classnames": "^2.5.1",
-        "dayjs": "^1.11.23",
-        "naive-icons": "^1.14.0"
-    },
-    "engines": {
-        "node": ">=18"
     },
     "devDependencies": {
         "@eslint/js": "^9.0.0",
@@ -111,18 +62,5 @@
         "vitest": "^4.1.11",
         "vitest-axe": "^0.1.0"
     },
-    "keywords": [
-        "react",
-        "component-library",
-        "ui",
-        "typescript",
-        "theme",
-        "island-design",
-        "nature"
-    ],
-    "license": "MIT",
-    "allowScripts": {
-        "esbuild": true,
-        "fsevents": true
-    }
+    "private": true
 }

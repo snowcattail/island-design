@@ -1,6 +1,6 @@
 # Demo Site
 
-以下规范描述的是 Demo 与文档站，不属于发布的组件库。它们是 `demo/App.tsx` 的实际布局数值，保留下来用于还原完整页面效果。
+以下规范描述的是 Demo 与文档站，不属于发布的组件库。它们是 `apps/demo/App.tsx` 的实际布局数值，保留下来用于还原完整页面效果。
 
 ## 整体布局
 
@@ -214,6 +214,6 @@ line-height: 1.8;
 | `time` | TimeSeries 时序图 |
 | `map` | Map 地图统计 |
 
-`demo/chartPages.ts` 统一维护 `type`、中文 `label`、英文 `englishLabel` 和 `desc`，`demo/App.tsx` 拼接中英文菜单名称。类型路由仍为 `#/chart-${type}`；例如 **Mountain 山峰图** 打开 `#/chart-mount`，组件使用 `<Chart type="mount" series={series} />`。显示名称不是 API 取值，也不是独立导出的组件。页面标题、总览卡片和图集链接继续使用中文 `label`。
+`apps/demo/chartPages.ts` 统一维护 `type`、中文 `label`、英文 `englishLabel` 和 `desc`，`apps/demo/App.tsx` 拼接中英文菜单名称。类型路由仍为 `#/chart-${type}`；例如 **Mountain 山峰图** 打开 `#/chart-mount`，组件使用 `<Chart type="mount" series={series} />`。显示名称不是 API 取值，也不是独立导出的组件。页面标题、总览卡片和图集链接继续使用中文 `label`。
 
 图表视觉、交互与图集布局见 [Chart](components/charts.md)。

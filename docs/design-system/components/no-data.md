@@ -1,6 +1,6 @@
 # NoData
 
-Source: `src/components/NoData/`. Reusable empty-content presentation, using the library font, earth-brown text, cream surfaces and `naive-icons`. No requests, timers or runtime dependencies are added.
+Source: `packages/components/src/components/NoData/`. Reusable empty-content presentation, using the library font, earth-brown text, cream surfaces and `naive-icons`. No requests, timers or runtime dependencies are added.
 
 # Variants and anatomy
 
@@ -29,4 +29,4 @@ The root is a native div and accepts native attributes; it does not force a live
 
 Chart uses the small variant for no data, missing map contours and all-hidden legends; the last state offers a restore-all action. Table retains its existing empty icon, so use icon={null} when placing NoData in its emptyText slot. Existing Table behavior is unchanged.
 
-The independent demo under **反馈 → NoData 空状态** starts with an independent side-by-side box/search preview, followed by the retained defaults, working search reset with a persistent polite live region announcing result counts or no matches, a table creation action, sizes, custom icons and text-only presentation. Props and examples: [NoData reference](https://github.com/snowcattail/island-design/blob/main/skills/island-design-style/references/components/no-data.md).
+The independent demo under **反馈 → NoData 空状态** starts with an independent side-by-side box/search preview, followed by the retained defaults, working search reset with a persistent polite live region announcing result counts or no matches, a table creation action, sizes, custom icons and text-only presentation. Props live in `packages/components/src/components/NoData/`; examples live in `apps/demo/`.

@@ -39,18 +39,18 @@ React and React DOM are peer dependencies. Import the stylesheet once at the app
 ```text
 island-design/
 ├── packages/
-│   ├── tokens/             @island-design/tokens: Less tokens and CSS theme
-│   └── hooks/              @island-design/hooks: typed React hooks
-├── src/
-│   ├── components/         42 public components
-│   ├── internal/           shared private behavior
-│   └── styles/             library stylesheet entry, fonts and reset
-├── demo/                   interactive component examples
+│   ├── components/         island-design: 42 public components and library build
+│   │   ├── src/            components, internal behavior, styles and assets
+│   │   └── test/           shared test helpers and accessibility tests
+│   ├── hooks/              @island-design/hooks: typed React hooks
+│   └── tokens/             @island-design/tokens: Less tokens and CSS theme
+├── apps/
+│   └── demo/               @island-design/demo: interactive examples
 ├── scripts/                generator and artifact checks
 └── docs/                   design system and development contracts
 ```
 
-The root npm workspace is the published <code>island-design</code> package. <code>pnpm-workspace.yaml</code> describes the same packages for pnpm users. The tokens package owns Less variables and the default CSS custom property theme. The hooks package builds an independent ESM entry and TypeScript declarations for controlled state, focus restoration, and document event listeners.
+The root package coordinates the npm workspaces in <code>packages/_</code> and <code>apps/_</code>; <code>pnpm-workspace.yaml</code> describes the same layout for pnpm users. <code>packages/components</code> is the published <code>island-design</code> package. <code>apps/demo</code> is private. The tokens package owns Less variables and the default CSS custom property theme. The hooks package builds an independent ESM entry and TypeScript declarations for controlled state, focus restoration, and document event listeners.
 
 ## Four engineering foundations
 
@@ -91,7 +91,7 @@ The token package also exports its Less source through <code>@island-design/toke
 | Navigation and overlays | Tabs, Collapse, Carousel, Modal, Drawer, Tooltip, Notification                                            |
 | Feedback and atmosphere | Loading, Skeleton, NoData, Calendar, Tag                                                                  |
 
-All 42 components are under [src/components](./src/components). Their usage examples are in [demo](./demo); design rules are in [docs/design-system](./docs/design-system/README.md).
+All 42 components are under [packages/components/src/components](./packages/components/src/components). Their usage examples are in [apps/demo](./apps/demo); design rules are in [docs/design-system](./docs/design-system/README.md).
 
 ## Generate a component
 

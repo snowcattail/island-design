@@ -13,12 +13,16 @@ if (names.length !== 1 || !/^[A-Z][A-Za-z0-9]*$/.test(names[0])) {
     process.exitCode = 1;
 } else {
     const name = names[0];
-    const dir = resolve(root, 'src/components', name);
-    const rootIndex = resolve(root, 'src/index.ts');
+    const dir = resolve(root, 'packages/components/src/components', name);
+    const rootIndex = resolve(root, 'packages/components/src/index.ts');
     const kebab = name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
     if (existsSync(dir) || readFileSync(rootIndex, 'utf8').includes(`./components/${name}`)) {
-        console.error(`Component ${name} already exists.`);
-        process.exitCode = 1;
+        if (dryRun) {
+            console.log(`Component ${name} already exists; no files would be created.`);
+        } else {
+            console.error(`Component ${name} already exists.`);
+            process.exitCode = 1;
+        }
     } else {
         const files = {
             [`${name}.tsx`]: `import React from 'react';

@@ -9,19 +9,20 @@ export default tseslint.config(
     {
         ignores: [
             'dist/**',
-            'packages/*/dist/**',
             'demo-dist/**',
+            'packages/*/dist/**',
+            'apps/demo/demo-dist/**',
             'coverage/**',
             'node_modules/**',
             'scripts/**',
-            '*.config.js',
-            '*.config.ts',
+            '**/*.config.js',
+            '**/*.config.ts',
             // 第三方压缩库 + 对应声明文件（来自 Loading/island/）
             '**/*.min.js',
             '**/*.min.d.ts',
             '**/island/**',
             // naive-icons 静态展示站点（生成产物，非仓库源码）
-            'demo/components/Icon/website/**',
+            'apps/demo/components/Icon/website/**',
         ],
     },
 
@@ -31,7 +32,12 @@ export default tseslint.config(
 
     // 业务源码
     {
-        files: ['src/**/*.{ts,tsx}', 'demo/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}', 'packages/hooks/src/**/*.{ts,tsx}'],
+        files: [
+            'packages/components/src/**/*.{ts,tsx}',
+            'apps/demo/**/*.{ts,tsx}',
+            'packages/components/test/**/*.{ts,tsx}',
+            'packages/hooks/src/**/*.{ts,tsx}',
+        ],
         languageOptions: {
             ecmaVersion: 2022,
             sourceType: 'module',
@@ -68,7 +74,7 @@ export default tseslint.config(
 
     // 测试文件放宽
     {
-        files: ['**/*.test.{ts,tsx}', 'test/**/*.{ts,tsx}'],
+        files: ['**/*.test.{ts,tsx}', 'packages/components/test/**/*.{ts,tsx}'],
         rules: {
             '@typescript-eslint/no-explicit-any': 'off',
             'no-console': 'off',
@@ -77,7 +83,7 @@ export default tseslint.config(
 
     // 演示站点 —— 不进 npm 产物，规则放宽以保持 demo 代码简洁
     {
-        files: ['demo/**/*.{ts,tsx}'],
+        files: ['apps/demo/**/*.{ts,tsx}'],
         rules: {
             'react-refresh/only-export-components': 'off',
             '@typescript-eslint/no-explicit-any': 'off',

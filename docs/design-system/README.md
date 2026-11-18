@@ -8,14 +8,14 @@ island-design is a React + TypeScript UI component library inspired by *a cozy i
 
 The core of the design language: **warm earth-tone palette + large-radius pill shapes + game-button 3D depth + soft motion + geometric and organic shapes coexisting**. Geometric examples: the swallowtail clip-path of the Title ribbon, the 12px-radius digit tiles of Countdown. Organic example: the SVG blob of Modal.
 
-- Source: `src/components/<ComponentName>/`
-- Demo site: `demo/`
+- Source: `packages/components/src/components/<ComponentName>/`
+- Demo site: `apps/demo/`
 - Build: Vite (library mode), `vite.config.ts` for the library and `vite.config.demo.ts` for the demo
-- Style system: Less Modules + design tokens in `src/styles/variables.less`
+- Style system: Less Modules + design tokens in `packages/tokens/src/variables.less`
 
 ## Full export inventory
 
-42 components, all exported from `src/index.ts` (including the `FormItem` / `useForm` companion exports):
+42 components, all exported from `packages/components/src/index.ts` (including the `FormItem` / `useForm` companion exports):
 
 | Component      | Responsibility                                                                                                                                                                                    | Interactive | Decorative / display-only |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------- |

@@ -1,0 +1,702 @@
+import React, { useState } from 'react';
+import { Card, Button, Typewriter } from '../../packages/components/src';
+import * as Icons from 'naive-icons';
+import { useIsMobile } from './tools';
+
+type NaiveIcon = React.FC<{ size?: number | string; color?: string; style?: React.CSSProperties }>;
+
+/** 按图标名解析 naive-icons 图标组件（如 'Heart' → HeartIcon） */
+function resolveIcon(name: string): NaiveIcon | null {
+    const Cmp = (Icons as Record<string, unknown>)[`${name}Icon`];
+    // naive-icons 1.1.0 起组件由 forwardRef 创建（返回 {$$typeof, render} 对象而非函数）；
+    // 兼容两种形态，避免 `typeof === 'function'` 判定失败导致图标不渲染
+    return Cmp !== null && Cmp !== undefined ? (Cmp as NaiveIcon) : null;
+}
+
+// ============================================
+// Syntax highlighting
+// ============================================
+const HL_TOKENS: { pattern: RegExp; style: React.CSSProperties }[] = [
+    {
+        pattern: /(\/\/.*$|\/\*[\s\S]*?\*\/)/gm,
+        style: { color: '#6b5e50', fontStyle: 'italic', fontWeight: 400 },
+    },
+    {
+        pattern: /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)/g,
+        style: { color: '#a8d4a0' },
+    },
+    { pattern: /(<\/?[\w.]+|\/?>)/g, style: { color: '#f0a870' } },
+    {
+        pattern: /\b(import|from|const|let|var|function|return|export|default|true|false|null|undefined)\b/g,
+        style: { color: '#d4a0e0' },
+    },
+    { pattern: /\b(npm|yarn|pnpm)\b/g, style: { color: '#f0a870' } },
+    {
+        pattern: /(install|uninstall|run|add|remove)\b/g,
+        style: { color: '#a8d4a0' },
+    },
+    { pattern: /(\{|\})/g, style: { color: '#d4b896' } },
+    { pattern: /(=>)/g, style: { color: '#d4a0e0' } },
+    { pattern: /(--[\w-]+)(?=\s*:)/g, style: { color: '#e8c87a' } },
+    { pattern: /(:root)/g, style: { color: '#f0a870' } },
+    { pattern: /(#[0-9a-fA-F]{3,8})\b/g, style: { color: '#8ab8e0' } },
+];
+
+const highlightCode = (code: string): React.ReactNode[] => {
+    const parts: React.ReactNode[] = [];
+    const lines = code.split('\n');
+    lines.forEach((line, li) => {
+        type Seg = { start: number; end: number; style: React.CSSProperties };
+        const segs: Seg[] = [];
+        for (const t of HL_TOKENS) {
+            const re = new RegExp(t.pattern.source, t.pattern.flags);
+            let m: RegExpExecArray | null;
+            while ((m = re.exec(line)) !== null) {
+                const s = m.index + (m[0] !== m[1] && m[1] ? m[0].indexOf(m[1]) : 0);
+                const text = m[1] || m[0];
+                segs.push({ start: s, end: s + text.length, style: t.style });
+            }
+        }
+        segs.sort((a, b) => a.start - b.start);
+        const merged: Seg[] = [];
+        for (const seg of segs) {
+            if (merged.length === 0 || seg.start >= merged[merged.length - 1].end) merged.push(seg);
+        }
+        let idx = 0;
+        for (const seg of merged) {
+            if (seg.start > idx) parts.push(line.slice(idx, seg.start));
+            parts.push(
+                <span key={`${li}-${seg.start}`} style={seg.style}>
+                    {line.slice(seg.start, seg.end)}
+                </span>
+            );
+            idx = seg.end;
+        }
+        if (idx < line.length) parts.push(line.slice(idx));
+        if (li < lines.length - 1) parts.push('\n');
+    });
+    return parts;
+};
+
+const CodeBlock: React.FC<{ code: string }> = ({ code }) => <pre style={S.codeBox}>{highlightCode(code)}</pre>;
+
+const FeatureCard: React.FC<{ feature: (typeof features)[0] }> = ({ feature }) => {
+    const [hovered, setHovered] = useState(false);
+    const IconCmp = resolveIcon(feature.icon);
+    return (
+        <Card
+            style={{
+                ...S.featureCard,
+                position: 'relative',
+                zIndex: 999,
+                transform: hovered ? 'translateY(-4px)' : 'none',
+                boxShadow: hovered ? '0 8px 24px rgba(114, 93, 66, 0.15)' : 'none',
+                transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+        >
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 42,
+                    height: 42,
+                    margin: '0 auto',
+                    transform: hovered ? 'scale(1.1) rotate(-4deg)' : 'scale(1) rotate(0deg)',
+                    transition: 'transform 0.3s ease',
+                    animation: hovered ? 'iconBounce 0.4s ease forwards' : 'none',
+                }}
+            >
+                {IconCmp && <IconCmp size={42} />}
+            </div>
+            <style>
+                {`
+                    @keyframes iconBounce {
+                        0% { transform: scale(1) rotate(0deg); }
+                        50% { transform: scale(1.2) rotate(-5deg); }
+                        100% { transform: scale(1.1) rotate(-4deg); }
+                    }
+                `}
+            </style>
+            <div style={S.featureTitle}>{feature.title}</div>
+            <div style={S.featureDesc}>{feature.desc}</div>
+        </Card>
+    );
+};
+
+// ============================================
+// Styles
+// ============================================
+// 首页背景装饰：低透明度 Icon 平铺壁纸
+const BG_ICONS: string[] = [
+    'Heart',
+    'Star',
+    'Sun',
+    'Moon',
+    'Cloud',
+    'Rainbow',
+    'Flower',
+    'Butterfly',
+    'Leaf',
+    'Tree',
+    'Mushroom',
+    'Bird',
+    'Fish',
+    'Sailboat',
+    'Balloon',
+    'Icecream',
+    'Coffee',
+    'Music',
+    'Snowflake',
+    'Gift',
+    'Rocket',
+    'Bear',
+    'Cat',
+    'Rabbit',
+    'Frog',
+    'Owl',
+    'Penguin',
+    'Apple',
+    'Cherry',
+    'Lemon',
+    'Cactus',
+    'Home',
+    'Camera',
+    'Bell',
+    'Globe',
+    'Key',
+    'Search',
+    'Settings',
+    'Mail',
+    'Phone',
+    'Umbrella',
+    'Download',
+    'Wifi',
+    'Headphones',
+    'Donut',
+    'Strawberry',
+    'Watermelon',
+    'Ladybug',
+    'Bee',
+    'Snail',
+    'Dog',
+    'Fox',
+    'Bicycle',
+    'Car',
+    'Train',
+];
+const S = {
+    page: {
+        width: '100%',
+        minHeight: '100vh',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        position: 'relative',
+        // 首页壁纸：图案由低透明度 Icon 背景层提供，此处置纯色底
+        background: '#88c9a1',
+    } as React.CSSProperties,
+
+    // 背景装饰层：各种 Icon 随机散落（固定种子定位 + 轻微旋转，漂浮动画在图标上）；fixed 铺满全屏，滚动时保持不动
+    bgIcons: {
+        position: 'fixed',
+        inset: 0,
+        overflow: 'hidden',
+        pointerEvents: 'none',
+        zIndex: 0,
+    } as React.CSSProperties,
+
+    // Hero（背景由 page 容器统一提供）
+    hero: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        padding: '60px 40px 40px',
+        position: 'relative',
+        zIndex: 1,
+    } as React.CSSProperties,
+    heroContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        maxWidth: 760,
+        width: '100%',
+    } as React.CSSProperties,
+    heroText: {
+        textAlign: 'center' as const,
+    } as React.CSSProperties,
+    heroTitle: {
+        fontFamily: "Nunito, 'Noto Sans SC', sans-serif",
+        fontSize: 55,
+        fontWeight: 800,
+        lineHeight: 1.08,
+        letterSpacing: '-0.035em',
+        color: '#4b3e30',
+        margin: '0 0 20px',
+    } as React.CSSProperties,
+    heroVersion: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        fontFamily:
+            "'Nunito', 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
+        fontSize: 12,
+        fontWeight: 600,
+        padding: '4px 10px',
+        borderRadius: 10,
+        background: '#e6f9f6',
+        color: '#19c8b9',
+        marginLeft: 12,
+        verticalAlign: 'middle',
+        textShadow: 'none',
+    } as React.CSSProperties,
+    heroSubtitle: {
+        fontSize: 17,
+        fontWeight: 500,
+        color: '#7c5734',
+        lineHeight: 1.7,
+        margin: '0 0 28px',
+        maxWidth: 520,
+        marginInline: 'auto',
+    } as React.CSSProperties,
+    heroActions: {
+        display: 'flex',
+        gap: 16,
+        alignItems: 'center',
+    } as React.CSSProperties,
+
+    // Sections
+    section: {
+        padding: '48px 40px',
+        maxWidth: 960,
+        margin: '0 auto',
+        position: 'relative',
+        zIndex: 999,
+    } as React.CSSProperties,
+    sectionTitle: {
+        fontFamily:
+            "Nunito, 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
+        fontSize: 24,
+        fontWeight: 700,
+        color: '#725d42',
+        margin: '0 0 8px',
+        textAlign: 'center' as const,
+    } as React.CSSProperties,
+    sectionDesc: {
+        fontSize: 14,
+        color: '#7c5734',
+        textAlign: 'center' as const,
+        marginBottom: 32,
+    } as React.CSSProperties,
+
+    // Features
+    features: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: 16,
+    } as React.CSSProperties,
+    featureCard: {
+        padding: '24px 20px',
+        textAlign: 'center' as const,
+    } as React.CSSProperties,
+    featureIcon: { fontSize: 32, marginBottom: 12 } as React.CSSProperties,
+    featureTitle: {
+        fontSize: 15,
+        fontWeight: 700,
+        color: '#725d42',
+        marginBottom: 6,
+    } as React.CSSProperties,
+    featureDesc: {
+        fontSize: 13,
+        color: '#7c5734',
+        lineHeight: 1.6,
+        display: '-webkit-box' as const,
+        WebkitLineClamp: 3,
+        WebkitBoxOrient: 'vertical' as const,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis' as const,
+    } as React.CSSProperties,
+
+    // Component grid
+    compGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: 12,
+    } as React.CSSProperties,
+    compCard: {
+        padding: '16px 20px',
+    } as React.CSSProperties,
+    compName: {
+        fontSize: 15,
+        fontWeight: 700,
+        color: '#725d42',
+        marginBottom: 4,
+    } as React.CSSProperties,
+    compDesc: {
+        fontSize: 12,
+        color: '#7c5734',
+        lineHeight: 1.5,
+    } as React.CSSProperties,
+
+    // Code block
+    codeBox: {
+        maxWidth: 600,
+        margin: '0 auto',
+        padding: '20px 28px',
+        background: '#2b2118',
+        border: '1px solid #3d3028',
+        borderRadius: 20,
+        fontFamily: "'SF Mono', 'Fira Code', Consolas, monospace",
+        fontSize: 13,
+        fontWeight: 600,
+        color: '#e8d5bc',
+        textAlign: 'left' as const,
+        lineHeight: 1.8,
+        whiteSpace: 'pre' as const,
+        overflow: 'auto' as const,
+        tabSize: 4,
+    } as React.CSSProperties,
+
+    // Footer
+    footer: {
+        padding: '32px 40px',
+        textAlign: 'center' as const,
+        fontSize: 12,
+        color: '#7c5734',
+        marginTop: 32,
+        position: 'relative',
+        zIndex: 999,
+    } as React.CSSProperties,
+    footerLinks: {
+        display: 'flex',
+        justifyContent: 'center',
+        gap: 20,
+        marginBottom: 12,
+    } as React.CSSProperties,
+    footerLink: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 4,
+        fontSize: 13,
+        color: '#7c5734',
+        cursor: 'pointer',
+    } as React.CSSProperties,
+};
+
+// ============================================
+// Data
+// ============================================
+const features: Array<{ icon: string; title: string; desc: string }> = [
+    {
+        icon: 'Heart',
+        title: '治愈系风格',
+        desc: 'SVG 有机形状裁切，3D 按压按钮，温暖质朴的自然 UI 质感',
+    },
+    {
+        icon: 'Star',
+        title: '30+ 个组件',
+        desc: 'Button / Input / Switch / Modal / Form / Table / Title / Tooltip / Typewriter / Card / Collapse / Cursor / Divider / Footer / Icon / Checkbox / Select / DatePicker / TimePicker / Tabs / CodeBlock / Radio / Tag / Notification / Progress / CountUp',
+    },
+    {
+        icon: 'Paintbrush',
+        title: '主题定制',
+        desc: '40+ CSS 自定义属性，运行时换肤无需重新构建',
+    },
+    {
+        icon: 'Gift',
+        title: '开箱即用',
+        desc: 'ESM + CJS 双格式输出，TypeScript 类型声明完整',
+    },
+];
+
+const components = [
+    { key: 'charts', name: 'Chart', desc: '19 种海岛统计图，趋势、占比、分布、仪表盘与地图' },
+    { key: 'input', name: 'Input', desc: '前后缀、一键清空、校验状态' },
+    {
+        key: 'form',
+        name: 'Form',
+        desc: '校验规则 / useForm 命令式 / 三种布局',
+    },
+    {
+        key: 'switch',
+        name: 'Switch',
+        desc: '受控/非受控、自定义文案、加载状态',
+    },
+    { key: 'checkbox', name: 'Checkbox', desc: '多选框组件，支持水平/垂直排列' },
+    { key: 'rate', name: 'Rate', desc: '评分组件，支持悬停预览与只读展示' },
+    { key: 'date-picker', name: 'DatePicker', desc: '日期选择与范围选择，年/月/日面板、禁用日期、键盘导航' },
+    { key: 'time-picker', name: 'TimePicker', desc: '时间选择，时/分/秒滚选、此刻/确定、步进' },
+    { key: 'calendar', name: 'Calendar', desc: '轻量月面板日历，事项通知与跨日期连续条' },
+    { key: 'time', name: 'Time', desc: '实时时钟卡片，星期 + 月日 + HH:MM 每秒刷新' },
+    { key: 'countup', name: 'CountUp', desc: '计分数字滚动，缓动可调，结束可庆祝动效' },
+    {
+        key: 'pagination',
+        name: 'Pagination',
+        desc: '分页组件，每页条数切换、快速跳转',
+    },
+    { key: 'drawer', name: 'Drawer', desc: '下沉景深抽屉，四方向 + 背景下沉' },
+    {
+        key: 'notification',
+        name: 'Notification',
+        desc: '命令式通知，4 种 type × 6 个 position',
+    },
+    { key: 'loading', name: 'Loading', desc: '全屏落雪，结束渐变消失' },
+    { key: 'no-data', name: 'NoData', desc: '海岛空态、搜索无结果、自定义文案与恢复操作' },
+    { key: 'card', name: 'Card', desc: '默认/标题两种卡片风格' },
+    { key: 'codeblock', name: 'CodeBlock', desc: '代码语法高亮组件' },
+    { key: 'background', name: 'Background', desc: '奶油/深绿波点 + 彩色针糖 + 12 色 Card pattern 底色壁纸' },
+    { key: 'image', name: 'Image', desc: '白色衬板图片，支持懒加载 / 点击预览' },
+    { key: 'avatar', name: 'Avatar', desc: '图片/图标/文字头像，圆形方形，头像组叠加与折叠' },
+    { key: 'badge', name: 'Badge', desc: '图标/头像右上角角标，封顶数字、小红点、独立使用' },
+    { key: 'carousel', name: 'Carousel', desc: '自动播放、箭头/圆点与键盘导航' },
+];
+
+// ============================================
+// HomePage
+// ============================================
+interface HomePageProps {
+    onNavigate?: (path: string) => void;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
+    const isMobile = useIsMobile();
+    const [showScrollHint, setShowScrollHint] = useState(true);
+    const pageRef = React.useRef<HTMLDivElement>(null);
+
+    const handleScroll = () => {
+        if (pageRef.current) {
+            if (pageRef.current.scrollTop > 70) {
+                setShowScrollHint(false);
+            } else {
+                setShowScrollHint(true);
+            }
+        }
+    };
+
+    // 超大 Icon：随机挑 8–12 个，位置随机摆放，通过拒绝采样避免互相重叠
+    const [giants] = useState(() => {
+        const count = 5 + Math.floor(Math.random() * 4);
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const placed: Array<{
+            left: number;
+            top: number;
+            size: number;
+            name: (typeof BG_ICONS)[number];
+            rotate: number;
+            cx: number;
+            cy: number;
+        }> = [];
+        const used = new Set<string>();
+        let guard = 0;
+        while (placed.length < count && guard < 2000) {
+            guard++;
+            const size = 430 + Math.random() * 160;
+            const left = 4 + Math.random() * 92;
+            const top = 4 + Math.random() * 92;
+            const cx = (left / 100) * vw;
+            const cy = (top / 100) * vh;
+            const ok = placed.every((p) => Math.hypot(cx - p.cx, cy - p.cy) >= (size + p.size) / 2 + 20);
+            if (ok) {
+                let name: (typeof BG_ICONS)[number] = BG_ICONS[Math.floor(Math.random() * BG_ICONS.length)];
+                let nameGuard = 0;
+                while (used.has(name) && nameGuard < 200) {
+                    name = BG_ICONS[Math.floor(Math.random() * BG_ICONS.length)];
+                    nameGuard++;
+                }
+                used.add(name);
+                placed.push({
+                    name,
+                    left,
+                    top,
+                    rotate: -14 + Math.random() * 28,
+                    size,
+                    cx,
+                    cy,
+                });
+            }
+        }
+        return placed;
+    });
+
+    return (
+        <div ref={pageRef} style={{ ...S.page, overflow: 'auto' }} onScroll={handleScroll}>
+            {/* 背景壁纸：各种 Icon 低透明度平铺 + 漂浮动效，作为整页装饰 */}
+            <style>{`
+                @keyframes iconFloat {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-8px); }
+                }
+            `}</style>
+            <div aria-hidden style={S.bgIcons}>
+                {/* 超大 Icon：每次进入随机几个、超级大，作为背景装饰 */}
+                {giants.map((g, i) => {
+                    const GiantCmp = resolveIcon(g.name);
+                    return (
+                        <div
+                            key={`giant-${i}`}
+                            style={{
+                                position: 'absolute',
+                                left: `${g.left}%`,
+                                top: `${g.top}%`,
+                                transform: `translate(-50%, -50%) rotate(${g.rotate}deg)`,
+                            }}
+                        >
+                            {GiantCmp && (
+                                <GiantCmp
+                                    size={g.size}
+                                    color="#ffffff"
+                                    style={{
+                                        opacity: 0.68, // Home Icon 透明度
+                                        animation: `iconFloat ${5.5 + (i % 3)}s ease-in-out ${-i * 1.2}s infinite`,
+                                    }}
+                                />
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
+            {/* Hero */}
+            <div style={{ ...S.hero }}>
+                <div style={S.heroContent}>
+                    <div style={S.heroText}>
+                        <h1 style={{ ...S.heroTitle, fontSize: isMobile ? 40 : 68 }}>
+                            Island Design
+                            <span style={S.heroVersion}>v1.0.0</span>
+                        </h1>
+                        <Typewriter speed={60}>
+                            <p style={{ ...S.heroSubtitle, fontSize: isMobile ? 14 : 17 }}>
+                                自然清新的 React 企业级组件库，基于 TypeScript + Vite 构建，兼具类型安全与按需加载体验
+                            </p>
+                        </Typewriter>
+                        <div style={{ ...S.heroActions, justifyContent: 'center' }}>
+                            <Button type="primary" size="large" onClick={() => onNavigate?.('/skill')}>
+                                开始使用 →
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style={{
+                    position: 'absolute',
+                    bottom: 40,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 4,
+                    cursor: 'pointer',
+                    animation: showScrollHint ? 'bounce 2s ease-in-out infinite' : 'none',
+                    opacity: showScrollHint ? 1 : 0,
+                    transition: 'opacity 0.3s ease',
+                    pointerEvents: showScrollHint ? 'auto' : 'none',
+                }}
+            >
+                <span style={{ color: '#FFF9E6', fontSize: 12, textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
+                    向下滑动
+                </span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M12 5v14M5 12l7 7 7-7"
+                        stroke="#FFF9E6"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            </div>
+            <style>{`
+            @keyframes bounce {
+                0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+                50% { transform: translateX(-50%) translateY(-8px); opacity: 0.7; }
+            }
+        `}</style>
+
+            {/* Features */}
+            <div style={{ ...S.section, padding: isMobile ? '32px 16px' : '48px 40px' }}>
+                <div style={S.sectionTitle}>特性</div>
+                <div style={S.sectionDesc}>为什么选择 island-design</div>
+                <div style={S.features}>
+                    {features.map((f) => (
+                        <FeatureCard key={f.title} feature={f} />
+                    ))}
+                </div>
+            </div>
+
+            {/* Components */}
+            <div style={{ ...S.section, padding: isMobile ? '32px 16px' : '48px 40px' }}>
+                <div style={S.sectionTitle}>组件一览</div>
+                <div style={S.sectionDesc}>详细文档与在线演示请从左侧菜单进入</div>
+                <div style={S.compGrid}>
+                    {components.map((c) => (
+                        <Card key={c.key} style={S.compCard}>
+                            <div style={S.compName}>{c.name}</div>
+                            <div style={S.compDesc}>{c.desc}</div>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+
+            {/* Install */}
+            <div style={{ ...S.section, padding: isMobile ? '32px 16px' : '48px 40px' }}>
+                <div style={S.sectionTitle}>安装</div>
+                <div style={S.sectionDesc}>一行命令即可安装</div>
+                <CodeBlock code={`// 使用 npm 安装\nnpm install island-design`} />
+            </div>
+
+            {/* Quick Start */}
+            <div style={{ ...S.section, padding: isMobile ? '32px 16px' : '48px 40px' }}>
+                <div style={S.sectionTitle}>快速上手</div>
+                <div style={S.sectionDesc}>引入组件即可使用，样式自动加载</div>
+                <CodeBlock
+                    code={`// 1. 引入组件\nimport { Button, Modal, Switch } from 'island-design';\nimport 'island-design/style';\n\nfunction App() {\n    return <Button>开始</Button>;\n}`}
+                />
+            </div>
+
+            {/* Theme */}
+            <div style={{ ...S.section, padding: isMobile ? '32px 16px' : '48px 40px' }}>
+                <div style={S.sectionTitle}>主题定制</div>
+                <div style={S.sectionDesc}>通过覆盖 CSS 自定义属性实现运行时换肤，无需重新构建</div>
+                <CodeBlock
+                    code={`/* 覆盖主题变量 */\n:root {\n    --island-primary-color: #19c8b9;\n    --island-text-color: #827157;\n    --island-font-family: 'Noto Sans SC', sans-serif;\n    --island-border-radius-base: 18px;\n    /* ... 40+ 设计令牌 */\n}`}
+                />
+            </div>
+
+            {/* Footer */}
+            <div style={{ ...S.footer, padding: isMobile ? '24px 16px' : '32px 40px' }}>
+                <div style={S.footerLinks}>
+                    <span style={S.footerLink} onClick={() => onNavigate?.('/button')}>
+                        组件文档
+                    </span>
+                    <span
+                        style={S.footerLink}
+                        onClick={() => window.open('https://github.com/snowcattail/island-design', '_blank')}
+                    >
+                        <svg
+                            className="footer-link-icon"
+                            viewBox="0 0 16 16"
+                            width={14}
+                            height={14}
+                            aria-hidden="true"
+                            style={{ verticalAlign: 'middle', transform: 'translateY(-1px)' }}
+                        >
+                            <path
+                                fill="currentColor"
+                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                            />
+                        </svg>
+                        GitHub
+                    </span>
+                </div>
+                <div>© 2026 Island Design. All Rights Reserved · MIT License</div>
+            </div>
+        </div>
+    );
+};
+
+export default HomePage;

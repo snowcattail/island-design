@@ -9,21 +9,21 @@ shape, skeleton, naming, demo) live in [component-development.md](./component-de
 - Compiler baseline: `strict: true`, `isolatedModules: true`, `moduleResolution: 'bundler'`, `jsx: 'react-jsx'`,
   `target: ES2020`.
 - Three tsconfigs, each with one job:
-    - `tsconfig.json` — the base config, covers `src` / `demo` / `test`
-    - `tsconfig.build.json` — `src` only, `emitDeclarationOnly`, declarations into `dist/types`
-    - `tsconfig.test.json` — test files only, `noEmit`
+    - root `tsconfig.json` — workspace editor and type-check configuration
+    - `packages/components/tsconfig.build.json` — component `src` only, `emitDeclarationOnly`, declarations into `packages/components/dist/types`
+    - root `tsconfig.test.json` — test files only, `noEmit`
 - Do not use `any` in component code (ESLint warns; test files are exempt). Prefix intentionally unused bindings with
   `_` to silence the unused-vars rule.
 - Type exports must use `export type`, kept separate from value exports — `isolatedModules` requires it.
 
 ## CSS Modules
 
-`vite.config.ts` and `vitest.config.ts` declare identical CSS Module settings, so class names resolve the same way in
+`packages/components/vite.config.ts` and `packages/components/vitest.config.ts` declare identical CSS Module settings, so class names resolve the same way in
 the build and in tests:
 
 - `generateScopedName: 'island-[local]-[hash:base64:5]'` — produces class names like `island-btn-primary-abc12`
 - `localsConvention: 'camelCase'`
-- Less `additionalData` auto-injects `src/styles/variables.less`, so component `.less` files can use `@primary-color`
+- Less `additionalData` auto-injects `packages/tokens/src/variables.less`, so component `.less` files can use `@primary-color`
   and friends without an explicit `@import`
 
 Keep the two configs in sync; a divergence makes tests assert against class names the build never produces.
@@ -32,10 +32,10 @@ Keep the two configs in sync; a divergence makes tests assert against class name
 
 There are two token systems and they are not interchangeable:
 
-1. **Less compile-time variables** (`src/styles/variables.less`, `@` prefix): `@primary-color`, `@text-color`,
+1. **Less compile-time variables** (`packages/tokens/src/variables.less`, `@` prefix): `@primary-color`, `@text-color`,
    `@bg-color`, `@border-radius-base`, `@motion-ease`, `@height-base`, … These are substituted with literals at build
    time and do not exist at runtime.
-2. **Runtime CSS custom properties** (`src/styles/themes/default.less`, `--island-` prefix): `--island-primary-color`,
+2. **Runtime CSS custom properties** (`packages/tokens/src/default.less`, `--island-` prefix): `--island-primary-color`,
    `--island-text-color`, `--island-spacing-sm`, `--island-font-family`, `--island-shadow-sm`, … Component
    `.module.less` files reference them through `var(--island-*)`, and consumers can override them.
 
@@ -45,7 +45,7 @@ must participate in compile-time computation (arithmetic, `darken()`, mixins).
 The values themselves are defined in [../design-system/design-tokens.md](../design-system/design-tokens.md) — do not
 restate them in code comments or other docs.
 
-`src/styles/index.less` is the global style entry (`fonts.less` + `themes/default.less` + `reset.less`); how it becomes
+`packages/components/src/styles/index.less` is the global style entry (`fonts.less` + `themes/default.less` + `reset.less`); how it becomes
 the published stylesheet is covered in [build-and-release.md](./build-and-release.md).
 
 ## Formatting and Linting
@@ -67,11 +67,11 @@ ESLint (flat config in `eslint.config.js`), on top of `js.configs.recommended` +
 
 ## Prohibitions
 
-- Do not embed a Vitest `test` block in `vite.config.ts` — Vitest 4 silently ignores it. Configuration belongs in
-  `vitest.config.ts`, see [testing.md](./testing.md).
+- Do not embed a Vitest `test` block in `packages/components/vite.config.ts` — Vitest 4 silently ignores it. Configuration belongs in
+  `packages/components/vitest.config.ts`, see [testing.md](./testing.md).
 - Do not write global selectors (`body`, `:root`, …) inside a component `.module.less`. Global styles belong in
-  `src/styles/`.
-- Do not break the `src/index.ts` barrel format (values via `export {}`, types via `export type {}`).
+  `packages/components/src/styles/`.
+- Do not break the `packages/components/src/index.ts` barrel format (values via `export {}`, types via `export type {}`).
 - Do not hardcode CSS Module class-name literals in assertions — always go through `styles['xxx']`.
 - Do not invent component APIs. Read the component source, or the reference docs listed in
   [component-development.md](./component-development.md).

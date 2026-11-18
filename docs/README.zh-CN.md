@@ -39,18 +39,18 @@ React 与 React DOM 是 peer dependencies。请在应用入口导入一次样式
 ```text
 island-design/
 ├── packages/
-│   ├── tokens/             @island-design/tokens：Less Token 与 CSS 主题
-│   └── hooks/              @island-design/hooks：带类型声明的 React Hooks
-├── src/
-│   ├── components/         42 个公开组件
-│   ├── internal/           私有共享逻辑
-│   └── styles/             组件库样式入口、字体与重置样式
-├── demo/                   交互示例
+│   ├── components/         island-design：42 个公开组件与组件库构建
+│   │   ├── src/            组件、私有共享逻辑、样式与资源
+│   │   └── test/           测试公共工具与无障碍测试
+│   ├── hooks/              @island-design/hooks：带类型声明的 React Hooks
+│   └── tokens/             @island-design/tokens：Less Token 与 CSS 主题
+├── apps/
+│   └── demo/               @island-design/demo：交互示例
 ├── scripts/                生成器与产物检查
 └── docs/                   设计系统与开发契约
 ```
 
-根 npm workspace 是发布的 <code>island-design</code> 包；<code>pnpm-workspace.yaml</code> 为 pnpm 描述相同的子包。tokens 包管理 Less 变量与默认 CSS 自定义属性主题；hooks 包独立构建 ESM 入口与 TypeScript 声明，提供受控状态、焦点恢复和文档事件监听 Hooks。
+根包负责调度 <code>packages/_</code> 与 <code>apps/_</code> 下的 npm workspaces；<code>pnpm-workspace.yaml</code> 为 pnpm 描述相同的拓扑。<code>packages/components</code> 是发布的 <code>island-design</code> 包，<code>apps/demo</code> 是私有包。tokens 包管理 Less 变量与默认 CSS 自定义属性主题；hooks 包独立构建 ESM 入口与 TypeScript 声明，提供受控状态、焦点恢复和文档事件监听 Hooks。
 
 ## 四项核心工程特性
 
@@ -91,7 +91,7 @@ Token 包还提供 <code>@island-design/tokens/variables.less</code> 与 <code>@
 | 导航与浮层 | Tabs、Collapse、Carousel、Modal、Drawer、Tooltip、Notification                                            |
 | 反馈与氛围 | Loading、Skeleton、NoData、Calendar、Tag                                                                  |
 
-42 个组件位于 [src/components](../src/components)，使用示例位于 [demo](../demo)，设计规则位于[设计系统](./design-system/README.md)。
+42 个组件位于 [packages/components/src/components](../packages/components/src/components)，使用示例位于 [apps/demo](../apps/demo)，设计规则位于[设计系统](./design-system/README.md)。
 
 ## 生成组件
 

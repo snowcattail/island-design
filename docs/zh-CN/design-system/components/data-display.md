@@ -4,7 +4,7 @@
 
 ## Table（虚线行分隔，纯色 hover）
 
-源码：`src/components/Table/table.module.less`。**外壳无实线 border**；行分隔靠 `::after` 的 dashed 横线实现；hover 行是纯色浅青背景。
+源码：`packages/components/src/components/Table/table.module.less`。**外壳无实线 border**；行分隔靠 `::after` 的 dashed 横线实现；hover 行是纯色浅青背景。
 
 ```css
 /* outer wrapper */
@@ -70,7 +70,7 @@ padding: 10px 16px 8px;
 
 ## Pagination（幽灵格子分页器，DatePicker 视觉语言）
 
-源码：`src/components/Pagination/pagination.module.less`。**与 DatePicker 面板同语言的幽灵格子分页器**：透明底页码格子 hover 浅青色，当前页为青色正圆实底；每页条数切换器 / 跳转输入框沿用 DatePicker 触发区的奶油胶囊 + 3px 硬底阴影。页数超过 7 时显示省略号。
+源码：`packages/components/src/components/Pagination/pagination.module.less`。**与 DatePicker 面板同语言的幽灵格子分页器**：透明底页码格子 hover 浅青色，当前页为青色正圆实底；每页条数切换器 / 跳转输入框沿用 DatePicker 触发区的奶油胶囊 + 3px 硬底阴影。页数超过 7 时显示省略号。
 
 ```less
 // 根节点 — inline-flex 行，gap 2px，颜色 #725d42
@@ -214,7 +214,7 @@ tab-size: 4;
 
 ## Tag（胶囊标签，12 色调色板）
 
-源码：`src/components/Tag/Tag.tsx` + `tag.module.less`。**胶囊标签**：与 Card 调色板完全对齐（12 品牌色 + 1 默认），3 种尺寸 × 4 种变体（solid / outlined / dashed / soft），支持 closable / onClick / disabled。
+源码：`packages/components/src/components/Tag/Tag.tsx` + `tag.module.less`。**胶囊标签**：与 Card 调色板完全对齐（12 品牌色 + 1 默认），3 种尺寸 × 4 种变体（solid / outlined / dashed / soft），支持 closable / onClick / disabled。
 
 ```less
 // root — full pill, 1.5px transparent border (reserves space for the variants so nothing jitters)
@@ -346,7 +346,7 @@ tab-size: 4;
 
 ## Badge（角标数字，2px 奶油描边）
 
-源码：`src/components/Badge/Badge.tsx` + `badge.module.less`。**角标数字**：钉在被包裹元素右上角的 `<sup>` 胶囊，展示数字、封顶数字（`99+`）或一个纯小圆点；不包裹元素时即为独立使用。调色板与 Card / Tag 共用。
+源码：`packages/components/src/components/Badge/Badge.tsx` + `badge.module.less`。**角标数字**：钉在被包裹元素右上角的 `<sup>` 胶囊，展示数字、封顶数字（`99+`）或一个纯小圆点；不包裹元素时即为独立使用。调色板与 Card / Tag 共用。
 
 ```less
 /* 外壳 —— inline-flex，让 sup 相对被包裹元素定位 */
@@ -455,7 +455,7 @@ tab-size: 4;
 
 ## Image（衬板相框）
 
-源码：`src/components/Image/image.module.less`。**衬板相框**：默认白色 `#fff`（`color="white"` 为纯白；其他 `color` 渲染 Card `pattern` 同款底色 — 柔和浅色，无花纹）+ 12px 内边距（图片像照片衬板一样内缩）+ 8px 圆角 + `0 8px 14px 0 rgba(0, 0, 0, 0.08)` 柔和投影，内置错误占位。
+源码：`packages/components/src/components/Image/image.module.less`。**衬板相框**：默认白色 `#fff`（`color="white"` 为纯白；其他 `color` 渲染 Card `pattern` 同款底色 — 柔和浅色，无花纹）+ 12px 内边距（图片像照片衬板一样内缩）+ 8px 圆角 + `0 8px 14px 0 rgba(0, 0, 0, 0.08)` 柔和投影，内置错误占位。
 
 ```less
 // 相框外壳
@@ -583,7 +583,7 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
 
 ## Avatar（圆形 / 圆角方形贴纸头像）
 
-来源：`src/components/Avatar/avatar.module.less`。一个 `<span>`，展示图片 / 图标 / 文字三种内容。尺寸沿用 Button 阶梯：`small` / `middle` / `large` 为 **32 / 40 / 48px**；任意数字 `size` 原样生效。
+来源：`packages/components/src/components/Avatar/avatar.module.less`。一个 `<span>`，展示图片 / 图标 / 文字三种内容。尺寸沿用 Button 阶梯：`small` / `middle` / `large` 为 **32 / 40 / 48px**；任意数字 `size` 原样生效。
 
 ```css
 /* 根元素 */
@@ -621,7 +621,7 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
 
 ## CountUp（计分数字滚动，数字块 + 可选庆祝动效）
 
-源码：`src/components/CountUp/CountUp.tsx` + `count-up.module.less`。
+源码：`packages/components/src/components/CountUp/CountUp.tsx` + `count-up.module.less`。
 
 声明式的计分滚动读数：在 `duration` 秒内把 `start` 滚到 `end`。时钟取自 `requestAnimationFrame` 的时间戳（没有 `setInterval` 的累积漂移），`isCounting` 可播放 / 暂停 / 继续且不丢失已用时长，数字块复用 Countdown 的奶油渐变底 —— 结算页和倒计时页因此读起来是同一家族。缓动曲线与数字格式化全部本地实现，没有计时器库。
 
@@ -728,7 +728,7 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 
 ## Calendar（月面板，事项条可跨日期）
 
-源码：`src/components/Calendar/calendar.module.less`。**独立**的月历（不是弹出面板）：月份面板常驻，所以外壳是一张奶油卡片而不是定位浮层。视觉沿用 DatePicker —— `#fffdf7` 卡片、`#e8dcc8` 1.5px 描边、20px 圆角、圆形日期格 —— 并在每一周的日期下方增加事项带。
+源码：`packages/components/src/components/Calendar/calendar.module.less`。**独立**的月历（不是弹出面板）：月份面板常驻，所以外壳是一张奶油卡片而不是定位浮层。视觉沿用 DatePicker —— `#fffdf7` 卡片、`#e8dcc8` 1.5px 描边、20px 圆角、圆形日期格 —— 并在每一周的日期下方增加事项带。
 
 **外壳与头部。** 面板没有尺寸档位：它测量自身盒子（`ResizeObserver`，或直接取数值型 `width`），再由宽度推导所有度量。`--island-calendar-scale` = 实际宽度 / **750**（基准面板宽 750px），夹在 `0.6 … 2`，整套节奏都是 `基准值 × 系数`：
 

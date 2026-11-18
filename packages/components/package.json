@@ -1,0 +1,74 @@
+{
+    "name": "island-design",
+    "version": "1.0.0",
+    "description": "A nature-inspired React component library",
+    "type": "module",
+    "main": "dist/cjs/index.cjs",
+    "module": "dist/es/index.js",
+    "types": "dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "import": "./dist/es/index.js",
+            "require": "./dist/cjs/index.cjs"
+        },
+        "./style": "./dist/index.css",
+        "./dist/index.css": "./dist/index.css",
+        "./package.json": "./package.json",
+        "./es/*": {
+            "types": "./dist/types/*",
+            "default": "./dist/es/*"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md"
+    ],
+    "sideEffects": [
+        "**/*.css",
+        "**/*.less"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/snowcattail/island-design"
+    },
+    "homepage": "https://github.com/snowcattail/island-design#readme",
+    "bugs": {
+        "url": "https://github.com/snowcattail/island-design/issues"
+    },
+    "author": "snowcattail",
+    "peerDependencies": {
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0"
+    },
+    "dependencies": {
+        "@island-design/hooks": "file:../hooks",
+        "@island-design/tokens": "file:../tokens",
+        "classnames": "^2.5.1",
+        "dayjs": "^1.11.23",
+        "naive-icons": "^1.14.0"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "keywords": [
+        "react",
+        "component-library",
+        "ui",
+        "typescript",
+        "theme",
+        "island-design",
+        "nature"
+    ],
+    "license": "MIT",
+    "scripts": {
+        "prepublishOnly": "npm run build --prefix ../.. && node ../../scripts/check-dts-esm.mjs",
+        "build": "vite build && tsc --project tsconfig.build.json --emitDeclarationOnly && node ../../scripts/fix-dts-extensions.mjs",
+        "test": "vitest",
+        "test:run": "vitest run",
+        "test:a11y": "vitest run --config vitest.a11y.config.ts",
+        "test:cov": "vitest run --coverage --reporter=json --outputFile=coverage/vitest-results.json",
+        "lint": "eslint src test",
+        "check:types": "tsc --noEmit -p tsconfig.build.json && tsc --noEmit -p tsconfig.test.json"
+    }
+}

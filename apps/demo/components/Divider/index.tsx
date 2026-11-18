@@ -1,0 +1,112 @@
+import { OceanWaveDemo } from './OceanWaveDemo';
+import React from 'react';
+import { Divider } from '../../../../packages/components/src';
+import {
+    BeeIcon,
+    FishIcon,
+    FlowerIcon,
+    WatermelonIcon,
+    StarIcon,
+    RainbowIcon,
+    CloudIcon,
+    CactusIcon,
+    CakeIcon,
+    CoffeeIcon,
+} from 'naive-icons';
+import { labelStyle, sectionStyle, sectionTitleStyle, DemoTag, ApiTable, ApiRow, CodeBlock } from '../../tools';
+
+const DIVIDER_API: ApiRow[] = [
+    {
+        prop: 'type',
+        desc: '分隔线类型',
+        type: `'dashed-brown' | 'thin' | 'hairline' | 'wave-yellow' | 'squiggle' | 'ocean-wave'`,
+        defaultVal: "'dashed-brown'",
+    },
+    { prop: 'animated', desc: '播放海浪动画，仅 ocean-wave 生效', type: 'boolean', defaultVal: 'true' },
+    {
+        prop: 'icon',
+        desc: '指定单一图标元素，渲染「图标 + 连接线」相连分割线（与 type 二选一，icon 优先）',
+        type: `ReactNode（如 <FishIcon size={24} />）`,
+        defaultVal: '-',
+    },
+    { prop: 'iconSize', desc: '图标大小（px）', type: 'number', defaultVal: '24' },
+    { prop: 'iconGap', desc: '图标间距（px），即连接线长度', type: 'number', defaultVal: '8' },
+    { prop: 'className', desc: '自定义类名', type: 'string', defaultVal: '-' },
+    {
+        prop: 'style',
+        desc: '自定义样式',
+        type: 'CSSProperties',
+        defaultVal: '-',
+    },
+];
+
+const ICON_DEMO_ICONS = [
+    <BeeIcon size={24} />,
+    <FishIcon size={24} />,
+    <FlowerIcon size={24} />,
+    <WatermelonIcon size={24} />,
+    <StarIcon size={24} />,
+    <RainbowIcon size={24} />,
+    <CloudIcon size={24} />,
+    <CactusIcon size={24} />,
+    <CakeIcon size={24} />,
+    <CoffeeIcon size={24} />,
+] as const;
+
+const DividerDemo: React.FC = () => (
+    <div style={sectionStyle}>
+        <div style={sectionTitleStyle}>
+            Divider <DemoTag>5 types + icon divider · pure CSS</DemoTag>
+        </div>
+        <div style={labelStyle}>dashed-brown（虚线棕色，默认）</div>
+        <Divider type="dashed-brown" />
+        <div style={labelStyle}>thin（1px 细线）</div>
+        <Divider type="thin" />
+        <div style={labelStyle}>hairline（1px 细密虚线）</div>
+        <Divider type="hairline" />
+        <div style={labelStyle}>wave-yellow（黄色波浪线）</div>
+        <Divider type="wave-yellow" />
+        <div style={labelStyle}>squiggle（主题青色波浪线）</div>
+        <Divider type="squiggle" />
+        <div style={labelStyle}>icon（单图标相连分割线）</div>
+        {ICON_DEMO_ICONS.map((IconCmp, i) => (
+            <div key={i} style={{ marginBottom: 16 }}>
+                <Divider icon={IconCmp} />
+            </div>
+        ))}
+        <CodeBlock
+            code={`import React from 'react';
+import { Divider } from 'island-design';
+import { FishIcon, StarIcon } from 'naive-icons';
+
+const App = () => {
+    return (
+        <div>
+            {/* 虚线（linear-gradient 绘制） */}
+            <Divider type="dashed-brown" />
+
+            {/* 1px 细线 */}
+            <Divider type="thin" />
+            <Divider type="hairline" />
+
+            {/* 黄色波浪线 */}
+            <Divider type="wave-yellow" />
+
+            {/* 主题青色波浪线 */}
+            <Divider type="squiggle" />
+
+            {/* 单图标相连：图标元素 + 居中短连接线循环铺满 */}
+            <Divider icon={<FishIcon size={24} />} />
+            <Divider icon={<StarIcon size={24} />} />
+        </div>
+    );
+};
+
+export default App;`}
+        />
+        <OceanWaveDemo />
+        <ApiTable rows={DIVIDER_API} />
+    </div>
+);
+
+export default DividerDemo;

@@ -1,12 +1,13 @@
 # Build and Release
 
-`npm run build` produces the published artifact: `vite build` emits JavaScript, CSS, and assets into `dist/`, then
-`tsc --project tsconfig.build.json --emitDeclarationOnly` emits declarations into `dist/types/`. The rationale behind
+`npm run build` builds the workspace packages and produces the published artifact in `packages/components/dist/`.
+The component workspace runs `vite build` for JavaScript, CSS, and assets, then
+`tsc --project tsconfig.build.json --emitDeclarationOnly` for declarations in `packages/components/dist/types/`. The rationale behind
 the choices below is recorded in [../adr/](../adr/); this page is the contract itself.
 
 ## Build Contract
 
-`vite.config.ts` registers four plugins on top of `@vitejs/plugin-react` to make per-component imports work. Changing
+`packages/components/vite.config.ts` registers four plugins on top of `@vitejs/plugin-react` to make per-component imports work. Changing
 build logic without preserving the following breaks consumer tree-shaking:
 
 - **Dual output** — ES into `dist/es/` and CJS into `dist/cjs/`, both with `preserveModules: true` and
@@ -51,7 +52,7 @@ build logic without preserving the following breaks consumer tree-shaking:
 
 ## Package Contract
 
-`package.json` is already wired for per-component consumption; keep it that way:
+`packages/components/package.json` is wired for per-component consumption; keep it that way:
 
 - `exports` maps `.` to the ES/CJS/types triple, `./style` to `dist/index.css`, and `./es/*` to the preserved ES
   modules with a `types` condition pointing at `dist/types/*`, so a deep import keeps its types under every
@@ -68,22 +69,22 @@ build logic without preserving the following breaks consumer tree-shaking:
   shares neither locale nor plugins. `preserveModules` still drops it for consumers who
   import none. Do not add further runtime dependencies.
 
-`prepublishOnly` runs `npm run build && npm run check:types`, so a publish always ships a fresh artifact and never
+`prepublishOnly` in `packages/components/package.json` runs the root workspace build and the declaration check, so a publish always ships a fresh artifact and never
 ships declarations the ESM module graph cannot resolve.
 
 ## Badges
 
 `npm run badges` (`scripts/generate-coverage-badges.mjs`) reads `coverage/coverage-summary.json` and
 `coverage/vitest-results.json`, writes `coverage/badges/coverage.json`, counts components by scanning
-`src/components/` for directories containing a matching `<Name>.tsx`, and rewrites the hardcoded `tests-NN` and
+`packages/components/src/components/` for directories containing a matching `<Name>.tsx`, and rewrites the hardcoded `tests-NN` and
 `components-NN` shields in both `README.md` and `docs/README.zh-CN.md`. Run `npm run test:cov` first — the script exits
 with an error if the coverage summary is missing.
 
 ## Demo Site
 
-`npm run build:demo` builds the demo into `demo-dist/` using `vite.config.demo.ts`; `npm run deploy` chains that with
-`gh-pages -d demo-dist` to publish it. The demo is never part of the npm artifact.
+`npm run build:demo` runs the private `apps/demo` workspace build into `apps/demo/demo-dist/`; `npm run deploy` publishes
+that output to GitHub Pages. The demo is never part of the npm artifact.
 
 ## Workspace packages
 
-The root package uses npm workspaces under packages/*; pnpm-workspace.yaml exposes the same package set to pnpm. @island-design/tokens owns Less variables and the default CSS custom-property theme, while @island-design/hooks provides independently built, typed React hooks. The root build runs both workspace builds first. Token Less sources are imported by the library build, and the published stylesheet remains island-design/style.
+The private root package coordinates npm workspaces under `packages/*` and `apps/*`; `pnpm-workspace.yaml` exposes the same package set to pnpm. `packages/components` is the published `island-design` library, `apps/demo` is the private demo, `@island-design/tokens` owns Less variables and the default CSS custom-property theme, and `@island-design/hooks` provides independently built, typed React hooks. The root build runs the tokens and hooks builds before the components build. Token Less sources are imported by the library build, and the published stylesheet remains `island-design/style`.

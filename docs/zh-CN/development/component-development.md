@@ -1,15 +1,15 @@
 # 组件开发
 
-这是新增组件或修改既有组件的端到端流程，只停留在结构层面：单个组件的 props 在 `skills/island-design-style/references/components/*.md`，单个组件的像素级 spec 在 [../design-system/components/](../design-system/components/)，两者都不要在这里重复一遍。
+这是新增组件或修改既有组件的端到端流程，只停留在结构层面：单个组件的 props 在 TypeScript 声明中，单个组件的像素级 spec 在 [../design-system/components/](../design-system/components/)，两者都不要在这里重复一遍。
 
 ## 开发流程
 
-1. 创建 `src/components/<ComponentName>/` 目录，包含：
+1. 创建 `packages/components/src/components/<ComponentName>/` 目录，包含：
     - `<ComponentName>.tsx` —— 组件实现
     - `<component>.module.less` —— 样式（文件名小写连字符，如 `button.module.less`）
     - `index.ts` —— 导出入口
     - `<ComponentName>.test.tsx` —— 单测，与组件同目录
-2. 在 `src/index.ts` 中重新导出组件值与类型。
+2. 在 `packages/components/src/index.ts` 中重新导出组件值与类型。
 3. 注册 demo —— 四处，见 [Demo 注册](#demo-注册)。
 4. 同步文档 —— 见 [文档同步](#文档同步)。
 5. 提交前跑 `npm run ci`。
@@ -17,7 +17,7 @@
 ## 文件结构
 
 ```
-src/components/MyComponent/
+packages/components/src/components/MyComponent/
 ├── MyComponent.tsx          # 组件逻辑（必须设置 displayName）
 ├── myComponent.module.less  # CSS Modules 样式
 └── index.ts                 # 唯一导出入口
@@ -78,7 +78,7 @@ export type { FooProps, FooSize } from './Foo';
 
 ## 桶文件导出
 
-追加到 `src/index.ts`：
+追加到 `packages/components/src/index.ts`：
 
 ```ts
 // 方式 A：组件用 default export
@@ -90,7 +90,7 @@ export { MyComponent } from './components/MyComponent';
 export type { MyComponentProps } from './components/MyComponent';
 ```
 
-两种写法在仓库中并存，新组件任选其一，只要 `src/index.ts` 能成功重新导出即可。值必须用 `export {}`、类型必须用 `export type {}` —— `isolatedModules` 要求这样拆分。
+两种写法在仓库中并存，新组件任选其一，只要 `packages/components/src/index.ts` 能成功重新导出即可。值必须用 `export {}`、类型必须用 `export type {}` —— `isolatedModules` 要求这样拆分。
 
 ## 命名
 
@@ -101,7 +101,7 @@ export type { MyComponentProps } from './components/MyComponent';
 
 ## Demo 页面
 
-每个组件在 `demo/components/<ComponentName>/index.tsx` 有一个 demo 页，使用 default export。公共构件来自 `demo/tools`：`CodeBlock`、`ApiTable`（接收 `rows: ApiRow[]`）、`DemoTag`、`useIsMobile`，以及各个 section 的样式对象。
+每个组件在 `apps/demo/components/<ComponentName>/index.tsx` 有一个 demo 页，使用 default export。公共构件来自 `apps/demo/tools`：`CodeBlock`、`ApiTable`（接收 `rows: ApiRow[]`）、`DemoTag`、`useIsMobile`，以及各个 section 的样式对象。
 
 ```tsx
 import React from 'react';
@@ -132,32 +132,32 @@ Demo 站点面向中文用户，demo 文案保持中文，与周边页面一致�
 
 一个 demo 页只有在四处都注册了 key 之后才可达。这四处是彼此独立的字面量，没有任何一处是从另一处推导出来的。
 
-1. `demo/App.tsx` → `MENU_ITEMS`：在对应分类下加 `{ key, label }`，否则侧边栏没有入口。
-2. `demo/pageInfo.ts` → `PAGE_INFO[key] = { title, desc }`：驱动主区域标题与移动端顶栏。
-3. `demo/ComponentPage.tsx` → import demo 组件并添加 `PAGES[key]`：挂载页面主体。
-4. `demo/HomePage.tsx` → `components` 数组：首页的卡片。
+1. `apps/demo/App.tsx` → `MENU_ITEMS`：在对应分类下加 `{ key, label }`，否则侧边栏没有入口。
+2. `apps/demo/pageInfo.ts` → `PAGE_INFO[key] = { title, desc }`：驱动主区域标题与移动端顶栏。
+3. `apps/demo/ComponentPage.tsx` → import demo 组件并添加 `PAGES[key]`：挂载页面主体。
+4. `apps/demo/HomePage.tsx` → `components` 数组：首页的卡片。
 
-诊断提示：`PAGES[activeKey]` 与 `PAGE_INFO[activeKey]` 任一缺失时，`ComponentPage` 直接返回 `null`（`demo/ComponentPage.tsx:108`）。所以菜单项能高亮但主区域空白时，第一反应是查这个 key 在 `PAGES` 和 `PAGE_INFO` 里是否都存在，而不是查组件代码。`npm run check:docs` 不校验 demo 注册，这一步靠人工。
+诊断提示：`PAGES[activeKey]` 与 `PAGE_INFO[activeKey]` 任一缺失时，`ComponentPage` 直接返回 `null`（`apps/demo/ComponentPage.tsx:108`）。所以菜单项能高亮但主区域空白时，第一反应是查这个 key 在 `PAGES` 和 `PAGE_INFO` 里是否都存在，而不是查组件代码。`npm run check:docs` 不校验 demo 注册，这一步靠人工。
 
 ## 文档同步
 
 | 改动类型                     | 必须同步                                                                                       |
 | ---------------------------- | ---------------------------------------------------------------------------------------------- |
-| 新增 / 修改组件 API          | `skills/island-design-style/references/components/<category>.md` —— props 逐字抄源码        |
+| 新增 / 修改组件 API          | `packages/components/src/` 中的 TypeScript 声明与导出                                         |
 | 新增 / 修改组件样式          | `docs/design-system/components/<category>.md` 及其 `docs/zh-CN` 镜像                           |
 | 视觉 token 或规则变化        | `docs/design-system/design-tokens.md` / `design-rules.md` 及其 `docs/zh-CN` 镜像                |
 | 新增组件                     | 以上全部 + 四处 demo 注册点 + README 徽章（`npm run badges`）                                   |
 | 改动 `docs/` 下任意英文文件  | `docs/zh-CN/` 下的对应文件                                                                     |
 
-`npm run check:docs`（`scripts/check-docs-sync.mjs`，已挂在 `npm run ci` 上）强制校验：`src/components/` 下每个组件都被设计体系文档与 skill references 收录，skill 的组件 reference 文件不超过 200 行上限，以及 `docs/zh-CN/` 与 `docs/` 一一对应。任何漂移都会让构建失败。
+`npm run check:docs`（`scripts/check-docs-sync.mjs`，已挂在 `npm run ci` 上）强制校验：`packages/components/src/components/` 下每个组件都被设计体系文档收录，且 `docs/zh-CN/` 与 `docs/` 一一对应。任何漂移都会让构建失败。
 
 ## 自查清单
 
 - [ ] props 接口从组件文件导出，每个 prop 都带 JSDoc 注释
 - [ ] 有状态组件同时支持受控（`value`）与非受控（`defaultValue`）
 - [ ] 样式符合 [../design-system/design-rules.md](../design-system/design-rules.md)（圆角、焦点、阴影、禁用态、hover/active 动效），引用 token 而非硬编码数值
-- [ ] 组件已从 `src/index.ts` 导出，且值与类型分开写
-- [ ] 已在 `demo/components/` 下创建 demo 页并完成四处注册
+- [ ] 组件已从 `packages/components/src/index.ts` 导出，且值与类型分开写
+- [ ] 已在 `apps/demo/components/` 下创建 demo 页并完成四处注册
 - [ ] 单测与组件同目录且全部通过，覆盖无障碍角色与键盘支持 —— 见 [testing.md](./testing.md)
 - [ ] 按上表同步文档；组件数或覆盖率有变化时重跑 `npm run badges`
 - [ ] `npm run ci` 全绿

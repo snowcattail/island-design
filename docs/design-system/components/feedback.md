@@ -4,7 +4,7 @@ Exact values for the components that report progress or pending state: Progress,
 
 ## Progress (outlined track, gradient or scene fill)
 
-Source: `src/components/Progress/Progress.tsx` (controlled rendering + aria wiring) + `types.ts` (type definitions) + `progress.module.less`.
+Source: `packages/components/src/components/Progress/Progress.tsx` (controlled rendering + aria wiring) + `types.ts` (type definitions) + `progress.module.less`.
 **A JSX component** (not imperative): `percent` is passed in controlled and animates smoothly from 0 to the target value. The track is a cream pill carrying a fine dot texture and a solid 2px sand outline; when a `variant` is passed the fill is a scene image (`sweet-corner.svg`, `forest-grove.svg`, …) injected inline at `background-size` equal to the full track width so the scene spans the whole bar, while omitting `variant` falls back to a mint vertical gradient. The label always sits right of the bar.
 
 **props**:
@@ -98,11 +98,11 @@ The small dot layer carries over from the old wallpaper track — 14px grid, 7px
 <Progress percent={58} wave animated={false} />
 ```
 
-Waves reuse `src/internal/Wave.tsx` and `wave.module.less`: 128px wavelength, opposing linear 6s / 9s loops, opacity 0.28 / 0.48; the second layer starts 20% lower with a -32px phase offset. Both `-webkit-mask` / `mask` and their position declarations are provided for prefixed WebKit engines. Fixed-width masks translate while the fill width still represents the actual percentage. The track minimum width is 0 to fit Upload’s 84px picture cards.
+Waves reuse `packages/components/src/internal/Wave.tsx` and `wave.module.less`: 128px wavelength, opposing linear 6s / 9s loops, opacity 0.28 / 0.48; the second layer starts 20% lower with a -32px phase offset. Both `-webkit-mask` / `mask` and their position declarations are provided for prefixed WebKit engines. Fixed-width masks translate while the fill width still represents the actual percentage. The track minimum width is 0 to fit Upload’s 84px picture cards.
 
 ## Loading (fullscreen falling snow / circular expansion)
 
-Source: `src/components/Loading/Loading.tsx` + `Sailboat.tsx` + `types.ts` + `loading.module.less` + `sailboat.module.less`.
+Source: `packages/components/src/components/Loading/Loading.tsx` + `Sailboat.tsx` + `types.ts` + `loading.module.less` + `sailboat.module.less`.
 One fullscreen shell, two variants selected by `type`:
 
 - `type="snow"` (default) — a night-sky snowfall: 50 white round flakes (1–6px, randomly sized and positioned) fall from above the viewport while rotating, each with its own 6–12s linear duration and a negative delay so the screen is instantly filled. When `active` turns false the whole screen fades out over `fadeDuration` seconds, then unmounts.
@@ -259,7 +259,7 @@ The final radius is `ceil(hypot(width, height) / 2) + 50` — it has to cover th
 
 ## Skeleton (shimmer placeholder)
 
-Source: `src/components/Skeleton/Skeleton.tsx` + `skeleton.module.less`.
+Source: `packages/components/src/components/Skeleton/Skeleton.tsx` + `skeleton.module.less`.
 
 Skeleton loading placeholder. Four variants: `text` / `circle` / `rect` / `paragraph`. When `loading=false` it renders `children` directly.
 
@@ -332,7 +332,7 @@ SkeletonAvatarProps { size?: 'small'|'middle'|'large'; shape?: 'circle'|'square'
 
 ## BackTop (arrow scroll-to-top)
 
-Source: `src/components/BackTop/BackTop.tsx` + `back-top.module.less`.
+Source: `packages/components/src/components/BackTop/BackTop.tsx` + `back-top.module.less`.
 
 A fixed bottom-right back-to-top button, rendering `RocketIcon` from `naive-icons` (48×48 viewBox: cream `#FAEDCD` fuselage, teal `#2A9D8F` porthole, `#E76F51` flame and fins, ink `#2A2A2A` stroke) at `size={64}`; clicking it scrolls smoothly to the top with easeInOutQuad. The icon is decorative and carries `aria-hidden` — the accessible name comes from the button's own `aria-label`.
 
@@ -393,7 +393,7 @@ border-radius: 16px;
 
 ## Countdown (deadline timer)
 
-Source: `src/components/Countdown/Countdown.tsx` + `countdown.module.less`.
+Source: `packages/components/src/components/Countdown/Countdown.tsx` + `countdown.module.less`.
 
 The component calculates the non-negative distance between `value` (`number | Date`) and `Date.now()`, refreshing every 250ms so the displayed, ceiling-rounded second changes on time. `onFinish` fires once when the value reaches zero.
 
@@ -430,7 +430,7 @@ The default variant is a white 20px-radius panel with a warm border and soft ele
 
 ## Time (live clock card)
 
-Source: `src/components/Time/Time.tsx` + `time.module.less`.
+Source: `packages/components/src/components/Time/Time.tsx` + `time.module.less`.
 
 A live clock card: a large `HH:MM` readout on top refreshed from `new Date()` every second, and a date capsule below showing the weekday and the month-day. The weekday and month-day are both rendered through dayjs format templates, so they can be re-shaped or localized; all native `div` attributes (`className`, `style`, `aria-*`…) pass through to the root.
 

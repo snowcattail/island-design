@@ -13,11 +13,19 @@
         "isolatedModules": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["./src/*"],
-            "@test/*": ["./test/*"]
+            "@/*": ["./packages/components/src/*"],
+            "@test/*": ["./packages/components/test/*"]
         },
         "types": ["vitest/globals", "@testing-library/jest-dom", "node"]
     },
-    "include": ["src", "demo", "test", "vite.config.demo.ts", "vitest.config.ts"],
-    "exclude": ["node_modules", "dist", "demo-dist", "coverage"]
+    "include": [
+        "packages/components/src",
+        "packages/components/test",
+        "apps/demo",
+        "packages/components/vite.config.ts",
+        "packages/components/vitest.config.ts",
+        "packages/components/vitest.a11y.config.ts",
+        "apps/demo/vite.config.ts"
+    ],
+    "exclude": ["node_modules", "**/dist", "**/demo-dist", "**/coverage"]
 }

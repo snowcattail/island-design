@@ -1,6 +1,6 @@
 # Countdown shake
 
-Source: `src/components/Countdown/Countdown.tsx`, `motion.ts` and `countdown.module.less`. Base layout, digit rolling and color reminders remain in [feedback.md](feedback.md). Full nested declarations with defaults are in the [published shake reference](https://github.com/snowcattail/island-design/blob/main/skills/island-design-style/references/components/countdown-motion.md).
+Source: `packages/components/src/components/Countdown/Countdown.tsx`, `motion.ts` and `countdown.module.less`. Base layout, digit rolling and color reminders remain in [feedback.md](feedback.md). Full nested declarations and defaults are in the component source.
 
 # Configuration
 

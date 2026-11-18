@@ -1,6 +1,6 @@
 # Countdown 抖动
 
-源码：`src/components/Countdown/Countdown.tsx`、`motion.ts` 和 `countdown.module.less`。基础布局、数字滚动与颜色提醒仍见 [feedback.md](feedback.md)。包含默认值的完整嵌套声明见[公开抖动参考](https://github.com/snowcattail/island-design/blob/main/skills/island-design-style/references/components/countdown-motion.md)。
+源码：`packages/components/src/components/Countdown/Countdown.tsx`、`motion.ts` 和 `countdown.module.less`。基础布局、数字滚动与颜色提醒仍见 [feedback.md](feedback.md)。完整嵌套声明和默认值见组件源码。
 
 # 配置
 

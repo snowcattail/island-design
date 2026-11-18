@@ -17,12 +17,12 @@ import { fileURLToPath } from 'url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ROOT = resolve(__dirname, '..');
-const DIST = resolve(ROOT, 'dist');
+const DIST = resolve(ROOT, 'packages/components/dist');
 
 const FORBIDDEN = ['react', 'react-dom', 'classnames'];
 
 if (!existsSync(DIST)) {
-    console.error('[check:bundle] 找不到 dist/ —— 请先运行 npm run build');
+    console.error('[check:bundle] 找不到 packages/components/dist/ —— 请先运行 npm run build');
     process.exit(1);
 }
 

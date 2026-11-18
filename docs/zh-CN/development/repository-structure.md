@@ -7,7 +7,7 @@ island-design 是一套受《治愈系海岛风格》启发的 React + TypeScrip
 - 仓库：https://github.com/snowcattail/island-design
 - License：MIT —— 见 `LICENSE`
 - 当前版本：见 `package.json`
-- 组件清单：以 `src/index.ts` 为准；`src/components/` 下每个含有同名 `<Name>.tsx` 的目录算一个组件
+- 组件清单：以 `packages/components/src/index.ts` 为准；`packages/components/src/components/` 下每个含有同名 `<Name>.tsx` 的目录算一个组件
 
 ## 技术栈
 
@@ -27,8 +27,8 @@ island-design 是一套受《治愈系海岛风格》启发的 React + TypeScrip
 
 ```bash
 npm run dev          # 启动 Demo 开发服务器（vite，非库构建）
-npm run build        # 构建组件库产物到 dist/（vite build + tsc --emitDeclarationOnly）
-npm run build:demo   # 构建 Demo 站点到 demo-dist/
+npm run build        # 构建组件库产物到 packages/components/dist/（vite build + tsc --emitDeclarationOnly）
+npm run build:demo   # 构建 Demo 站点到 apps/demo/demo-dist/
 npm run test         # vitest watch
 npm run test:run     # vitest run（单次）
 npm run test:cov     # 覆盖率 + json 输出
@@ -49,36 +49,40 @@ npm run setup:hooks  # 把 git 指向 .githooks（由 prepare 自动执行）
 ## 目录结构
 
 ```
-src/
-  components/
-    <ComponentName>/
-      <ComponentName>.tsx        # 组件实现
-      <component>.module.less    # 样式（CSS Modules，文件名小写连字符）
-      index.ts                   # 导出入口（export { X } from './X'; export type { ... }）
-      <ComponentName>.test.tsx   # 单测，与组件同目录
-  styles/
-    variables.less               # Less 编译期设计 token（@primary-color 等）
-    themes/default.less          # 运行时 CSS 自定义属性（--island-*）
-    fonts.less / reset.less / index.less
-  assets/                        # 字体、图片资源
-  index.ts                       # 组件库总导出桶文件
-demo/                            # Demo 站点源码（不进 npm 产物）
-test/                            # 测试公共工具（setup.ts / utils.tsx / components.tsx）+ a11y.test.tsx
+packages/
+  components/                    # 发布的 island-design 包
+    src/
+      components/
+        <ComponentName>/
+          <ComponentName>.tsx      # 组件实现
+          <component>.module.less  # 样式（CSS Modules）
+          index.ts                 # 组件导出
+          <ComponentName>.test.tsx # 同目录单测
+      styles/                      # 样式入口、字体与重置样式
+      assets/                      # 字体与图片资源
+      index.ts                     # 组件库总导出桶文件
+    test/                          # 测试公共工具与无障碍测试
+    vite.config.ts                 # 组件库构建
+    vitest.config.ts               # 单元测试
+    vitest.a11y.config.ts          # 无障碍测试
+    tsconfig.build.json            # 声明构建
+  hooks/                           # 带类型声明的 React Hooks
+  tokens/                          # Less Token 与 CSS 主题
+apps/
+  demo/                            # 私有 Demo workspace，不进 npm 产物
 scripts/                         # check-docs-sync.mjs / generate-coverage-badges.mjs
 docs/
   design-system/                 # 视觉规范的权威定义：token、规则、逐组件像素级 spec
   development/                   # 当前目录
   adr/                           # 架构决策记录
   zh-CN/                         # docs/ 的中文镜像
-  img/                           # README 引用的截图
+  img/                           # README 引用的 Logo
   README.zh-CN.md                # 中文 README（镜像根目录 README.md）
-skills/
-  island-design-style/        # 对外发布的 skill 包（references/components/*.md）
 ```
 
 ## 路径别名
 
-- `@/*` → `./src/*` —— 在 `tsconfig.json`、`vite.config.ts`、`vitest.config.ts` 三处声明
-- `@test/*` → `./test/*` —— 在 `tsconfig.json`、`vitest.config.ts` 两处声明（仅测试可用）
+- `@/*` → 根配置中的 `packages/components/src/*`；组件包本地配置映射到 `./src/*`
+- `@test/*` → 根配置中的 `packages/components/test/*`；组件包本地测试配置映射到 `./test/*`
 
 需要它们的配置里都已经接好，直接按别名 import，不要写长相对路径。

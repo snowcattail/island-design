@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 规范化 dist/types 里的相对说明符，让发布出去的类型声明在 ESM 下自洽。
+ * 规范化 packages/components/dist/types 里的相对说明符，让发布出去的类型声明在 ESM 下自洽。
  *
  * 为什么需要：本包是 ESM（package.json 的 "type": "module"），消费方用
  * `moduleResolution: "node16"` / `"nodenext"` 时，ESM 的 .d.ts 必须写显式扩展名、
@@ -20,14 +20,14 @@ import { fileURLToPath } from 'url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ROOT = resolve(__dirname, '..');
-const TYPES_DIR = resolve(ROOT, 'dist/types');
+const TYPES_DIR = resolve(ROOT, 'packages/components/dist/types');
 
 if (!existsSync(TYPES_DIR)) {
-    console.error('[fix:dts] 找不到 dist/types —— 请先运行 npm run build');
+    console.error('[fix:dts] 找不到 packages/components/dist/types —— 请先运行 npm run build');
     process.exit(1);
 }
 
-/** 递归收集 dist/types 下的 .d.ts */
+/** 递归收集 packages/components/dist/types 下的 .d.ts */
 const collect = (dir) => {
     const found = [];
     let entries;

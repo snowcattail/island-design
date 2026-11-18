@@ -2,8 +2,8 @@
 node_modules/
 
 # Build output
-dist/
-demo-dist/
+**/dist/
+**/demo-dist/
 
 # Local agent and authoring files
 .trae/

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
  * 端到端徽章同步：
- *   1. 解析 coverage/coverage-summary.json → 写 docs/badges/coverage.json
- *   2. 解析 coverage/vitest-results.json → 统计真实测试数 / 组件数
+ *   1. 解析 packages/components/coverage/coverage-summary.json → 写 coverage/badges/coverage.json
+ *   2. 解析 packages/components/coverage/vitest-results.json → 统计真实测试数 / 组件数
  *   3. 自动更新 README.md + docs/README.zh-CN.md 中的硬编码徽章
  *
  * 使用：
- *   npm run test:cov -- --reporter=json --outputFile=coverage/vitest-results.json
+ *   npm run test:cov
  *   npm run badges
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
@@ -16,8 +16,8 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 
-const SUMMARY = resolve(ROOT, 'coverage/coverage-summary.json');
-const VITEST = resolve(ROOT, 'coverage/vitest-results.json');
+const SUMMARY = resolve(ROOT, 'packages/components/coverage/coverage-summary.json');
+const VITEST = resolve(ROOT, 'packages/components/coverage/vitest-results.json');
 const BADGE_JSON = resolve(ROOT, 'coverage/badges/coverage.json');
 
 // ---------- 1. 读 coverage-summary ----------
@@ -28,11 +28,11 @@ if (!existsSync(SUMMARY)) {
 const summary = JSON.parse(readFileSync(SUMMARY, 'utf8'));
 const total = summary.total;
 
-// 统计源组件数：按 src/components/ 下含同名 .tsx 的目录数
+// 统计源组件数：按 packages/components/src/components/ 下含同名 .tsx 的目录数
 // （不依赖 coverage 数据 —— Icon 已被 coverage exclude，但仍是有测试的组件）
 import { readdirSync } from 'fs';
-const components = readdirSync(resolve(ROOT, 'src/components')).filter((d) =>
-    existsSync(resolve(ROOT, `src/components/${d}/${d}.tsx`))
+const components = readdirSync(resolve(ROOT, 'packages/components/src/components')).filter((d) =>
+    existsSync(resolve(ROOT, `packages/components/src/components/${d}/${d}.tsx`))
 ).length;
 
 // ---------- 2. 读 vitest JSON（可选用） ----------

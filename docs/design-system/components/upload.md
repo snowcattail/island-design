@@ -1,6 +1,6 @@
 # Upload — pixel spec
 
-Source: `src/components/Upload/Upload.tsx` + `upload.module.less`.
+Source: `packages/components/src/components/Upload/Upload.tsx` + `upload.module.less`.
 
 File upload with a cream-capsule trigger (text mode) or a dashed drop zone (`drag`), plus a file list in two shapes: `text` rows and `picture-card` tiles. Without `customRequest` the component simulates upload progress with a timer (roughly 1.5s to done) so the UI can be wired up before a real endpoint exists.
 

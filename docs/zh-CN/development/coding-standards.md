@@ -6,19 +6,19 @@
 
 - 编译器基线：`strict: true`、`isolatedModules: true`、`moduleResolution: 'bundler'`、`jsx: 'react-jsx'`、`target: ES2020`。
 - 三套 tsconfig，各司其职：
-    - `tsconfig.json` —— 基础配置，覆盖 `src` / `demo` / `test`
-    - `tsconfig.build.json` —— 仅 `src`，`emitDeclarationOnly`，声明输出到 `dist/types`
-    - `tsconfig.test.json` —— 仅测试文件，`noEmit`
+    - 根目录 `tsconfig.json` —— workspace 编辑器与类型检查配置
+    - `packages/components/tsconfig.build.json` —— 仅组件 `src`，`emitDeclarationOnly`，声明输出到 `packages/components/dist/types`
+    - 根目录 `tsconfig.test.json` —— 仅测试文件，`noEmit`
 - 不要在组件代码里用 `any`（ESLint warn，测试文件放宽）。刻意不使用的绑定用 `_` 前缀，以消除 unused-vars 告警。
 - 类型导出必须用 `export type`，与值导出分开 —— `isolatedModules` 要求这样。
 
 ## CSS Modules
 
-`vite.config.ts` 与 `vitest.config.ts` 声明了完全一致的 CSS Module 配置，因此构建与测试中类名解析结果相同：
+`packages/components/vite.config.ts` 与 `packages/components/vitest.config.ts` 声明了完全一致的 CSS Module 配置，因此构建与测试中类名解析结果相同：
 
 - `generateScopedName: 'island-[local]-[hash:base64:5]'` —— 生成形如 `island-btn-primary-abc12` 的类名
 - `localsConvention: 'camelCase'`
-- Less 的 `additionalData` 自动注入 `src/styles/variables.less`，组件 `.less` 里可以直接用 `@primary-color` 之类的变量，无需显式 `@import`
+- Less 的 `additionalData` 自动注入 `packages/tokens/src/variables.less`，组件 `.less` 里可以直接用 `@primary-color` 之类的变量，无需显式 `@import`
 
 两份配置必须保持同步；一旦出现分歧，测试断言的就是构建根本不会产出的类名。
 
@@ -26,14 +26,14 @@
 
 设计 token 有两套，彼此不可互换：
 
-1. **Less 编译期变量**（`src/styles/variables.less`，`@` 前缀）：`@primary-color`、`@text-color`、`@bg-color`、`@border-radius-base`、`@motion-ease`、`@height-base` 等。构建时被替换为字面量，不进运行时。
-2. **运行时 CSS 自定义属性**（`src/styles/themes/default.less`，`--island-` 前缀）：`--island-primary-color`、`--island-text-color`、`--island-spacing-sm`、`--island-font-family`、`--island-shadow-sm` 等。组件 `.module.less` 通过 `var(--island-*)` 引用，消费者可以覆盖。
+1. **Less 编译期变量**（`packages/tokens/src/variables.less`，`@` 前缀）：`@primary-color`、`@text-color`、`@bg-color`、`@border-radius-base`、`@motion-ease`、`@height-base` 等。构建时被替换为字面量，不进运行时。
+2. **运行时 CSS 自定义属性**（`packages/tokens/src/default.less`，`--island-` 前缀）：`--island-primary-color`、`--island-text-color`、`--island-spacing-sm`、`--island-font-family`、`--island-shadow-sm` 等。组件 `.module.less` 通过 `var(--island-*)` 引用，消费者可以覆盖。
 
 组件样式优先用 `var(--island-*)`，下游主题定制才能生效。只有当值必须参与编译期计算（算术、`darken()`、mixin）时，才用 Less 变量。
 
 具体数值定义在 [../design-system/design-tokens.md](../design-system/design-tokens.md) —— 不要在代码注释或其他文档里再抄一遍。
 
-`src/styles/index.less` 是全局样式入口（`fonts.less` + `themes/default.less` + `reset.less`）；它如何变成发布的样式表，见 [build-and-release.md](./build-and-release.md)。
+`packages/components/src/styles/index.less` 是全局样式入口（`fonts.less` + `themes/default.less` + `reset.less`）；它如何变成发布的样式表，见 [build-and-release.md](./build-and-release.md)。
 
 ## 格式化与 Lint
 
@@ -52,9 +52,9 @@ ESLint（`eslint.config.js` 里的 flat config），在 `js.configs.recommended`
 
 ## 禁止事项
 
-- 不要在 `vite.config.ts` 内嵌 Vitest 的 `test` 块 —— Vitest 4 会静默忽略。配置属于 `vitest.config.ts`，见 [testing.md](./testing.md)。
-- 不要在组件 `.module.less` 里写全局选择器（`body`、`:root` 等）。全局样式放 `src/styles/`。
-- 不要破坏 `src/index.ts` 的桶文件导出格式（值用 `export {}`，类型用 `export type {}`）。
+- 不要在 `packages/components/vite.config.ts` 内嵌 Vitest 的 `test` 块 —— Vitest 4 会静默忽略。配置属于 `packages/components/vitest.config.ts`，见 [testing.md](./testing.md)。
+- 不要在组件 `.module.less` 里写全局选择器（`body`、`:root` 等）。全局样式放 `packages/components/src/styles/`。
+- 不要破坏 `packages/components/src/index.ts` 的桶文件导出格式（值用 `export {}`，类型用 `export type {}`）。
 - 不要硬编码 CSS Module 类名字面量做断言 —— 一律通过 `styles['xxx']` 引用。
 - 不要虚构组件 API。看组件源码，或看 [component-development.md](./component-development.md) 里列出的 reference 文档。
 - 不要新增运行时依赖；`dependencies` 只有 `naive-icons` 与 `dayjs`（见 [ADR 0005](../adr/0005-dayjs-as-the-date-layer.md)）。日期的解析、格式化、比较与运算一律走 `dayjs` —— 不要手写，也不要调用 `dayjs.locale()`。
