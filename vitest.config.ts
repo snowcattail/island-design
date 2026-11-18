@@ -24,7 +24,7 @@ export default defineConfig({
             less: {
                 javascriptEnabled: true,
                 // 注入 variables.less，确保业务 less 中 @font-family 等变量在测试环境可解析
-                additionalData: `@import "${resolve(__dirname, 'src/styles/variables.less')}";`,
+                additionalData: `@import "${resolve(__dirname, 'packages/tokens/src/variables.less')}";`,
             },
         },
     },

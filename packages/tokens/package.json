@@ -1,0 +1,25 @@
+{
+    "name": "@island-design/tokens",
+    "version": "1.0.0",
+    "type": "module",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "sideEffects": [
+        "**/*.css",
+        "**/*.less"
+    ],
+    "exports": {
+        ".": "./dist/index.css",
+        "./style": "./dist/index.css",
+        "./variables.less": "./src/variables.less",
+        "./theme.less": "./src/index.less"
+    },
+    "scripts": {
+        "build": "lessc src/index.less dist/index.css"
+    },
+    "devDependencies": {
+        "less": "^4.2.1"
+    }
+}

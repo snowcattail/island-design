@@ -56,9 +56,9 @@ build logic without preserving the following breaks consumer tree-shaking:
 - `exports` maps `.` to the ES/CJS/types triple, `./style` to `dist/index.css`, and `./es/*` to the preserved ES
   modules with a `types` condition pointing at `dist/types/*`, so a deep import keeps its types under every
   `moduleResolution`.
-- `sideEffects: false` lets bundlers drop unused modules.
+- `sideEffects: ["**/*.css", "**/*.less"]` preserves stylesheet imports while letting bundlers drop unused JavaScript modules.
 - `files` limits the published tarball to the build output plus the README.
-- `dependencies` holds exactly two runtime dependencies, both pure and dependency-free:
+- `dependencies` includes the local `@island-design/tokens` and `@island-design/hooks` workspaces plus the external runtime packages:
   `naive-icons` (the icon set) and `dayjs` (the date layer, per
   [ADR 0005](../adr/0005-dayjs-as-the-date-layer.md)). Everything else third-party is a
   peerDependency or a devDependency. `dayjs` stays **out** of the `external` list, so it is
@@ -83,3 +83,7 @@ with an error if the coverage summary is missing.
 
 `npm run build:demo` builds the demo into `demo-dist/` using `vite.config.demo.ts`; `npm run deploy` chains that with
 `gh-pages -d demo-dist` to publish it. The demo is never part of the npm artifact.
+
+## Workspace packages
+
+The root package uses npm workspaces under packages/*; pnpm-workspace.yaml exposes the same package set to pnpm. @island-design/tokens owns Less variables and the default CSS custom-property theme, while @island-design/hooks provides independently built, typed React hooks. The root build runs both workspace builds first. Token Less sources are imported by the library build, and the published stylesheet remains island-design/style.

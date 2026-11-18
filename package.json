@@ -3,6 +3,9 @@
     "version": "4.0.1",
     "description": "A nature-inspired React component library",
     "type": "module",
+    "workspaces": [
+        "packages/*"
+    ],
     "main": "dist/cjs/index.cjs",
     "module": "dist/es/index.js",
     "types": "dist/types/index.d.ts",
@@ -25,7 +28,10 @@
         "CHANGELOG.md",
         "README.md"
     ],
-    "sideEffects": false,
+    "sideEffects": [
+        "**/*.css",
+        "**/*.less"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/snowcattail/island-design"
@@ -37,7 +43,7 @@
     "author": "snowcattail",
     "scripts": {
         "dev": "vite",
-        "build": "vite build && tsc --project tsconfig.build.json --emitDeclarationOnly && node scripts/fix-dts-extensions.mjs",
+        "build": "npm run build --workspace=@island-design/tokens && npm run build --workspace=@island-design/hooks && vite build && tsc --project tsconfig.build.json --emitDeclarationOnly && node scripts/fix-dts-extensions.mjs",
         "build:demo": "vite build --config vite.config.demo.ts",
         "prepublishOnly": "npm run build && npm run check:types",
         "deploy": "npm run build:demo && gh-pages -d demo-dist",
@@ -63,6 +69,8 @@
         "react-dom": ">=18.0.0"
     },
     "dependencies": {
+        "@island-design/hooks": "file:packages/hooks",
+        "@island-design/tokens": "file:packages/tokens",
         "classnames": "^2.5.1",
         "dayjs": "^1.11.23",
         "naive-icons": "^1.14.0"
