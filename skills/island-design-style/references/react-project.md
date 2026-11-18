@@ -1,0 +1,111 @@
+# React project usage
+
+Scenario: a real React project where `island-design` is (or can be) installed from npm.
+For a no-build single HTML file, use [standalone-html.md](standalone-html.md) instead.
+
+## Setup (once per project)
+
+```bash
+npm install island-design
+```
+
+```ts
+// app entry (main.tsx / _app.tsx / App.tsx)
+import 'island-design/style'; // MUST be imported before any component renders
+// Fonts (Nunito / Noto Sans SC) are bundled via @fontsource — no Google Fonts link needed.
+```
+
+Peer requirements: `react >= 18`, `react-dom >= 18` (plus `classnames` as a peer dependency).
+Components use React 18 APIs such as `useId`; React 17 is not supported.
+The build supports per-component tree-shaking — import from the package root only.
+
+## Explore the real API before writing code
+
+The installed package ships complete TypeScript declarations. They are the ground truth
+for props, legal values, and defaults — prefer them over any document:
+
+- Resolve the package's type entry from its `package.json` (`types` / `exports`), then read
+  the exported component and prop types.
+- The [components/](components/) reference files in this skill are quick per-category
+  summaries of the same API — convenient, but the declarations win on any conflict.
+
+## Minimal boilerplate
+
+```tsx
+// App.tsx
+import { Cursor, Button, Card, Input, Footer, Title } from 'island-design';
+
+export default function App() {
+    return (
+        <Cursor>
+            <main style={{ padding: 32, maxWidth: 720, margin: '0 auto' }}>
+                <Title size="large">Animal Island</Title>
+                <Card>
+                    <Input placeholder="What's on your mind?" allowClear />
+                    <Button type="primary" block style={{ marginTop: 16 }}>
+                        Post
+                    </Button>
+                </Card>
+            </main>
+            <Footer />
+        </Cursor>
+    );
+}
+```
+
+## Common recipes
+
+Confirm dialog:
+
+```tsx
+<Modal open={open} title="Delete save file?" onClose={close}
+    footer={
+        <>
+            <Button onClick={close}>Cancel</Button>
+            <Button type="primary" danger onClick={() => { remove(); close(); }}>Delete</Button>
+        </>
+    }
+>
+    This cannot be undone.
+</Modal>
+```
+
+FAQ page:
+
+```tsx
+<Cursor>
+    <Title size="large">FAQ</Title>
+    <Divider type="dashed-teal" />
+    {faqs.map((f) => (
+        <Collapse key={f.id} question={f.q} answer={f.a} />
+    ))}
+    <Footer type="sea" />
+</Cursor>
+```
+
+Game-style intro:
+
+```tsx
+<Modal open={open} onClose={close} typewriter typeSpeed={60}>
+    Welcome to Animal Island! Press <strong>OK</strong> to begin.
+</Modal>
+```
+
+## Styling app-specific UI around the components
+
+- Use the runtime tokens: `color: var(--animal-text-color)`, `background: var(--animal-bg-color)`,
+  `border-radius: var(--animal-border-radius-lg)` etc., so custom layout stays on-palette.
+- Theme by overriding `--animal-*` custom properties after `import 'island-design/style'`.
+- Pixel-exact values (exact hex/px/keyframes, per-component CSS) live in the canonical
+  design system:
+  [design-tokens.md](https://github.com/snowcattail/island-design/blob/main/docs/design-system/design-tokens.md) ·
+  [design-rules.md](https://github.com/snowcattail/island-design/blob/main/docs/design-system/design-rules.md) ·
+  [components/](https://github.com/snowcattail/island-design/tree/main/docs/design-system/components)
+
+## Scenario-specific rules
+
+- One `import 'island-design/style'` at the entry — never per component file.
+- No deep imports (`island-design/lib/...`, `island-design/src/...`); public surface is
+  the package root and `island-design/style`.
+- Import types from the package root (`import type { ButtonProps } from 'island-design'`).
+- All hard rules from [SKILL.md](../SKILL.md) apply.

@@ -1,0 +1,175 @@
+import { CHART_PAGES } from './chartPages';
+// 独立的轻量页面元信息，供 App 等场景静态导入，避免拉入整个 ComponentPage bundle
+export const PAGE_INFO: Record<string, { title: string; desc: string }> = {
+    charts: { title: '图表统计', desc: '海岛风格图表，覆盖趋势、对比、占比、分布与指标统计。' },
+    'no-data': { title: 'NoData 空状态', desc: '温暖的空数据提示，支持搜索无结果、简洁模式、自定义图标与操作区。' },
+    ...Object.fromEntries(CHART_PAGES.map((page) => [`chart-${page.type}`, { title: page.label, desc: page.desc }])),
+    button: {
+        title: 'Button 按钮',
+        desc: '按钮组件 — 支持 primary / dashed / text / link 等类型，danger / ghost / loading / disabled 状态，icon 图标，block 块级，三种尺寸',
+    },
+    input: {
+        title: 'Input 输入框',
+        desc: '输入框组件 — 支持三种尺寸、allowClear 清除、prefix / suffix 前后缀、error / warning 校验状态、disabled 禁用',
+    },
+    switch: {
+        title: 'Switch 开关',
+        desc: '开关组件 — 支持受控 / 非受控、自定义文案、small 尺寸、loading 状态',
+    },
+    card: {
+        title: 'Card 卡片',
+        desc: '卡片容器组件 — 支持 default / title 两种类型，13 种背景颜色',
+    },
+    collapse: {
+        title: 'Collapse 折叠面板',
+        desc: '折叠面板组件 — 支持展开/收起、默认展开、禁用状态',
+    },
+    cursor: {
+        title: 'Cursor 光标',
+        desc: '光标组件 — 自定义手指光标，支持自定义尺寸、点击动画',
+    },
+    footer: {
+        title: 'Footer 底部装饰',
+        desc: '页面底部装饰图片，支持树和海两种类型',
+    },
+    modal: {
+        title: 'Modal 弹窗',
+        desc: '模态弹窗组件 — SVG 有机形状裁切、支持标题、关闭按钮、自定义 Footer、ESC / 遮罩关闭、自定义遮罩样式',
+    },
+    drawer: {
+        title: 'Drawer 抽屉',
+        desc: '下沉景深抽屉组件 — 背景下沉 + 缩放 + 降亮突出主体，支持 left/right/top/bottom 四个方向、自定义宽高、ESC / 遮罩关闭',
+    },
+    typewriter: {
+        title: 'Typewriter 打字机',
+        desc: '打字机组件 — 按字符逐个显示文本，支持多行与 ReactNode 富内容，不改变原有样式',
+    },
+    'divider-comp': {
+        title: 'Divider 分割线',
+        desc: '分割线组件 — 装饰性分割线',
+    },
+    background: {
+        title: 'Background 背景',
+        desc: '装饰背景组件 — 奶油/深绿波点、彩色针糖 + 12 色 Card pattern 底色壁纸，零图片资源，可作为整页或区块背景，内容渲染在图案之上',
+    },
+    icon: {
+        title: 'Icon 图标',
+        desc: '图标组件 — naive-icons 手绘 SVG 图标库，支持自定义尺寸与描边颜色。全部图标为原创作品，个人与商业项目均可自由使用。',
+    },
+    select: {
+        title: 'Select 选择器',
+        desc: '下拉选择器组件 — 支持自定义选项列表、allowClear 清空、showSearch 关键字过滤、键盘导航',
+    },
+    'date-picker': {
+        title: 'DatePicker 日期选择',
+        desc: '日期选择组件 — 年/月/日三级面板切换与开始~结束范围选择，支持受控/非受控、三种尺寸、allowClear 清空、disabledDate 禁用日期、自定义格式与键盘导航',
+    },
+    'time-picker': {
+        title: 'TimePicker 时间选择',
+        desc: '时间选择组件 — 时/分/秒三列滚选，此刻/确定快捷操作，支持受控/非受控、自定义格式、时/分/秒步进、allowClear 清空与键盘导航',
+    },
+    calendar: {
+        title: 'Calendar 日历',
+        desc: '日历组件（轻量月面板）— 事项通知与跨日期连续条、拖拽跨日期创建事项、受控/非受控与键盘导航',
+    },
+    tabs: {
+        title: 'Tabs 标签页',
+        desc: '标签页组件 — 支持受控/非受控模式切换',
+    },
+    checkbox: {
+        title: 'Checkbox 多选框',
+        desc: '多选框组件 — 支持受控/非受控、水平/垂直排列、三种尺寸、禁用单项或全部禁用',
+    },
+    radio: {
+        title: 'Radio 单选框',
+        desc: '单选框组件 — 支持受控/非受控、水平/垂直排列、三种尺寸、禁用单项或全部禁用',
+    },
+    rate: {
+        title: 'Rate 评分',
+        desc: '评分组件 — 支持受控/非受控、三种尺寸、只读展示',
+    },
+    tooltip: {
+        title: 'Tooltip 气泡提示',
+        desc: '气泡提示组件 — 支持 12 个方向、hover/click/focus 三种触发，default/island 两种风格，bordered 边框可配置',
+    },
+    title: {
+        title: 'Title 标题',
+        desc: '装饰性标题组件 — cloud 云朵 / ribbon 飘带 两种风格，三种尺寸，适用于游戏化页面、活动 Banner 与场景分组',
+    },
+    codeblock: {
+        title: 'CodeBlock 代码高亮',
+        desc: '代码高亮组件 — JSX/TS 语法高亮，支持一键复制、自定义样式和类名',
+    },
+    table: {
+        title: 'Table 表格',
+        desc: '数据表格组件，支持斑马纹、边框、加载状态、内置分页等常用功能',
+    },
+    pagination: {
+        title: 'Pagination 分页',
+        desc: '分页组件 — 支持受控/非受控、每页条数切换、快速跳转、总条数展示，可配合 Table 使用',
+    },
+    tag: {
+        title: 'Tag 标签',
+        desc: '标签组件 — 支持 solid / outlined / dashed 三种风格，16 种颜色，三种尺寸，可关闭、可点击、自定义图标',
+    },
+    notification: {
+        title: 'Notification 通知',
+        desc: '命令式通知组件 — 4 种 type (success/info/warning/error) × 6 个 position，支持 description / btn / onClick / onClose，显式 key 二次调用会更新现有通知',
+    },
+    progress: {
+        title: 'Progress 进度条',
+        desc: '场景图进度条 —  3 档 size, 百分比文字固定显示在右侧、自定义格式化、duration 控制 fill 宽度动画',
+    },
+    loading: {
+        title: 'Loading 加载',
+        desc: '全屏加载指示器 — type="snow" 是 50 片随机雪花旋转飘落 + 暗角夜空，type="circle" 关闭时圆形扩散展开、右下角一艘帆船随波逐流',
+    },
+    form: {
+        title: 'Form 表单',
+        desc: '表单组件 — 支持 useForm 命令式实例、多种校验规则、三种布局（horizontal / vertical / inline）、labelCol / wrapperCol 网格',
+    },
+    upload: {
+        title: 'Upload 上传',
+        desc: '文件上传组件 — 点击 / 拖拽两种触发方式，text 与 picture-card 两种列表形态，beforeUpload 拦截、maxCount 上限、customRequest 接入真实上传，内置模拟进度',
+    },
+    skeleton: {
+        title: 'Skeleton 骨架屏',
+        desc: '骨架屏加载占位组件 — 四种变体（text / circle / rect / paragraph），包含 Skeleton.Button / Skeleton.Input / Skeleton.Avatar 子组件，支持 loading 切换动画',
+    },
+    backtop: {
+        title: 'BackTop 返回顶部',
+        desc: '返回顶部组件，支持全局/容器内滚动、自定义显示高度、自定义图标、平滑动画',
+    },
+    image: {
+        title: 'Image 图片',
+        desc: '图片组件 — 白色衬板相框 + 错误占位，支持懒加载、点击预览',
+    },
+    avatar: {
+        title: 'Avatar 头像',
+        desc: '头像组件 — 图片 / 图标 / 文字三种形态，圆形 / 方形两种形状，预设三档与任意数值尺寸，图片加载失败自动回退，支持头像组叠加与超出折叠',
+    },
+    badge: {
+        title: 'Badge 徽标数',
+        desc: '徽标数组件 — 图标 / 头像右上角的圆形角标，支持数字、封顶数字（99+）、小红点、独立使用、两种尺寸与 12 色多彩徽标',
+    },
+    countdown: {
+        title: 'Countdown 倒计时',
+        desc: '倒计时组件 — 接收结束时间，支持天/时/分/秒格式、三种尺寸、两种风格与归零回调',
+    },
+    countup: {
+        title: 'CountUp 数字滚动',
+        desc: '计分动效组件 — 从 start 滚到 end，支持缓动曲线、千分位 / 小数位格式化、暂停继续，以及结束时的庆祝动效（可附任意文案贴纸）',
+    },
+    time: {
+        title: 'Time 时钟',
+        desc: '时间显示组件 — HUD 风格的卡片，实时显示星期、月日与 HH:MM，每秒自动刷新，冒号闪烁与入场动画',
+    },
+    carousel: {
+        title: 'Carousel 轮播图',
+        desc: '轮播图组件 — 支持受控/非受控索引、自动播放、首尾循环、箭头/圆点和完整键盘导航',
+    },
+    skill: {
+        title: 'Skill 介绍',
+        desc: '项目配套的 island-design-style 技能 — 可安装到 AI 编码代理（Claude Code / Codex / Cursor），教模型按治愈系海岛风格搭建 React 页面或单文件 HTML · 从首页「开始使用」进入时会先盖一层圆形展开 Loading',
+    },
+};

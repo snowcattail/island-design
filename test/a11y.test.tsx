@@ -1,0 +1,540 @@
+/**
+ * a11y 烟雾测试 —— 全组件 axe-core 自动检查
+ * --------------------------------------------------------------------------
+ * 设计目的：
+ *   作为全组件的"无障碍基线设施"，用 axe-core 跑一轮 WCAG 2.1 AA 自动化
+ *   规则，把"我应该写 aria-label 但忘了"这类问题在 CI 里拦下来。
+ *
+ * 入口策略：
+ *   - 单一文件 / 单点入口，每个组件一个 it() —— 加新组件只需加一个 case
+ *   - 每个组件 render 一个"典型用法"快照，跑 axe()，断言 0 条违规
+ *   - 用 portal 渲染的组件（Modal / Drawer / Notification）必须把 axe 根
+ *     节点设为 document.body，否则 portal 输出（挂在 body 上、容器外）扫不到
+ *
+ * CI 入口：
+ *   `npm run ci` 通过 test:run 执行无障碍检查；也可单独运行 `npm run test:a11y`。
+ *
+ * 已知规则差异（在 axeOptions 中关闭）：
+ *   - color-contrast          jsdom 不计算样式，永远不通过
+ *   - landmark-one-main       单组件测试不构成完整页面
+ *   - page-has-heading-one    单组件测试不构成完整页面
+ *   - region                  portal 渲染内容不在主文档流
+ *   - bypass                  单组件测试没有跳转链接
+ *   - document-title          单组件测试无 title
+ *   - html-has-lang           jsdom <html> 不带 lang
+ *   - html-lang-valid         同上
+ *   - meta-viewport           N/A
+ */
+import { afterEach, describe, expect, it } from 'vitest';
+import { cleanup, render, act, type RenderResult } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import axe from 'axe-core';
+import React from 'react';
+
+import { Button } from '@/components/Button';
+import { Background } from '@/components/Background';
+import { Card } from '@/components/Card';
+import { Checkbox } from '@/components/Checkbox';
+import { CodeBlock } from '@/components/CodeBlock';
+import { Carousel } from '@/components/Carousel';
+import { Collapse } from '@/components/Collapse';
+import { Cursor } from '@/components/Cursor';
+import { Countdown } from '@/components/Countdown';
+import { CountUp } from '@/components/CountUp';
+import { Time } from '@/components/Time';
+import { Calendar } from '@/components/Calendar';
+import { DatePicker } from '@/components/DatePicker';
+import { Divider } from '@/components/Divider';
+import { Loading } from '@/components/Loading';
+import { Drawer } from '@/components/Drawer';
+import { Footer } from '@/components/Footer';
+import { Form, FormItem } from '@/components/Form';
+import { Image } from '@/components/Image';
+import { Avatar, AvatarGroup } from '@/components/Avatar';
+import { Badge } from '@/components/Badge';
+import { Input } from '@/components/Input';
+import { Modal } from '@/components/Modal';
+import { Notification } from '@/components/Notification';
+import { Progress } from '@/components/Progress';
+import { Radio } from '@/components/Radio';
+import { Rate } from '@/components/Rate';
+import { Select } from '@/components/Select';
+import { Switch } from '@/components/Switch';
+import { Table } from '@/components/Table';
+import { Tabs } from '@/components/Tabs';
+import { Tag } from '@/components/Tag';
+import { TimePicker } from '@/components/TimePicker';
+import { Title } from '@/components/Title';
+import { Tooltip } from '@/components/Tooltip';
+import { Typewriter } from '@/components/Typewriter';
+import { Chart } from '@/components/Chart';
+import { NoData } from '@/components/NoData';
+
+afterEach(() => {
+    cleanup();
+    // 清掉 Notification 命令式 API 在 document.body 上挂的根节点
+    Notification.destroy();
+});
+
+// ---------------------------------------------------------------------------
+// axe 配置
+// ---------------------------------------------------------------------------
+
+/**
+ * 对单组件测试不适用的全局规则（见文件头注释）
+ * 不放在 setup.ts，因为只有本文件用 axe —— 避免污染其他 28 个测试
+ */
+const axeOptions: axe.RunOptions = {
+    rules: {
+        'color-contrast': { enabled: false },
+        'landmark-one-main': { enabled: false },
+        'page-has-heading-one': { enabled: false },
+        region: { enabled: false },
+        bypass: { enabled: false },
+        'document-title': { enabled: false },
+        'html-has-lang': { enabled: false },
+        'html-lang-valid': { enabled: false },
+        'meta-viewport': { enabled: false },
+    },
+};
+
+/**
+ * 把 axe 违规转成可读的多行字符串，断言失败时一眼能看明白哪个组件哪条规则挂了
+ */
+function formatViolations(violations: axe.Result[]): string {
+    if (violations.length === 0) return '  (no violations)';
+    return violations
+        .map(
+            (v) =>
+                `  - [${v.impact ?? 'unknown'}] ${v.id}: ${v.help}\n` +
+                v.nodes
+                    .slice(0, 3)
+                    .map((n) => `      target: ${n.target.join(' ')}\n      html: ${n.html.slice(0, 200)}`)
+                    .join('\n')
+        )
+        .join('\n');
+}
+
+/**
+ * 跑 axe —— 接收 RTL render 结果或 document.body（portal 组件用）
+ * 用 throw new Error 列出所有违规而非首条就 expect 失败，方便 PR review 一眼定位
+ */
+async function expectNoA11yViolations(root: Element | Document, label: string): Promise<void> {
+    const results = await axe.run(root, axeOptions);
+    if (results.violations.length > 0) {
+        throw new Error(
+            `[a11y:${label}] ${results.violations.length} violation(s):\n${formatViolations(results.violations)}`
+        );
+    }
+    expect(results.violations).toEqual([]);
+}
+
+/** 取 render container —— 简单组件用 */
+function containerOf(r: RenderResult): HTMLElement {
+    return r.container;
+}
+
+/** Select 的下拉要等一帧 requestAnimationFrame 才挂载，测试里需要 flush 一帧 */
+const flushRaf = () =>
+    act(async () => {
+        await new Promise<void>((r) => requestAnimationFrame(() => r()));
+    });
+
+// ---------------------------------------------------------------------------
+// 测试套件
+// ---------------------------------------------------------------------------
+
+describe('a11y smoke / 全组件 axe-core 自动检查', () => {
+    it('Chart (可聚焦数据点、图例与数据明细)', async () => {
+        const r = render(<Chart title="到访统计" series={[{ name: '访客', data: [12, 25] }]} />);
+        await expectNoA11yViolations(containerOf(r), 'Chart');
+    });
+    // -------- 交互触发器 --------
+
+    it('Button', async () => {
+        const r = render(<Button>确认</Button>);
+        await expectNoA11yViolations(containerOf(r), 'Button');
+    });
+
+    it('Background (装饰背景容器)', async () => {
+        const r = render(<Background type="sprinkles">内容</Background>);
+        await expectNoA11yViolations(containerOf(r), 'Background');
+    });
+
+    it('Switch (带 aria-label)', async () => {
+        const r = render(<Switch aria-label="启用通知" />);
+        await expectNoA11yViolations(containerOf(r), 'Switch');
+    });
+
+    it('Radio (有可见 label)', async () => {
+        const r = render(
+            <Radio
+                defaultValue="a"
+                options={[
+                    { label: '选项 A', value: 'a' },
+                    { label: '选项 B', value: 'b' },
+                ]}
+            />
+        );
+        await expectNoA11yViolations(containerOf(r), 'Radio');
+    });
+
+    it('Checkbox (有可见 label)', async () => {
+        const r = render(
+            <Checkbox
+                defaultValue={['a']}
+                options={[
+                    { label: '选项 A', value: 'a' },
+                    { label: '选项 B', value: 'b' },
+                ]}
+            />
+        );
+        await expectNoA11yViolations(containerOf(r), 'Checkbox');
+    });
+
+    it('Rate (可交互评分)', async () => {
+        const r = render(<Rate defaultValue={3} aria-label="岛屿评分" />);
+        await expectNoA11yViolations(containerOf(r), 'Rate');
+    });
+
+    it('Rate (只读评分)', async () => {
+        const r = render(<Rate defaultValue={4} readonly aria-label="岛屿评分" />);
+        await expectNoA11yViolations(containerOf(r), 'Rate readonly');
+    });
+
+    it('Tabs (有 label 列表)', async () => {
+        const r = render(
+            <Tabs
+                items={[
+                    { key: '1', label: '一', children: '内容一' },
+                    { key: '2', label: '二', children: '内容二' },
+                ]}
+                aria-label="分类"
+            />
+        );
+        await expectNoA11yViolations(containerOf(r), 'Tabs');
+    });
+
+    it('Collapse (有 question 文案)', async () => {
+        const r = render(
+            <Collapse question="什么是治愈系海岛风格？" answer="一种温暖质朴、以自然色系为主的 UI 设计风格。" />
+        );
+        await expectNoA11yViolations(containerOf(r), 'Collapse');
+    });
+
+    it('Tooltip (children 有可见文案)', async () => {
+        const r = render(
+            <Tooltip title="提示信息">
+                <Button>悬停看我</Button>
+            </Tooltip>
+        );
+        await expectNoA11yViolations(containerOf(r), 'Tooltip');
+    });
+
+    // -------- 表单字段 --------
+
+    it('Input (无 label 应有 violation)', async () => {
+        // 故意不传 label：第一次跑会暴露"输入框裸用没名字"问题
+        const r = render(<Input placeholder="请输入" />);
+        await expectNoA11yViolations(containerOf(r), 'Input');
+    });
+
+    it('Input (配 label htmlFor)', async () => {
+        const r = render(
+            <div>
+                <label htmlFor="test-input">用户名</label>
+                <Input id="test-input" />
+            </div>
+        );
+        await expectNoA11yViolations(containerOf(r), 'Input+label');
+    });
+
+    it('Select (带 aria-label)', async () => {
+        const r = render(
+            <Select
+                aria-label="选择水果"
+                value="a"
+                onChange={() => {}}
+                options={[
+                    { key: 'a', label: '苹果' },
+                    { key: 'b', label: '香蕉' },
+                ]}
+            />
+        );
+        await expectNoA11yViolations(containerOf(r), 'Select');
+    });
+
+    it('Select allowClear (带 aria-label，已选值)', async () => {
+        const r = render(
+            <Select
+                aria-label="选择水果"
+                value="a"
+                allowClear
+                onChange={() => {}}
+                options={[
+                    { key: 'a', label: '苹果' },
+                    { key: 'b', label: '香蕉' },
+                ]}
+            />
+        );
+        await expectNoA11yViolations(containerOf(r), 'Select allowClear');
+    });
+
+    it('Select showSearch (带 aria-label，展开且命中)', async () => {
+        const user = userEvent.setup();
+        const r = render(
+            <Select
+                aria-label="选择水果"
+                value=""
+                showSearch
+                onChange={() => {}}
+                options={[
+                    { key: 'a', label: '苹果' },
+                    { key: 'b', label: '香蕉' },
+                ]}
+            />
+        );
+        const input = r.container.querySelector('[role="combobox"]') as HTMLInputElement;
+        input.focus();
+        await user.keyboard('{ArrowDown}');
+        await flushRaf();
+        await expectNoA11yViolations(containerOf(r), 'Select showSearch');
+    });
+
+    it('Select showSearch (展开后过滤为空 → 空态)', async () => {
+        const user = userEvent.setup();
+        const r = render(
+            <Select
+                aria-label="选择水果"
+                value=""
+                showSearch
+                onChange={() => {}}
+                options={[
+                    { key: 'a', label: '苹果' },
+                    { key: 'b', label: '香蕉' },
+                ]}
+            />
+        );
+        const input = r.container.querySelector('[role="combobox"]') as HTMLInputElement;
+        input.focus();
+        await user.keyboard('{ArrowDown}');
+        await flushRaf();
+        await user.type(input, 'zzz', { skipClick: true });
+        await expectNoA11yViolations(containerOf(r), 'Select showSearch empty');
+    });
+
+    it('DatePicker (带 aria-label，展开面板)', async () => {
+        const r = render(<DatePicker aria-label="选择日期" open />);
+        await expectNoA11yViolations(containerOf(r), 'DatePicker');
+    });
+
+    it('DatePicker range (带 aria-label，展开双面板)', async () => {
+        const r = render(<DatePicker range aria-label="选择日期范围" open />);
+        await expectNoA11yViolations(containerOf(r), 'DatePicker range');
+    });
+
+    it('TimePicker (带 aria-label，展开面板)', async () => {
+        const r = render(<TimePicker aria-label="选择时间" open />);
+        await expectNoA11yViolations(containerOf(r), 'TimePicker');
+    });
+
+    it('Calendar (带 aria-label，月面板与事项)', async () => {
+        const r = render(
+            <Calendar
+                aria-label="日程日历"
+                defaultValue="2026-08-10"
+                panelValue="2026-08"
+                events={[
+                    { title: '晨会', start: '2026-08-10' },
+                    { title: '海岛团建', start: '2026-08-12', end: '2026-08-18', color: 'amber' },
+                ]}
+            />
+        );
+        await expectNoA11yViolations(containerOf(r), 'Calendar');
+    });
+
+    it('Form (FormItem + label)', async () => {
+        const r = render(
+            <Form>
+                <FormItem label="用户名" name="username">
+                    <Input />
+                </FormItem>
+            </Form>
+        );
+        await expectNoA11yViolations(containerOf(r), 'Form');
+    });
+
+    // -------- 容器 / 遮罩 (portal → 用 document.body 扫) --------
+
+    it('Modal (open + title)', async () => {
+        render(
+            <Modal open title="确认操作" onClose={() => {}}>
+                <p>是否继续？</p>
+            </Modal>
+        );
+        await expectNoA11yViolations(document.body, 'Modal');
+    });
+
+    it('Drawer (open + title)', async () => {
+        render(
+            <Drawer open title="侧边栏" onClose={() => {}}>
+                <p>侧边栏内容</p>
+            </Drawer>
+        );
+        await expectNoA11yViolations(document.body, 'Drawer');
+    });
+
+    it('Notification (success)', async () => {
+        Notification.success({ message: '保存成功', description: '已写入云端' });
+        await expectNoA11yViolations(document.body, 'Notification');
+    });
+
+    // -------- 装饰 / 展示 --------
+
+    it('Card (有 children 文案)', async () => {
+        const r = render(<Card>卡片内容</Card>);
+        await expectNoA11yViolations(containerOf(r), 'Card');
+    });
+
+    it('Tag (有 children 文案)', async () => {
+        const r = render(<Tag>标签</Tag>);
+        await expectNoA11yViolations(containerOf(r), 'Tag');
+    });
+
+    it('Progress (带 aria-label)', async () => {
+        const r = render(<Progress percent={42} aria-label="任务进度" />);
+        await expectNoA11yViolations(containerOf(r), 'Progress');
+    });
+
+    it('Loading (带 tip 全屏落雪)', async () => {
+        const r = render(<Loading tip="努力加载中" />);
+        await expectNoA11yViolations(containerOf(r), 'Loading');
+    });
+
+    it('Title (有 children 文案)', async () => {
+        const r = render(<Title>标题文案</Title>);
+        await expectNoA11yViolations(containerOf(r), 'Title');
+    });
+
+    it('Divider (纯装饰)', async () => {
+        const r = render(<Divider />);
+        await expectNoA11yViolations(containerOf(r), 'Divider');
+    });
+
+    it('Typewriter (有 children 文本)', async () => {
+        const r = render(<Typewriter>欢迎来到治愈海岛</Typewriter>);
+        await expectNoA11yViolations(containerOf(r), 'Typewriter');
+    });
+
+    it('Footer (纯装饰)', async () => {
+        const r = render(<Footer />);
+        await expectNoA11yViolations(containerOf(r), 'Footer');
+    });
+
+    it('Cursor (包裹子元素)', async () => {
+        const r = render(
+            <Cursor>
+                <div>内容</div>
+            </Cursor>
+        );
+        await expectNoA11yViolations(containerOf(r), 'Cursor');
+    });
+
+    it('CodeBlock (有 code 文案)', async () => {
+        const r = render(<CodeBlock code="const x = 1;" />);
+        await expectNoA11yViolations(containerOf(r), 'CodeBlock');
+    });
+
+    it('Countdown (有可见倒计时)', async () => {
+        const r = render(<Countdown value={Date.now() + 60_000} prefix="活动结束还有" />);
+        await expectNoA11yViolations(containerOf(r), 'Countdown');
+    });
+
+    it('CountUp (有可见计分数值与庆祝贴纸)', async () => {
+        const r = render(
+            <CountUp
+                isCounting
+                end={1320}
+                duration={0}
+                thousandsSeparator=","
+                suffix="分"
+                celebrate={{ text: '完美！' }}
+            />
+        );
+        await expectNoA11yViolations(containerOf(r), 'CountUp');
+    });
+
+    it('Time (有可见时钟文本)', async () => {
+        const r = render(<Time />);
+        await expectNoA11yViolations(containerOf(r), 'Time');
+    });
+
+    it('Carousel (有可见图片说明)', async () => {
+        const r = render(
+            <Carousel aria-label="岛屿照片">
+                <div>海滩</div>
+                <div>广场</div>
+            </Carousel>
+        );
+        await expectNoA11yViolations(containerOf(r), 'Carousel');
+    });
+
+    it('Table (有 dataSource)', async () => {
+        const r = render(
+            <Table
+                columns={[
+                    { title: '姓名', dataIndex: 'name' },
+                    { title: '年龄', dataIndex: 'age' },
+                ]}
+                dataSource={[
+                    { key: '1', name: '小明', age: 18 },
+                    { key: '2', name: '小红', age: 20 },
+                ]}
+            />
+        );
+        await expectNoA11yViolations(containerOf(r), 'Table');
+    });
+
+    it('NoData (文案与恢复操作)', async () => {
+        const r = render(<NoData variant="search" description="请调整筛选条件" extra={<Button>清除筛选</Button>} />);
+        await expectNoA11yViolations(containerOf(r), 'NoData');
+    });
+
+    it('Image (带 alt)', async () => {
+        const r = render(<Image src="https://example.com/photo.png" alt="岛屿风景" width={120} height={120} />);
+        await expectNoA11yViolations(containerOf(r), 'Image');
+    });
+
+    it('Avatar (带 alt 图片头像)', async () => {
+        const r = render(<Avatar src="https://example.com/u.png" alt="岛民头像" />);
+        await expectNoA11yViolations(containerOf(r), 'Avatar');
+    });
+
+    it('Badge (包裹头像并显示数字)', async () => {
+        const r = render(
+            <Badge count={5} aria-label="未读消息">
+                <Avatar src="https://example.com/u.png" alt="岛民头像" />
+            </Badge>
+        );
+        await expectNoA11yViolations(containerOf(r), 'Badge');
+    });
+
+    it('AvatarGroup (图片头像组)', async () => {
+        const r = render(
+            <AvatarGroup maxCount={3}>
+                <Avatar src="https://example.com/a.png" alt="A" />
+                <Avatar src="https://example.com/b.png" alt="B" />
+                <Avatar>勤</Avatar>
+                <Avatar>劳</Avatar>
+            </AvatarGroup>
+        );
+        await expectNoA11yViolations(containerOf(r), 'AvatarGroup');
+    });
+
+    it('Image (preview 弹层)', async () => {
+        const user = userEvent.setup();
+        const r = render(<Image src="https://example.com/photo.png" alt="岛屿风景" preview />);
+        await user.click(r.getByRole('button', { name: /岛屿风景/ }));
+        await expectNoA11yViolations(document.body, 'Image preview');
+    });
+});
