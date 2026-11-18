@@ -1,163 +1,119 @@
 # Island Design
 
 <div align="center">
-    <img src="./docs/img/logo.png" alt="island-design" style="border-radius: 24px; width: 220px; display: block; margin: 0 auto;" />
+  <img src="./docs/img/logo.png" alt="Island Design" width="180" />
+  <p>A cozy React component library with 42 components and a composable design system.</p>
+  <p>
+    <a href="https://www.npmjs.com/package/island-design"><img src="https://img.shields.io/npm/v/island-design?label=npm" alt="npm version" /></a>
+    <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT license" /></a>
+    <img src="https://img.shields.io/badge/React-18%2B-61dafb" alt="React 18 or newer" />
+    <img src="https://img.shields.io/badge/TypeScript-5.7-blue" alt="TypeScript 5.7" />
+    <img src="https://img.shields.io/badge/components-42-orange" alt="42 components" />
+  </p>
+  <p>English · <a href="./docs/README.zh-CN.md">简体中文</a></p>
 </div>
-<p align="center">
-    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square" alt="License: MIT"></a>
-    <a href="https://www.npmjs.com/package/island-design"><img src="https://img.shields.io/npm/dm/island-design.svg?style=flat-square" alt="Weekly downloads"></a>
-    <a href="https://www.npmjs.com/package/island-design"><img src="https://img.shields.io/npm/v/island-design?label=version&style=flat-square" alt="Version"></a>
-    <img src="https://img.shields.io/badge/a11y-WAI--ARIA%20APG-brightgreen?style=flat-square" alt="Accessibility">
-    <br/>
-    <img src="https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react&logoColor=white" alt="React 19">
-    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
-    <a href="https://github.com/snowcattail/island-design/stargazers"><img src="https://img.shields.io/github/stars/snowcattail/island-design?style=flat-square" alt="Stars"></a>
-    <a href="https://atomgit.com/snowcattail/island-design"><img alt="AtomGit Star" src="https://atomgit.com/snowcattail/island-design/star/badge.svg"></a>
-</p>
 
-<p align="center">
-    <a href="https://trendshift.io/repositories/34594?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-34594" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/34594/daily?language=TypeScript" alt="snowcattail%2Fisland-design | Trendshift" width="250" height="55"/></a>
-    <a href="https://hellogithub.com/repository/snowcattail/island-design" target="_blank"><img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=98ecff41d142466d8d72694a6fadf9e9&claim_uid=pyGqTPIRMdo7fBS&theme=neutral" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-    <a href="https://atomgit.com/snowcattail/island-design"><img alt="AtomGit G-Star" src="https://atomgit.com/snowcattail/island-design/star/new_badge.svg"></a>
-</p>
-
-<p align="center">
-    English | <a href="./docs/README.zh-CN.md">简体中文</a> | <a href="./docs/README.ja.md">日本語</a>
-</p>
-
-<h2>
-    <img src="./docs/img/icons/bell.svg" width="20" height="27" alt="" align="absmiddle" />
-    Introduction
-</h2>
-
-A lightweight, cozy React + TypeScript UI component library with an original island-style design language. Every visual element, layout, icon, and animation is crafted from scratch.
-
-<h2>
-    <img src="./docs/img/icons/monitor.svg" width="20" height="27" alt="" align="absmiddle" />
-    Preview
-</h2>
-
-- Online Preview: [island-design](https://snowcattail.github.io/island-design/#/)
-
-<h2>
-    <img src="./docs/img/icons/git-branch.svg" width="20" height="27" alt="" align="absmiddle" />
-    Related
-</h2>
-
-- Icons (**naive-icons**): <https://github.com/snowcattail/naive-icons>
-- Vue version (**animal-island-vue**): <https://github.com/snowcattail/animal-island-vue>
-- WeChat Mini Program version (**animal-island-wx**): <https://github.com/lns567/animal-island-wx>
-
-<h2>
-    <img src="./docs/img/icons/sparkles.svg" width="20" height="27" alt="" align="absmiddle" />
-    Use AI to Generate island-design Pages
-</h2>
-
-### Option 1: Install the skill (recommended for AI coding agents)
-
-Using an AI coding agent (Claude Code / Codex / Cursor)? Install the
-[island-design-style skill](./skills/island-design-style/README.md):
-
-```bash
-skills add snowcattail/island-design
-```
-
-### Option 2: One-click prompt (no code, nothing to install)
-
-Non-developer and don't want to write code yourself? Use the
-[one-click prompt](./docs/one-click-prompt.md) — no npm, no build step.
-
-**4 steps:**
-
-1. Copy the prompt block from [`docs/one-click-prompt.md`](./docs/one-click-prompt.md).
-2. Paste into any AI tool that can fetch URLs (Cursor / Claude / ChatGPT / Gemini / v0 / Bolt) and send.
-3. The AI asks what page you want — reply in one phrase (e.g. "personal blog", "product list", "FAQ").
-4. Save the `index.html` it returns and double-click to preview.
-
-<h2>
-    <img src="./docs/img/icons/download.svg" width="20" height="27" alt="" align="absmiddle" />
-    Installation
-</h2>
+## Quick start
 
 ```bash
 npm install island-design
 ```
 
-<h2>
-    <img src="./docs/img/icons/rocket.svg" width="20" height="27" alt="" align="absmiddle" />
-    Quick Start
-</h2>
-
-> ⚠️ **Important**: Please make sure to import the styles with `import 'island-design/style'`, otherwise the components will have no styles or fonts!
-
 ```tsx
 import { Button, Card } from 'island-design';
 import 'island-design/style';
 
-function App() {
+export function Welcome() {
     return (
-        <div>
-            <Button type="primary">Start Adventure</Button>
-            <Card color="app-blue">Welcome to the island!</Card>
-        </div>
+        <Card>
+            <Button type="primary">Explore the island</Button>
+        </Card>
     );
 }
 ```
 
-<h2>
-    <img src="./docs/img/icons/copy.svg" width="20" height="27" alt="" align="absmiddle" />
-    Documentation
-</h2>
+React and React DOM are peer dependencies. Import the stylesheet once at the application entry point.
 
-Routed by audience and scenario (English primary; Chinese mirrors under [`docs/zh-CN/`](./docs/zh-CN/)):
+## Architecture
 
-| Document                                                                | Purpose                                                                                                                                                   |
-| ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`docs/design-system/`](./docs/design-system/README.md)                 | Canonical design definition (single source of truth) — tokens, design rules, pixel-exact per-component specs, CSS variable template.                      |
-| [`skills/island-design-style/`](./skills/island-design-style/README.md) | Installable Agent skill (`skills add snowcattail/island-design`) — React project usage + standalone-HTML generation, with per-component props references. |
-| [`docs/one-click-prompt.md`](./docs/one-click-prompt.md)                | One-click prompt for non-developers — paste one bootstrap prompt, the AI fetches the specs itself and returns a ready `index.html`.                       |
-| [`docs/design-prompts.md`](./docs/design-prompts.md)                    | Prompts for design/image tools (v0 / Figma AI / Midjourney / DALL-E), linking to the canonical spec files.                                                |
-| [`docs/development/`](./docs/development/README.md)                     | Development guide for this repository — structure, component development, coding standards, testing, build contract.                                      |
-| [`docs/adr/`](./docs/adr/README.md)                                     | Architecture decision records.                                                                                                                            |
-| [`AGENTS.md`](./AGENTS.md)                                              | Entry point for coding agents working in this repository.                                                                                                 |
-| [`CONTRIBUTING.md`](./CONTRIBUTING.md)                                  | Contributing guide.                                                                                                                                       |
-
-<h2>
-    <img src="./docs/img/icons/terminal.svg" width="20" height="27" alt="" align="absmiddle" />
-    Local Development
-</h2>
-
-```bash
-# Clone the repository
-git clone https://github.com/snowcattail/island-design.git
-cd island-design
-
-# Install dependencies
-npm install
-
-# Start Demo development server
-npm run dev
-
-# Build component library
-npm run build
-
-# Build Demo site
-npm run build:demo
+```text
+island-design/
+├── packages/
+│   ├── tokens/             @island-design/tokens: Less tokens and CSS theme
+│   └── hooks/              @island-design/hooks: typed React hooks
+├── src/
+│   ├── components/         42 public components
+│   ├── internal/           shared private behavior
+│   └── styles/             library stylesheet entry, fonts and reset
+├── demo/                   interactive component examples
+├── scripts/                generator and artifact checks
+└── docs/                   design system and development contracts
 ```
 
-<h2>
-    <img src="./docs/img/icons/shield.svg" width="20" height="27" alt="" align="absmiddle" />
-    License & Disclaimer
-</h2>
+The root npm workspace is the published <code>island-design</code> package. <code>pnpm-workspace.yaml</code> describes the same packages for pnpm users. The tokens package owns Less variables and the default CSS custom property theme. The hooks package builds an independent ESM entry and TypeScript declarations for controlled state, focus restoration, and document event listeners.
 
-- Distributed under the **MIT License** — free to use, copy, modify, merge, publish, distribute, sublicense, and sell copies of the Software, including in commercial products (see the [LICENSE](LICENSE) file for the full text). The copyright notice and this permission notice must be included in all copies or substantial portions of the Software.
-- The Software is provided "AS IS", without warranty of any kind; the authors are not liable for any claims, damages, or other liability arising from its use. Users are solely responsible for any risks arising from the use of this component library.
-- This is an independently created open-source project. It is not an official product of any game company and has no association, authorization, or cooperation with any company or its products.
-- All visual assets (icons, illustrations, animations) in this repository are original works created for this project.
+## Four engineering foundations
 
-<h2>
-    <img src="./docs/img/icons/heart.svg" width="20" height="27" alt="" align="absmiddle" />
-    Support
-</h2>
+| Foundation          | What it provides                                                                                                                               |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Workspace packages  | Shared tokens and hooks have their own package boundaries and builds.                                                                          |
+| Dual module output  | ESM and CJS builds preserve the component module graph; declarations are normalized for NodeNext consumers.                                    |
+| Explicit styles     | Component CSS is collected into <code>island-design/style</code>; style files alone are marked as side effects.                                |
+| Generator and gates | A component scaffold includes props, Less Modules, tests and an axe-core smoke case; format, lint, type and build checks protect the artifact. |
 
-- The easiest way to support is to give it a star and share it. If you have ideas or suggestions about the project, feel free to open an [Issue](https://github.com/snowcattail/island-design/issues) or submit a PR.
+### ESM, CJS and tree shaking
+
+The package export map selects <code>dist/es/index.js</code> for <code>import</code>, <code>dist/cjs/index.cjs</code> for <code>require</code>, and <code>dist/types/index.d.ts</code> for TypeScript. ESM and CJS builds keep modules separate with Rollup <code>preserveModules</code>. Bundlers can discard unused JavaScript components; actual removal depends on the consumer bundler and import pattern. The <code>sideEffects</code> list retains CSS and Less imports. The global stylesheet is deliberately separate, so applications choose when to load it.
+
+For a deep ESM import, the export map also exposes paths under <code>island-design/es/*</code>. Use the public root entry for ordinary applications.
+
+## Design tokens and themes
+
+The token source has three layers: primitive Less values, semantic CSS variables, and the default theme mapping. Components use variables such as <code>--animal-primary-color</code>, <code>--animal-text-color</code>, and <code>--animal-border-radius-base</code>. Override them after loading the stylesheet:
+
+```css
+:root {
+    --animal-primary-color: #247c78;
+    --animal-primary-color-hover: #32958f;
+    --animal-border-radius-base: 12px;
+}
+```
+
+The token package also exports its Less source through <code>@island-design/tokens/variables.less</code> and <code>@island-design/tokens/theme.less</code>. See [design tokens](./docs/design-system/design-tokens.md) for the complete vocabulary.
+
+## Component matrix
+
+| Area                    | Components                                                                                                |
+| ----------------------- | --------------------------------------------------------------------------------------------------------- |
+| General and layout      | Button, Card, Divider, Footer, Title, Background, Cursor, BackTop                                         |
+| Forms and input         | Input, Checkbox, Radio, Switch, Select, Rate, Form, Upload, TimePicker, DatePicker                        |
+| Data and display        | Badge, Avatar, Image, Table, Pagination, Progress, Chart, CodeBlock, CountUp, Countdown, Time, Typewriter |
+| Navigation and overlays | Tabs, Collapse, Carousel, Modal, Drawer, Tooltip, Notification                                            |
+| Feedback and atmosphere | Loading, Skeleton, NoData, Calendar, Tag                                                                  |
+
+All 42 components are under [src/components](./src/components). Their usage examples are in [demo](./demo); design rules are in [docs/design-system](./docs/design-system/README.md).
+
+## Generate a component
+
+```bash
+npm run gen MyComponent -- --dry-run
+npm run gen MyComponent
+```
+
+The generator requires PascalCase and rejects an existing name before writing. It creates a component, Props interface, Less Module, colocated Vitest test with axe-core, and barrel exports. Dry run only prints the planned files. For example, <code>npm run gen Badge -- --dry-run</code> reports a collision because Badge already exists.
+
+After generation, add the component to the demo and the English/Chinese design system documentation and local skill reference, then run <code>npm run ci</code>. This keeps the repository's 42-component documentation gate accurate when the matrix grows.
+
+## Development
+
+```bash
+npm install
+npm run dev
+npm run format:check
+npm run lint
+npm run typecheck
+npm run test:run
+npm run build
+```
+
+<code>npm run ci</code> also checks documentation alignment, bundle safety, and declaration resolution. See [contributing](./CONTRIBUTING.md) for the development workflow. Released under [MIT](./LICENSE).
