@@ -5,6 +5,12 @@ node_modules/
 dist/
 demo-dist/
 
+# Local agent and authoring files
+.trae/
+AGENTS.md
+CLAUDE.md
+skills/
+
 # Vite
 *.local
 vite.config.*.local

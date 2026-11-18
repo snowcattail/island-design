@@ -109,16 +109,16 @@ function App() {
 
 対象読者・用途別に整理（主ドキュメントは英語、中国語ミラーは [`docs/zh-CN/`](./zh-CN/)）：
 
-| ドキュメント                                                                   | 用途                                                                                                                                                                       |
-| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`docs/design-system/`](./design-system/README.md)                             | デザインシステムの基準となる定義（single source of truth）—— デザイントークン、デザインルール、コンポーネント単位のピクセル仕様、CSS 変数テンプレート。                    |
+| ドキュメント                                                             | 用途                                                                                                                                                                      |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`docs/design-system/`](./design-system/README.md)                       | デザインシステムの基準となる定義（single source of truth）—— デザイントークン、デザインルール、コンポーネント単位のピクセル仕様、CSS 変数テンプレート。                   |
 | [`skills/island-design-style/`](../skills/island-design-style/README.md) | インストール可能な Agent skill（`skills add snowcattail/island-design`）—— React プロジェクトでの使用 + 単一 HTML ファイル生成、コンポーネント別 props リファレンス付き。 |
-| [`docs/one-click-prompt.md`](./one-click-prompt.md)                            | 非開発者向けワンクリックプロンプト —— ブートストラッププロンプトを貼り付けるだけで、AI が仕様ファイルを取得し、ダブルクリックでプレビューできる `index.html` を返します。  |
-| [`docs/design-prompts.md`](./design-prompts.md)                                | デザイン / 画像生成ツール向けプロンプト（v0 / Figma AI / Midjourney / DALL-E）、基準となる仕様ファイルへのリンク付き。                                                     |
-| [`docs/development/`](./development/README.md)                                 | 本リポジトリの開発ドキュメント —— ディレクトリ構造、コンポーネント開発、コーディング規約、テスト、ビルド規格。                                                             |
-| [`docs/adr/`](./adr/README.md)                                                 | アーキテクチャ決定記録（ADR）。                                                                                                                                            |
-| [`AGENTS.md`](../AGENTS.md)                                                    | 本リポジトリで作業するコーディングエージェントのエントリポイント。                                                                                                         |
-| [`CONTRIBUTING.md`](../CONTRIBUTING.md)                                        | コントリビューションガイド。                                                                                                                                               |
+| [`docs/one-click-prompt.md`](./one-click-prompt.md)                      | 非開発者向けワンクリックプロンプト —— ブートストラッププロンプトを貼り付けるだけで、AI が仕様ファイルを取得し、ダブルクリックでプレビューできる `index.html` を返します。 |
+| [`docs/design-prompts.md`](./design-prompts.md)                          | デザイン / 画像生成ツール向けプロンプト（v0 / Figma AI / Midjourney / DALL-E）、基準となる仕様ファイルへのリンク付き。                                                    |
+| [`docs/development/`](./development/README.md)                           | 本リポジトリの開発ドキュメント —— ディレクトリ構造、コンポーネント開発、コーディング規約、テスト、ビルド規格。                                                            |
+| [`docs/adr/`](./adr/README.md)                                           | アーキテクチャ決定記録（ADR）。                                                                                                                                           |
+| [`AGENTS.md`](../AGENTS.md)                                              | 本リポジトリで作業するコーディングエージェントのエントリポイント。                                                                                                        |
+| [`CONTRIBUTING.md`](../CONTRIBUTING.md)                                  | コントリビューションガイド。                                                                                                                                              |
 
 <h2>
     <img src="img/icons/terminal.svg" width="20" height="27" alt="" align="absmiddle" />
@@ -159,4 +159,3 @@ npm run build:demo
 </h2>
 
 - 一番簡単なサポートはスターを付けて共有することです。プロジェクトに関するアイデアや提案があれば、[Issue](https://github.com/snowcattail/island-design/issues) の作成や PR の提出を歓迎します。
-

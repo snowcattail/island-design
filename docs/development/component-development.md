@@ -156,13 +156,13 @@ demo registration; this check is manual.
 
 ## Documentation Sync
 
-| Change                                | Must sync                                                                                               |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Change                                | Must sync                                                                                            |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | Component API added or changed        | `skills/island-design-style/references/components/<category>.md` — props copied verbatim from source |
-| Component style added or changed      | `docs/design-system/components/<category>.md` + its `docs/zh-CN` mirror                                 |
-| Visual token or rule changed          | `docs/design-system/design-tokens.md` / `design-rules.md` + their `docs/zh-CN` mirrors                  |
-| New component                         | all of the above + the four demo registration points + README badges (`npm run badges`)                 |
-| Any change to an English `docs/` file | the matching file under `docs/zh-CN/`                                                                   |
+| Component style added or changed      | `docs/design-system/components/<category>.md` + its `docs/zh-CN` mirror                              |
+| Visual token or rule changed          | `docs/design-system/design-tokens.md` / `design-rules.md` + their `docs/zh-CN` mirrors               |
+| New component                         | all of the above + the four demo registration points + README badges (`npm run badges`)              |
+| Any change to an English `docs/` file | the matching file under `docs/zh-CN/`                                                                |
 
 `npm run check:docs` (`scripts/check-docs-sync.mjs`, wired into `npm run ci`) enforces that every component in
 `src/components/` is covered in the design-system docs and the skill references, that skill component reference files

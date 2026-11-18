@@ -8,7 +8,7 @@ Conventional Commits, and the pre-commit hook that runs `npm run ci`.
 
 Start there, then read the rest of [`docs/development/`](docs/development/README.md) for
 repository structure, component development, coding standards, testing, and the build
-contract. Coding agents should start from [`AGENTS.md`](AGENTS.md).
+contract.
 
 Quick essentials:
 

@@ -111,16 +111,16 @@ function App() {
 
 按读者与场景路由（英文为主文档，中文镜像在 [`docs/zh-CN/`](./zh-CN/)）：
 
-| 文档                                                                           | 用途                                                                                                                       |
-| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| [`docs/design-system/`](./zh-CN/design-system/README.md)                       | 设计系统严格定义 (single source of truth) —— 设计 token、设计规则、逐组件像素级规范、CSS 变量模板。                        |
+| 文档                                                                     | 用途                                                                                                                      |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| [`docs/design-system/`](./zh-CN/design-system/README.md)                 | 设计系统严格定义 (single source of truth) —— 设计 token、设计规则、逐组件像素级规范、CSS 变量模板。                       |
 | [`skills/island-design-style/`](../skills/island-design-style/README.md) | 可安装的 Agent skill（`skills add snowcattail/island-design`）—— React 项目使用 + 单文件 HTML 生成，含分组件 props 参考。 |
-| [`docs/one-click-prompt.md`](./zh-CN/one-click-prompt.md)                      | 给普通用户的一键提示词 —— 粘贴一段引导提示词，AI 自行抓取规范文件并产出可直接双击预览的 `index.html`。                     |
-| [`docs/design-prompts.md`](./zh-CN/design-prompts.md)                          | 设计 / 出图工具提示词（v0 / Figma AI / Midjourney / DALL-E），指向规范文件链接。                                           |
-| [`docs/development/`](./zh-CN/development/README.md)                           | 本仓库开发文档 —— 目录结构、组件开发、代码规范、测试、构建契约。                                                           |
-| [`docs/adr/`](./zh-CN/adr/README.md)                                           | 架构决策记录 (ADR)。                                                                                                       |
-| [`AGENTS.md`](../AGENTS.md)                                                    | 在本仓库内工作的 coding agent 入口。                                                                                       |
-| [`CONTRIBUTING.md`](../CONTRIBUTING.md)                                        | 贡献指南。                                                                                                                 |
+| [`docs/one-click-prompt.md`](./zh-CN/one-click-prompt.md)                | 给普通用户的一键提示词 —— 粘贴一段引导提示词，AI 自行抓取规范文件并产出可直接双击预览的 `index.html`。                    |
+| [`docs/design-prompts.md`](./zh-CN/design-prompts.md)                    | 设计 / 出图工具提示词（v0 / Figma AI / Midjourney / DALL-E），指向规范文件链接。                                          |
+| [`docs/development/`](./zh-CN/development/README.md)                     | 本仓库开发文档 —— 目录结构、组件开发、代码规范、测试、构建契约。                                                          |
+| [`docs/adr/`](./zh-CN/adr/README.md)                                     | 架构决策记录 (ADR)。                                                                                                      |
+| [`AGENTS.md`](../AGENTS.md)                                              | 在本仓库内工作的 coding agent 入口。                                                                                      |
+| [`CONTRIBUTING.md`](../CONTRIBUTING.md)                                  | 贡献指南。                                                                                                                |
 
 <h2>
     <img src="img/icons/terminal.svg" width="20" height="27" alt="" align="absmiddle" />
@@ -161,4 +161,3 @@ npm run build:demo
 </h2>
 
 - 最直接的支持就是点个赞、转发分享；如果对项目有想法或建议，欢迎提交 [Issue](https://github.com/snowcattail/island-design/issues) 或 PR。
-

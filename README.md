@@ -111,16 +111,16 @@ function App() {
 
 Routed by audience and scenario (English primary; Chinese mirrors under [`docs/zh-CN/`](./docs/zh-CN/)):
 
-| Document                                                                      | Purpose                                                                                                                                                    |
-| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`docs/design-system/`](./docs/design-system/README.md)                       | Canonical design definition (single source of truth) — tokens, design rules, pixel-exact per-component specs, CSS variable template.                       |
+| Document                                                                | Purpose                                                                                                                                                   |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`docs/design-system/`](./docs/design-system/README.md)                 | Canonical design definition (single source of truth) — tokens, design rules, pixel-exact per-component specs, CSS variable template.                      |
 | [`skills/island-design-style/`](./skills/island-design-style/README.md) | Installable Agent skill (`skills add snowcattail/island-design`) — React project usage + standalone-HTML generation, with per-component props references. |
-| [`docs/one-click-prompt.md`](./docs/one-click-prompt.md)                      | One-click prompt for non-developers — paste one bootstrap prompt, the AI fetches the specs itself and returns a ready `index.html`.                        |
-| [`docs/design-prompts.md`](./docs/design-prompts.md)                          | Prompts for design/image tools (v0 / Figma AI / Midjourney / DALL-E), linking to the canonical spec files.                                                 |
-| [`docs/development/`](./docs/development/README.md)                           | Development guide for this repository — structure, component development, coding standards, testing, build contract.                                       |
-| [`docs/adr/`](./docs/adr/README.md)                                           | Architecture decision records.                                                                                                                             |
-| [`AGENTS.md`](./AGENTS.md)                                                    | Entry point for coding agents working in this repository.                                                                                                  |
-| [`CONTRIBUTING.md`](./CONTRIBUTING.md)                                        | Contributing guide.                                                                                                                                        |
+| [`docs/one-click-prompt.md`](./docs/one-click-prompt.md)                | One-click prompt for non-developers — paste one bootstrap prompt, the AI fetches the specs itself and returns a ready `index.html`.                       |
+| [`docs/design-prompts.md`](./docs/design-prompts.md)                    | Prompts for design/image tools (v0 / Figma AI / Midjourney / DALL-E), linking to the canonical spec files.                                                |
+| [`docs/development/`](./docs/development/README.md)                     | Development guide for this repository — structure, component development, coding standards, testing, build contract.                                      |
+| [`docs/adr/`](./docs/adr/README.md)                                     | Architecture decision records.                                                                                                                            |
+| [`AGENTS.md`](./AGENTS.md)                                              | Entry point for coding agents working in this repository.                                                                                                 |
+| [`CONTRIBUTING.md`](./CONTRIBUTING.md)                                  | Contributing guide.                                                                                                                                       |
 
 <h2>
     <img src="./docs/img/icons/terminal.svg" width="20" height="27" alt="" align="absmiddle" />
@@ -161,4 +161,3 @@ npm run build:demo
 </h2>
 
 - The easiest way to support is to give it a star and share it. If you have ideas or suggestions about the project, feel free to open an [Issue](https://github.com/snowcattail/island-design/issues) or submit a PR.
-
