@@ -48,7 +48,7 @@
     src: url('../src/assets/fonts/noto-sans-sc-latin-700-normal.woff2') format('woff2');
 }
 
-/* GROBOLD 展示字体（首页 Hero 标题） */
+/* GROBOLD 展示字体（侧边栏标题） */
 @font-face {
     font-family: 'GROBOLD';
     font-style: normal;

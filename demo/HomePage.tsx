@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Button, Typewriter } from '../src';
 import * as Icons from 'naive-icons';
-import { islandGradient } from './gradients';
 import { useIsMobile } from './tools';
 
 type NaiveIcon = React.FC<{ size?: number | string; color?: string; style?: React.CSSProperties }>;
@@ -220,41 +219,23 @@ const S = {
         zIndex: 1,
     } as React.CSSProperties,
     heroContent: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: 150,
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        maxWidth: 880,
-        width: '100%',
-    } as React.CSSProperties,
-    heroContentMobile: {
-        display: 'grid',
-        gridTemplateColumns: '1fr',
-        gap: 32,
-        alignItems: 'center',
-        maxWidth: 880,
+        maxWidth: 760,
         width: '100%',
     } as React.CSSProperties,
     heroText: {
-        textAlign: 'left' as const,
-    } as React.CSSProperties,
-    heroLogo: {
-        fontSize: 72,
-        lineHeight: 1,
-        marginBottom: 16,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        textAlign: 'center' as const,
     } as React.CSSProperties,
     heroTitle: {
-        fontFamily:
-            "'GROBOLD', Nunito, 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
+        fontFamily: "Nunito, 'Noto Sans SC', sans-serif",
         fontSize: 55,
         fontWeight: 800,
-        lineHeight: 1.1,
-        color: '#FFF9E6',
-        textShadow: '0px 4px 1px rgba(0, 0, 0, 0.4)',
-        margin: '0 0 12px',
+        lineHeight: 1.08,
+        letterSpacing: '-0.035em',
+        color: '#4b3e30',
+        margin: '0 0 20px',
     } as React.CSSProperties,
     heroVersion: {
         display: 'inline-flex',
@@ -267,7 +248,7 @@ const S = {
         borderRadius: 10,
         background: '#e6f9f6',
         color: '#19c8b9',
-        marginLeft: 8,
+        marginLeft: 12,
         verticalAlign: 'middle',
         textShadow: 'none',
     } as React.CSSProperties,
@@ -278,6 +259,7 @@ const S = {
         lineHeight: 1.7,
         margin: '0 0 28px',
         maxWidth: 520,
+        marginInline: 'auto',
     } as React.CSSProperties,
     heroActions: {
         display: 'flex',
@@ -578,52 +560,23 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             </div>
             {/* Hero */}
             <div style={{ ...S.hero }}>
-                <div style={isMobile ? S.heroContentMobile : S.heroContent}>
-                    {/* 暂时隐藏：恢复时去掉 display: 'none' */}
-                    {isMobile && (
-                        <div style={{ textAlign: 'center', display: 'none' }}>
-                            <img
-                                src={islandGradient}
-                                style={{ width: 180, height: 112, borderRadius: 12 }}
-                                alt="logo"
-                                decoding="async"
-                            />
-                        </div>
-                    )}
-                    <div style={isMobile ? { textAlign: 'center' as const } : S.heroText}>
-                        <h1 style={{ ...S.heroTitle, fontSize: isMobile ? 37 : 60 }}>
-                            {isMobile ? (
-                                'Island Design'
-                            ) : (
-                                <>
-                                    Animal <br /> Island UI
-                                </>
-                            )}
-                            <span style={S.heroVersion}>v3.0.0</span>
+                <div style={S.heroContent}>
+                    <div style={S.heroText}>
+                        <h1 style={{ ...S.heroTitle, fontSize: isMobile ? 40 : 68 }}>
+                            Island Design
+                            <span style={S.heroVersion}>v1.0.0</span>
                         </h1>
                         <Typewriter speed={60}>
                             <p style={{ ...S.heroSubtitle, fontSize: isMobile ? 14 : 17 }}>
-                                Kawaii 风格的 React 组件库，基于 TypeScript + Vite 构建，让 Web 应用充满温暖质感
+                                自然清新的 React 企业级组件库，基于 TypeScript + Vite 构建，兼具类型安全与按需加载体验
                             </p>
                         </Typewriter>
-                        {/* 暂时隐藏：恢复时去掉 display: 'none' */}
-                        <div style={{ ...S.heroActions, justifyContent: isMobile ? 'center' : 'flex-start' }}>
+                        <div style={{ ...S.heroActions, justifyContent: 'center' }}>
                             <Button type="primary" size="large" onClick={() => onNavigate?.('/skill')}>
                                 开始使用 →
                             </Button>
                         </div>
                     </div>
-                    {/* 暂时隐藏：恢复时去掉 display: 'none' */}
-                    {!isMobile && (
-                        <div style={{ textAlign: 'center', display: 'none' }}>
-                            <img
-                                src={islandGradient}
-                                style={{ width: 320, height: 200, borderRadius: 16 }}
-                                alt="logo"
-                                decoding="async"
-                            />
-                        </div>
-                    )}
                 </div>
             </div>
 
@@ -740,7 +693,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                         GitHub
                     </span>
                 </div>
-                <div>© 2026 Animal Island. All Rights Reserved · MIT License</div>
+                <div>© 2026 Island Design. All Rights Reserved · MIT License</div>
             </div>
         </div>
     );
