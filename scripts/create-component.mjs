@@ -38,8 +38,8 @@ export const ${name}: React.FC<${name}Props> = ({ children, className, ...rest }
 ${name}.displayName = '${name}';
 `,
             [`${kebab}.module.less`]: `.${kebab.replaceAll('-', '')} {
-    color: var(--animal-text-color);
-    border-radius: var(--animal-border-radius-base);
+    color: var(--island-text-color);
+    border-radius: var(--island-border-radius-base);
 }
 `,
             'index.ts': `export { ${name} } from './${name}';

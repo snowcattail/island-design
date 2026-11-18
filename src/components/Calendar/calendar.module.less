@@ -7,7 +7,7 @@
    其他组件也只有语义化的 color / type，没有整套换色开关 */
 
 /*
- * 面板尺寸完全由宽度推导：组件测量自身宽度后下发 --animal-calendar-scale
+ * 面板尺寸完全由宽度推导：组件测量自身宽度后下发 --island-calendar-scale
  * （= 实际宽度 / 基准宽度 750），下面所有度量都是「基准值 × 系数」。
  * 因此面板变大时行高、事项条、字号一起跟着放大，不需要 size 档位。
  *
@@ -16,24 +16,24 @@
  * 上面的基准值与 Calendar.tsx 的 LAYOUT_BASE 一一对应；基准宽度下改任何取值都必须同步那边，
  * 两边的硬约束算式都写死常量值，避免各自漂移成对不上的数字。
  */
-@base-scale: var(--animal-calendar-scale, 1);
+@base-scale: var(--island-calendar-scale, 1);
 @number-size: 28px; /* 日期圆直径 */
 /* 面板左右内边距：表格与绝对定位的事项叠加层共用同一缩进，才能保持列宽对齐 */
 @body-pad: 8px;
 
 .calendar {
-    --animal-calendar-accent: #19c8b9;
-    --animal-calendar-accent-soft: rgba(25, 200, 185, 0.14);
-    --animal-calendar-accent-tint: #e6f9f6;
-    --animal-calendar-header-height: calc(32px * @base-scale);
-    --animal-calendar-number-size: calc(@number-size * @base-scale);
-    --animal-calendar-cell-height: calc(104px * @base-scale);
-    --animal-calendar-row-height: calc(22px * @base-scale);
-    --animal-calendar-bar-height: calc(17px * @base-scale);
+    --island-calendar-accent: #19c8b9;
+    --island-calendar-accent-soft: rgba(25, 200, 185, 0.14);
+    --island-calendar-accent-tint: #e6f9f6;
+    --island-calendar-header-height: calc(32px * @base-scale);
+    --island-calendar-number-size: calc(@number-size * @base-scale);
+    --island-calendar-cell-height: calc(104px * @base-scale);
+    --island-calendar-row-height: calc(22px * @base-scale);
+    --island-calendar-bar-height: calc(17px * @base-scale);
 
     display: block;
     width: 100%;
-    font-family: var(--animal-font-family, 'Nunito', 'Noto Sans SC', sans-serif);
+    font-family: var(--island-font-family, 'Nunito', 'Noto Sans SC', sans-serif);
     user-select: none;
     -webkit-user-select: none;
 }
@@ -69,11 +69,11 @@
 
 .navBtn:hover {
     background: rgba(114, 93, 66, 0.1);
-    color: var(--animal-calendar-accent);
+    color: var(--island-calendar-accent);
 }
 
 .navBtn:focus-visible {
-    outline: 2px solid var(--animal-calendar-accent);
+    outline: 2px solid var(--island-calendar-accent);
     outline-offset: 1px;
 }
 
@@ -98,7 +98,7 @@
 .monthIcon {
     display: block;
     flex-shrink: 0;
-    color: var(--animal-calendar-accent);
+    color: var(--island-calendar-accent);
 }
 
 .todayBtn {
@@ -121,7 +121,7 @@
 }
 
 .todayBtn:focus-visible {
-    outline: 2px solid var(--animal-calendar-accent);
+    outline: 2px solid var(--island-calendar-accent);
     outline-offset: 1px;
 }
 
@@ -129,7 +129,7 @@
 .body {
     position: relative;
     /* 上下左右都留出内边距：下方额外为 2 行事项带预留高度（表格自身只占 6 行日期） */
-    padding: @body-pad @body-pad calc(var(--animal-calendar-row-height) * 2 + 6px + @body-pad);
+    padding: @body-pad @body-pad calc(var(--island-calendar-row-height) * 2 + 6px + @body-pad);
     border: 1.5px solid #e8dcc8;
     border-radius: 20px;
     background:
@@ -146,7 +146,7 @@
 }
 
 .weekCell {
-    height: var(--animal-calendar-header-height);
+    height: var(--island-calendar-header-height);
     color: #a09080;
     font-size: 12px;
     font-weight: 700;
@@ -159,7 +159,7 @@
        这样 7 列网格里的跨天条与日期圆共用同一条轨道，接缝处才能连成一条。
        顶部 5px 内边距把 numberBand 的上下留白对称化，避免日期圆贴到格顶；
        日期圆下方空间由 numberBand 统一控制，格子不再额外设 padding-bottom */
-    height: var(--animal-calendar-cell-height);
+    height: var(--island-calendar-cell-height);
     padding: 5px 5px 0;
     box-sizing: border-box;
     vertical-align: top;
@@ -173,7 +173,7 @@
 }
 
 .cell:focus-visible {
-    outline: 2px solid var(--animal-calendar-accent);
+    outline: 2px solid var(--island-calendar-accent);
     outline-offset: -2px;
 }
 
@@ -183,7 +183,7 @@
 
 .cellSelected,
 .cellSelected:hover {
-    background: var(--animal-calendar-accent-tint);
+    background: var(--island-calendar-accent-tint);
 }
 
 /* 开启拖拽创建后，日期格改用十字光标提示可拖拽 */
@@ -195,14 +195,14 @@
    字号随面板缩放（.calendar 上已按宽度设好），描边与背景仍挂在圆上 */
 .dayNumber {
     display: block;
-    width: var(--animal-calendar-number-size);
-    height: var(--animal-calendar-number-size);
+    width: var(--island-calendar-number-size);
+    height: var(--island-calendar-number-size);
     border-radius: 50%;
     color: #725d42;
     /* 字号固定 13px：日期圆直径会随面板放大，但数字本身再放大就会溢出圆外 */
     font-size: 13px;
     font-weight: 500;
-    line-height: var(--animal-calendar-number-size);
+    line-height: var(--island-calendar-number-size);
     text-align: center;
     transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -218,14 +218,14 @@
 }
 
 .cellToday .dayNumber {
-    box-shadow: inset 0 0 0 1.5px var(--animal-calendar-accent);
-    color: var(--animal-calendar-accent);
+    box-shadow: inset 0 0 0 1.5px var(--island-calendar-accent);
+    color: var(--island-calendar-accent);
     font-weight: 700;
 }
 
 .cellSelected .dayNumber,
 .cellSelected:hover .dayNumber {
-    background: var(--animal-calendar-accent);
+    background: var(--island-calendar-accent);
     box-shadow: none;
     color: #fff;
     font-weight: 700;
@@ -237,8 +237,8 @@
     margin: 2px 0 6px;
     padding: 1px 5px;
     border-radius: 8px;
-    background: var(--animal-calendar-accent-soft);
-    color: var(--animal-calendar-accent);
+    background: var(--island-calendar-accent-soft);
+    color: var(--island-calendar-accent);
     font-size: 10px;
     font-weight: 700;
     line-height: 1.5;
@@ -253,7 +253,7 @@
    之所以用算好的像素值而不是 grid-column：事项条是绝对定位元素，
    已脱离网格布局，写 grid-column 不会生效。 */
 .eventsLayer {
-    --animal-calendar-col-width: calc(100% / 7);
+    --island-calendar-col-width: calc(100% / 7);
 
     position: absolute;
     top: @body-pad;
@@ -266,23 +266,23 @@
 .event {
     position: absolute;
     /* top 由组件算到「行首」，再用 0.5em 的位移把条在行内垂直居中 */
-    top: calc(var(--animal-calendar-bar-top, 0px) + var(--animal-calendar-row-height) / 2);
-    left: var(--animal-calendar-bar-left, 0);
-    width: var(--animal-calendar-bar-width, 0);
-    height: var(--animal-calendar-bar-height, 17px);
+    top: calc(var(--island-calendar-bar-top, 0px) + var(--island-calendar-row-height) / 2);
+    left: var(--island-calendar-bar-left, 0);
+    width: var(--island-calendar-bar-width, 0);
+    height: var(--island-calendar-bar-height, 17px);
     margin: 0;
     transform: translateY(-50%);
     padding: 0 6px;
     overflow: hidden;
-    border: 1px solid var(--animal-calendar-accent-soft);
+    border: 1px solid var(--island-calendar-accent-soft);
     border-radius: 10px;
-    background: var(--animal-calendar-accent-soft);
+    background: var(--island-calendar-accent-soft);
     color: #725d42;
     /* 字号随面板缩放，固定 11px 会让大面板显得字太小 */
     font-size: calc(11px * @base-scale);
     font-weight: 600;
     /* 行高与条高一致，单行垂直居中；文字溢出交给内部 span 做省略号 */
-    line-height: var(--animal-calendar-bar-height, 17px);
+    line-height: var(--island-calendar-bar-height, 17px);
     white-space: nowrap;
 }
 

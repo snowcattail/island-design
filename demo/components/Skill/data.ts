@@ -28,7 +28,7 @@ export const QUICK_STEPS: QuickStep[] = [
     },
     {
         title: '按规则验收',
-        desc: '产出必须满足技能里的硬性规则：只用库组件与 var(--animal-*) 令牌、无纯黑文字、无冷蓝焦点环、图标只用 naive-icons。不满足即视为 bug，可直接让代理按规则自查。',
+        desc: '产出必须满足技能里的硬性规则：只用库组件与 var(--island-*) 令牌、无纯黑文字、无冷蓝焦点环、图标只用 naive-icons。不满足即视为 bug，可直接让代理按规则自查。',
     },
 ];
 
@@ -90,7 +90,7 @@ export const SCENARIOS: Scenario[] = [
         icon: 'Code',
         color: 'app-teal',
         agents: ['Claude Code', 'Codex', 'Cursor'],
-        desc: '已安装 island-design npm 包的工程：代理以包内 TypeScript 声明为准搭页面，并用 --animal-* 令牌做主题。',
+        desc: '已安装 island-design npm 包的工程：代理以包内 TypeScript 声明为准搭页面，并用 --island-* 令牌做主题。',
         entry: 'references/react-project.md',
     },
     {
@@ -213,7 +213,7 @@ export const RULE_GROUPS: RuleGroup[] = [
         rules: [
             "样式只导入一次：应用入口 `import 'island-design/style'`，否则组件无样式。",
             '只从包根与 style 入口导入 —— 禁止深路径导入。',
-            '禁止用 className / style 覆盖组件的颜色、圆角、阴影；自定义元素用 var(--animal-*) 令牌上色。',
+            '禁止用 className / style 覆盖组件的颜色、圆角、阴影；自定义元素用 var(--island-*) 令牌上色。',
         ],
     },
     {
@@ -257,27 +257,27 @@ export const COLOR_TOKEN_GROUPS: TokenGroup[] = [
     {
         label: '主色 primary',
         tokens: [
-            '--animal-primary-color',
-            '--animal-primary-color-hover',
-            '--animal-primary-color-active',
-            '--animal-primary-color-bg',
+            '--island-primary-color',
+            '--island-primary-color-hover',
+            '--island-primary-color-active',
+            '--island-primary-color-bg',
         ],
     },
     {
         label: '状态色 status',
-        tokens: ['--animal-success-color', '--animal-warning-color', '--animal-error-color'],
+        tokens: ['--island-success-color', '--island-warning-color', '--island-error-color'],
     },
     {
         label: '文字色 text',
-        tokens: ['--animal-text-color', '--animal-text-color-secondary', '--animal-text-color-disabled'],
+        tokens: ['--island-text-color', '--island-text-color-secondary', '--island-text-color-disabled'],
     },
     {
         label: '边框与背景 border / bg',
         tokens: [
-            '--animal-border-color',
-            '--animal-border-color-light',
-            '--animal-bg-color',
-            '--animal-bg-color-secondary',
+            '--island-border-color',
+            '--island-border-color-light',
+            '--island-bg-color',
+            '--island-bg-color-secondary',
         ],
     },
 ];
@@ -286,21 +286,21 @@ export const COLOR_TOKEN_GROUPS: TokenGroup[] = [
 export const SCALE_TOKEN_GROUPS: TokenGroup[] = [
     {
         label: '圆角',
-        tokens: ['--animal-border-radius-sm', '--animal-border-radius-base', '--animal-border-radius-lg'],
+        tokens: ['--island-border-radius-sm', '--island-border-radius-base', '--island-border-radius-lg'],
     },
     {
         label: '间距',
         tokens: [
-            '--animal-spacing-xs',
-            '--animal-spacing-sm',
-            '--animal-spacing-md',
-            '--animal-spacing-lg',
-            '--animal-spacing-xl',
+            '--island-spacing-xs',
+            '--island-spacing-sm',
+            '--island-spacing-md',
+            '--island-spacing-lg',
+            '--island-spacing-xl',
         ],
     },
-    { label: '阴影', tokens: ['--animal-shadow-sm', '--animal-shadow-base', '--animal-shadow-lg'] },
+    { label: '阴影', tokens: ['--island-shadow-sm', '--island-shadow-base', '--island-shadow-lg'] },
     {
         label: '字体',
-        tokens: ['--animal-font-family', '--animal-font-size-sm', '--animal-font-size-base', '--animal-font-size-lg'],
+        tokens: ['--island-font-family', '--island-font-size-sm', '--island-font-size-base', '--island-font-size-lg'],
     },
 ];

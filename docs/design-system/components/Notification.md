@@ -1,7 +1,7 @@
 # Notification
 
 Source: `src/components/Notification/NotificationPortal.tsx` (imperative API + global store + container) + `Notification.tsx` (single-item view) + `notification.module.less`.
-**An imperative component**: there is no `<Notification>` JSX element — everything is triggered through `Notification.open / .success / .info / .warning / .error / .destroy`. The first call mounts a root container on `document.body` (`data-animal-notification-root`); afterwards `useSyncExternalStore` subscribes to store changes. SSR-safe (guarded by `typeof document`).
+**An imperative component**: there is no `<Notification>` JSX element — everything is triggered through `Notification.open / .success / .info / .warning / .error / .destroy`. The first call mounts a root container on `document.body` (`data-island-notification-root`); afterwards `useSyncExternalStore` subscribes to store changes. SSR-safe (guarded by `typeof document`).
 
 ## Imperative API
 
@@ -112,26 +112,26 @@ Notification.destroy('upload'); // close a specific key
 ## Enter / leave animation (direction follows placement)
 
 ```css
-.placement-top    { animation: animal-notification-slide-from-top 0.25s cubic-bezier(0.4,0,0.2,1) both; }
-.placement-top.leaving    { animation: animal-notification-slide-out-top 0.25s cubic-bezier(0.4,0,0.2,1) both; }
-.placement-bottom { animation: animal-notification-rise-from-bottom 0.25s cubic-bezier(0.4,0,0.2,1) both; }
-.placement-bottom.leaving { animation: animal-notification-sink-out-bottom 0.25s cubic-bezier(0.4,0,0.2,1) both; }
+.placement-top    { animation: island-notification-slide-from-top 0.25s cubic-bezier(0.4,0,0.2,1) both; }
+.placement-top.leaving    { animation: island-notification-slide-out-top 0.25s cubic-bezier(0.4,0,0.2,1) both; }
+.placement-bottom { animation: island-notification-rise-from-bottom 0.25s cubic-bezier(0.4,0,0.2,1) both; }
+.placement-bottom.leaving { animation: island-notification-sink-out-bottom 0.25s cubic-bezier(0.4,0,0.2,1) both; }
 
 /* top: enter sliding down from -16px, leave sliding back up */
-@keyframes animal-notification-slide-from-top {
+@keyframes island-notification-slide-from-top {
     from { opacity: 0; transform: translateY(-16px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes animal-notification-slide-out-top {
+@keyframes island-notification-slide-out-top {
     from { opacity: 1; transform: translateY(0); }
     to   { opacity: 0; transform: translateY(-16px); }
 }
 /* bottom: enter rising up from +16px, leave sinking back down */
-@keyframes animal-notification-rise-from-bottom {
+@keyframes island-notification-rise-from-bottom {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes animal-notification-sink-out-bottom {
+@keyframes island-notification-sink-out-bottom {
     from { opacity: 1; transform: translateY(0); }
     to   { opacity: 0; transform: translateY(16px); }
 }

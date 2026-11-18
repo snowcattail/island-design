@@ -9,7 +9,7 @@
 ```jsx
 <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden>
     <defs>
-        <clipPath id="animal-modal-clip" clipPathUnits="objectBoundingBox">
+        <clipPath id="island-modal-clip" clipPathUnits="objectBoundingBox">
             <path
                 d="M0.501,0.005 L0.501,0.005 L0.523,0.005 L0.549,0.006
         C0.704,0.01,0.796,0.017,0.825,0.027
@@ -45,21 +45,21 @@
 ```css
 /* mask */
 background: rgba(0, 0, 0, 0.35);
-animation: animal-fade-in 0.25s ease;
+animation: island-fade-in 0.25s ease;
 z-index: 1000;
 user-select: none; /* chrome — never hosts a selection */
 
 /* modal container */
 max-width: calc(100vw - 32px);
 max-height: calc(100vh - 64px);
-animation: animal-zoom-in 0.3s ease;
+animation: island-zoom-in 0.3s ease;
 
 /* prefers-reduced-motion: reduce —— scale(0.92) → scale(1) 的缩放属于位移动效，
    予以关闭（面板落回静止态 scale(1)，不会消失或卡在中间帧）。
    遮罩的纯 opacity 淡入不属于位移动动效，予以保留。 */
 
 /* clipped content area */
-clip-path: url(#animal-modal-clip);
+clip-path: url(#island-modal-clip);
 background: rgb(247, 243, 223);
 color: rgb(128, 115, 89);
 padding: 48px 48px 32px 48px;
@@ -122,7 +122,7 @@ border-color: rgba(255, 204, 0, 0.85);
 
 **下沉景深抽屉 — 背景下沉 + 缩放 + 降亮突出主体。**
 
-- `pushBackground`（默认 `true`）：打开时，`document.body` 下每个非 fixed 的直接子元素施加 `transform: scale(0.94)`、`border-radius: 14px`、`overflow: hidden`，过渡 `0.36s cubic-bezier(0.2, 0, 0.2, 1)`。fixed 定位元素、`[data-animal-drawer-ignore]` 节点以及组件自身的 portal 包裹器都会被排除。
+- `pushBackground`（默认 `true`）：打开时，`document.body` 下每个非 fixed 的直接子元素施加 `transform: scale(0.94)`、`border-radius: 14px`、`overflow: hidden`，过渡 `0.36s cubic-bezier(0.2, 0, 0.2, 1)`。fixed 定位元素、`[data-island-drawer-ignore]` 节点以及组件自身的 portal 包裹器都会被排除。
 - 被下沉的背景**刻意不加 `filter`**。`filter` 是非合成器属性：它会为每个背景元素新建合成层，并对整个视口做逐像素高斯模糊，症状就是**首次打开卡顿**（此时各层需要从零光栅化），而之后打开却很顺。景深读数由 `scale` + 圆角 + 遮罩压暗承担。同时在过渡开始前加 `will-change: transform`，让分层提前完成而不是发生在动画中途。
 - `prefers-reduced-motion: reduce` 下**同时**关闭背景下沉（缩放位移）与面板自身的 `translateX/Y(±100%) → none` 滑入，与 `Modal` 关闭 `scale(0.92) → scale(1)` 缩放入场保持一致。面板直接落位，不会停在中间帧或不可见。遮罩的 opacity 过渡不属于位移动效，予以保留。
 - **面板 chrome 不可选中，只有内容区可选。** 遮罩、标题行、标题、关闭 × 与底部按钮区均为 `user-select: none`，内容区为 `user-select: text`（正文仍可复制）。不这么设的话，双击标题会选中一个词；双击触发按钮打开抽屉时，第二击会落在正在滑入的面板上并落下一块选区 —— 暖黄 `::selection` 于是把弹窗里涂出一块莫名的高亮。
@@ -133,7 +133,7 @@ position: fixed;
 inset: 0;
 z-index: 1000;
 background: rgba(0, 0, 0, 0.18);
-animation: animal-drawer-fade-in 0.25s ease;
+animation: island-drawer-fade-in 0.25s ease;
 user-select: none; /* chrome — never hosts a selection */
 
 /* panel (shared) */
@@ -155,19 +155,19 @@ top: 0; right: 0; height: 100vh;
 max-width: calc(100vw - 32px);
 border-radius: 20px 0 0 20px;
 box-shadow: -12px 0 32px rgba(61, 52, 40, 0.18);
-animation-name: animal-drawer-slide-right; /* translateX(100%) → 0 */
+animation-name: island-drawer-slide-right; /* translateX(100%) → 0 */
 /* left */
 border-radius: 0 20px 20px 0;
 box-shadow: 12px 0 32px rgba(61, 52, 40, 0.18);
-animation-name: animal-drawer-slide-left; /* translateX(-100%) → 0 */
+animation-name: island-drawer-slide-left; /* translateX(-100%) → 0 */
 /* top */
 border-radius: 0 0 20px 20px;
 box-shadow: 0 12px 32px rgba(61, 52, 40, 0.18);
-animation-name: animal-drawer-slide-top; /* translateY(-100%) → 0 */
+animation-name: island-drawer-slide-top; /* translateY(-100%) → 0 */
 /* bottom */
 border-radius: 20px 20px 0 0;
 box-shadow: 0 -12px 32px rgba(61, 52, 40, 0.18);
-animation-name: animal-drawer-slide-bottom; /* translateY(100%) → 0 */
+animation-name: island-drawer-slide-bottom; /* translateY(100%) → 0 */
 
 /* title */
 font-size: 28px;

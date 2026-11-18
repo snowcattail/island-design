@@ -238,24 +238,24 @@
 // ---------- Enter / leave animations ----------
 // placement=top: 从 -16px 滑入,leave 向上滑出
 .placement-top {
-    animation: animal-notification-slide-from-top 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation: island-notification-slide-from-top 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .placement-top.leaving {
-    animation: animal-notification-slide-out-top 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation: island-notification-slide-out-top 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 // placement=bottom: 从 +16px 滑入,leave 向下滑出
 .placement-bottom {
-    animation: animal-notification-rise-from-bottom 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation: island-notification-rise-from-bottom 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .placement-bottom.leaving {
-    animation: animal-notification-sink-out-bottom 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation: island-notification-sink-out-bottom 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 // top 方向:从 -16px 滑入(向下)
-@keyframes animal-notification-slide-from-top {
+@keyframes island-notification-slide-from-top {
     from {
         opacity: 0;
         transform: translateY(-16px);
@@ -268,7 +268,7 @@
 }
 
 // top 方向:leave 向上滑出到 -16px
-@keyframes animal-notification-slide-out-top {
+@keyframes island-notification-slide-out-top {
     from {
         opacity: 1;
         transform: translateY(0);
@@ -281,7 +281,7 @@
 }
 
 // bottom 方向:从 +16px 滑入(向上)
-@keyframes animal-notification-rise-from-bottom {
+@keyframes island-notification-rise-from-bottom {
     from {
         opacity: 0;
         transform: translateY(16px);
@@ -294,7 +294,7 @@
 }
 
 // bottom 方向:leave 向下滑出到 +16px
-@keyframes animal-notification-sink-out-bottom {
+@keyframes island-notification-sink-out-bottom {
     from {
         opacity: 1;
         transform: translateY(0);

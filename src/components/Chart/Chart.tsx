@@ -489,7 +489,7 @@ export const Chart: React.FC<ChartProps> = ({
                                             cx={mark.x}
                                             cy={mark.y}
                                             r={7}
-                                            fill="var(--animal-bg-color, #f8f8f0)"
+                                            fill="var(--island-bg-color, #f8f8f0)"
                                             stroke={mark.point.color}
                                             strokeWidth={2.5}
                                         />

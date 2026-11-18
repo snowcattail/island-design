@@ -49,7 +49,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     const isControlled = value !== undefined;
     const checkedValues = isControlled ? value! : innerValue;
     const reactId = useId();
-    const idBase = `animal-cbx-${reactId.replace(/:/g, '')}`;
+    const idBase = `island-cbx-${reactId.replace(/:/g, '')}`;
 
     const handleChange = useCallback(
         (optValue: string | number, optDisabled?: boolean) => {

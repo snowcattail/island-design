@@ -16,8 +16,8 @@ export default defineConfig({
     },
     css: {
         modules: {
-            // 与 vite.config.ts 保持一致：animal-[类名]-[hash]
-            generateScopedName: 'animal-[local]-[hash:base64:5]',
+            // 与 vite.config.ts 保持一致：island-[类名]-[hash]
+            generateScopedName: 'island-[local]-[hash:base64:5]',
             localsConvention: 'camelCase',
         },
         preprocessorOptions: {

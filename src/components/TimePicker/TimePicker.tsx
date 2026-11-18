@@ -130,7 +130,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     const parsed = parseTime(currentValue);
     const open = openProp !== undefined ? openProp : innerOpen;
 
-    const idPrefix = `animal-time-picker-${useId().replace(/:/g, '')}`;
+    const idPrefix = `island-time-picker-${useId().replace(/:/g, '')}`;
     const panelId = `${idPrefix}-panel`;
 
     // 打开面板时重置待选值所用到的当前值引用，避免值变化本身触发重置

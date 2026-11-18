@@ -6,7 +6,7 @@ import styles from './notification.module.less';
 
 const wait = (ms = 0) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
-const getContainer = (): HTMLElement | null => document.querySelector('[data-animal-notification-root]');
+const getContainer = (): HTMLElement | null => document.querySelector('[data-island-notification-root]');
 
 const waitForContainer = async (): Promise<HTMLElement> => {
     return waitFor(() => {

@@ -26,9 +26,9 @@ export interface CursorProps {
 
 export const Cursor: React.FC<CursorProps> = ({ type = 'default', children, className, style, forceAll = true }) => {
     const cls = [
-        'animal-cursor',
-        forceAll ? 'animal-cursor--force' : 'animal-cursor--scoped',
-        type === 'raindrop' && 'animal-cursor--raindrop',
+        'island-cursor',
+        forceAll ? 'island-cursor--force' : 'island-cursor--scoped',
+        type === 'raindrop' && 'island-cursor--raindrop',
         className,
     ]
         .filter(Boolean)

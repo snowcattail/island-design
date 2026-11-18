@@ -1,20 +1,20 @@
 // ============================================
 // Skill 介绍页专属样式
-// 颜色/圆角/间距一律取 --animal-* 令牌，不写死 hex —— 与技能自身的硬性规则保持一致
+// 颜色/圆角/间距一律取 --island-* 令牌，不写死 hex —— 与技能自身的硬性规则保持一致
 // ============================================
 
 .page {
     display: flex;
     flex-direction: column;
-    gap: var(--animal-spacing-lg);
+    gap: var(--island-spacing-lg);
 }
 
 // ---------- 通用文字 ----------
 .lead {
     margin: 0;
-    font-size: var(--animal-font-size-sm);
+    font-size: var(--island-font-size-sm);
     line-height: 1.8;
-    color: var(--animal-text-color-secondary);
+    color: var(--island-text-color-secondary);
 }
 
 .leadSpaced {
@@ -24,8 +24,8 @@
 .tagRow {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--animal-spacing-xs);
-    margin-top: var(--animal-spacing-sm);
+    gap: var(--island-spacing-xs);
+    margin-top: var(--island-spacing-sm);
 }
 
 // 行内路径/命令片段
@@ -33,17 +33,17 @@
     padding: 3px 10px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--animal-text-color);
-    background: var(--animal-bg-color);
-    border: 1px solid var(--animal-border-color-light);
+    color: var(--island-text-color);
+    background: var(--island-bg-color);
+    border: 1px solid var(--island-border-color-light);
     border-radius: 12px;
 }
 
 .pathChipQuiet {
     padding: 2px 8px;
     font-size: 12px;
-    color: var(--animal-text-color-secondary);
-    background: var(--animal-bg-color-secondary);
+    color: var(--island-text-color-secondary);
+    background: var(--island-bg-color-secondary);
     border-radius: 12px;
 }
 
@@ -51,15 +51,15 @@
 .quickList {
     display: flex;
     flex-direction: column;
-    gap: var(--animal-spacing-md);
-    margin: var(--animal-spacing-md) 0 0;
+    gap: var(--island-spacing-md);
+    margin: var(--island-spacing-md) 0 0;
     padding: 0;
     list-style: none;
 }
 
 .quickItem {
     display: flex;
-    gap: var(--animal-spacing-sm);
+    gap: var(--island-spacing-sm);
 }
 
 .quickBody {
@@ -71,7 +71,7 @@
     margin: 0 0 6px;
     font-size: 15px;
     font-weight: 700;
-    color: var(--animal-text-color);
+    color: var(--island-text-color);
 }
 
 // ---------- 序号圆点（快速开始 / 工作原理共用）----------
@@ -85,7 +85,7 @@
     font-size: 13px;
     font-weight: 800;
     color: #fff;
-    background: var(--animal-primary-color);
+    background: var(--island-primary-color);
     border-radius: 50%;
 }
 
@@ -108,29 +108,29 @@
 .cardHead {
     display: flex;
     align-items: center;
-    gap: var(--animal-spacing-sm);
-    margin-bottom: var(--animal-spacing-xs);
+    gap: var(--island-spacing-sm);
+    margin-bottom: var(--island-spacing-xs);
 }
 
 .cardTitle {
     font-size: 15px;
     font-weight: 700;
-    color: var(--animal-text-color);
+    color: var(--island-text-color);
 }
 
 .cardDesc {
     margin: 0;
-    font-size: var(--animal-font-size-sm);
+    font-size: var(--island-font-size-sm);
     line-height: 1.7;
     margin-bottom: 10px;
-    color: var(--animal-text-color-secondary);
+    color: var(--island-text-color-secondary);
 }
 
 // ---------- 使用场景 ----------
 .scenarioGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--animal-spacing-md);
+    gap: var(--island-spacing-md);
 }
 
 .scenarioCard {
@@ -138,38 +138,38 @@
 }
 
 .scenarioTitle {
-    font-size: var(--animal-font-size-base);
+    font-size: var(--island-font-size-base);
     font-weight: 700;
-    color: var(--animal-text-color);
+    color: var(--island-text-color);
 }
 
 .scenarioDesc {
-    margin: 0 0 var(--animal-spacing-sm);
-    color: var(--animal-text-color);
+    margin: 0 0 var(--island-spacing-sm);
+    color: var(--island-text-color);
 }
 
 .agentRow {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    margin-bottom: var(--animal-spacing-sm);
+    margin-bottom: var(--island-spacing-sm);
 }
 
 // ---------- 组件目录 ----------
 .catalogList {
     display: flex;
     flex-direction: column;
-    gap: var(--animal-spacing-sm);
+    gap: var(--island-spacing-sm);
 }
 
 .catalogRow {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--animal-spacing-sm);
-    padding: 12px var(--animal-spacing-md);
-    background: var(--animal-bg-color);
-    border: 1px solid var(--animal-border-color-light);
+    gap: var(--island-spacing-sm);
+    padding: 12px var(--island-spacing-md);
+    background: var(--island-bg-color);
+    border: 1px solid var(--island-border-color-light);
     border-radius: 14px;
 }
 
@@ -200,14 +200,14 @@
 .swatch {
     overflow: hidden;
     width: 116px;
-    background: var(--animal-bg-color);
+    background: var(--island-bg-color);
     border-radius: 16px;
 }
 
 .swatchChip {
     height: 56px;
     border-radius: 16px 16px 0 0;
-    border-bottom: 1px solid var(--animal-border-color-light);
+    border-bottom: 1px solid var(--island-border-color-light);
 }
 
 .swatchMeta {
@@ -227,34 +227,34 @@
 .swatchName {
     font-size: 12px;
     font-weight: 600;
-    color: var(--animal-text-color);
+    color: var(--island-text-color);
 }
 
 .swatchValue {
     font-size: 10px;
-    color: var(--animal-text-color-secondary);
+    color: var(--island-text-color-secondary);
 }
 
 .tokenTagRow {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--animal-spacing-xs);
-    margin-bottom: var(--animal-spacing-sm);
+    gap: var(--island-spacing-xs);
+    margin-bottom: var(--island-spacing-sm);
 }
 
 .tokenTagLabel {
     min-width: 48px;
-    font-size: var(--animal-font-size-sm);
+    font-size: var(--island-font-size-sm);
     font-weight: 600;
-    color: var(--animal-text-color);
+    color: var(--island-text-color);
 }
 
 // ---------- 硬性规则 ----------
 .ruleGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--animal-spacing-md);
+    gap: var(--island-spacing-md);
 }
 
 .ruleCard {
@@ -264,9 +264,9 @@
 .ruleList {
     margin: 0;
     padding-left: 18px;
-    font-size: var(--animal-font-size-sm);
+    font-size: var(--island-font-size-sm);
     line-height: 1.9;
-    color: var(--animal-text-color-secondary);
+    color: var(--island-text-color-secondary);
 
     li + li {
         margin-top: 6px;

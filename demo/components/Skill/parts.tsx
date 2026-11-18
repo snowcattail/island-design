@@ -132,7 +132,7 @@ const Swatch: React.FC<{ token: string }> = ({ token }) => {
         <div className={styles.swatch}>
             <div className={styles.swatchChip} style={{ background: `var(${token})` }} />
             <div className={styles.swatchMeta}>
-                <code className={styles.swatchName}>{token.replace('--animal-', '')}</code>
+                <code className={styles.swatchName}>{token.replace('--island-', '')}</code>
                 <code className={styles.swatchValue}>{value || '—'}</code>
             </div>
         </div>

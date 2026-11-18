@@ -6,7 +6,7 @@ Source: `src/components/NoData/`. Reusable empty-content presentation, using the
 
 `default` uses NoDataIcon, an open brown cardboard box with a deep-blue inner wall and a cream label, directly from naive-icons. `search` uses SearchIcon with its original teal lens, white center and ink handle; its default title is “没有找到相关结果”. `simple` uses a smaller NoDataIcon. The other variants default to “暂无数据”. Icons retain their original 48×48 geometry, proportional 3.5-unit rounded ink strokes and solid palette; no badge, background shape, rotation, recoloring or shadow is added. All artwork is hidden from assistive technology.
 
-Content order is artwork, title, optional description and optional action area. Undefined title/icon uses the defaults; null/false hides it. Extra content takes precedence over children. The bordered option adds a 1.5px dashed sand outline, 20px radius and themed `var(--animal-bg-color, #faf8f1)` background; it defaults off so empty states can sit inside existing cards.
+Content order is artwork, title, optional description and optional action area. Undefined title/icon uses the defaults; null/false hides it. Extra content takes precedence over children. The bordered option adds a 1.5px dashed sand outline, 20px radius and themed `var(--island-bg-color, #faf8f1)` background; it defaults off so empty states can sit inside existing cards.
 
 # Visual specification
 
@@ -15,7 +15,7 @@ Content order is artwork, title, optional description and optional action area. 
 | Small | 18px × 12px padding; 64 × 64px icon area; 14px title, 12px description; 14px artwork/action gaps, 5px description gap. |
 | Medium | 32px × 24px padding; 96 × 96px icon area; 16px title, 13px description; 22px artwork/action gaps, 8px description gap. |
 | Large | 40px × 24px padding; 120 × 120px icon area; 18px title, 14px description; 26px artwork gap. |
-| Type | Library font; title 700, body inherits 500. Title inherits `--animal-text-color`; description uses `var(--animal-text-color-secondary, #7f6e57)`, line height 1.8 and maximum 32ch; balanced wrapping avoids an isolated final word. |
+| Type | Library font; title 700, body inherits 500. Title inherits `--island-text-color`; description uses `var(--island-text-color-secondary, #7f6e57)`, line height 1.8 and maximum 32ch; balanced wrapping avoids an isolated final word. |
 | Icons | Original NoDataIcon / SearchIcon from naive-icons; the component sets display dimensions only and never overrides SVG fills or strokes. No added framing, gradients or shadows. |
 | Simple/custom | Simple and custom artwork use a square 32/52/64px area for small/medium/large. Custom icons keep their own palette and orientation, with no added tile. |
 | Actions | Centered flex layout, 12px gap, wraps on narrow containers; reuse existing Button styles and focus states. |

@@ -81,8 +81,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
     const [visible, setVisible] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     const rawId = useId().replace(/:/g, '');
-    const clipId = `animal-tooltip-clip-${rawId}`;
-    const tooltipId = `animal-tooltip-${rawId}`;
+    const clipId = `island-tooltip-clip-${rawId}`;
+    const tooltipId = `island-tooltip-${rawId}`;
 
     const show = useCallback(() => {
         clearTimeout(timerRef.current);

@@ -8,8 +8,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--animal-mask-bg);
-    animation: animal-fade-in 0.25s ease;
+    background: var(--island-mask-bg);
+    animation: island-fade-in 0.25s ease;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -23,7 +23,7 @@
     max-height: calc(100vh - 64px);
     display: flex;
     flex-direction: column;
-    animation: animal-zoom-in 0.3s ease;
+    animation: island-zoom-in 0.3s ease;
 }
 
 // game 变体：去掉容器圆角，交由下方异形 clip-path 接管外形
@@ -49,7 +49,7 @@
 .gameClipped {
     border-radius: 0;
     box-shadow: none;
-    clip-path: url(#animal-modal-clip);
+    clip-path: url(#island-modal-clip);
     padding: 48px 48px 32px 48px;
 }
 
@@ -162,7 +162,7 @@
 // ============================================
 // Animations
 // ============================================
-@keyframes animal-fade-in {
+@keyframes island-fade-in {
     from {
         opacity: 0;
     }
@@ -171,7 +171,7 @@
     }
 }
 
-@keyframes animal-zoom-in {
+@keyframes island-zoom-in {
     from {
         opacity: 0;
         transform: scale(0.92);

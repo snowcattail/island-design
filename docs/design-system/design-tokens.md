@@ -142,9 +142,9 @@ box-shadow: 0 8px 24px 0 rgba(61, 52, 40, 0.14); /* larger */
 /* Card has no box-shadow by default (depth comes from border / pattern, not from an elevation shadow) */
 
 /* Shadows for default/dashed/text/link buttons (soft elevation — NOT the thick 3D shadow) */
-box-shadow: 0 2px 4px 0 rgba(61, 52, 40, 0.06); /* btn-default at rest: --animal-shadow-sm */
-box-shadow: 0 3px 10px 0 rgba(61, 52, 40, 0.1); /* btn-default on hover: --animal-shadow-base */
-/* active falls back to --animal-shadow-sm, translateY(0) */
+box-shadow: 0 2px 4px 0 rgba(61, 52, 40, 0.06); /* btn-default at rest: --island-shadow-sm */
+box-shadow: 0 3px 10px 0 rgba(61, 52, 40, 0.1); /* btn-default on hover: --island-shadow-base */
+/* active falls back to --island-shadow-sm, translateY(0) */
 
 /* Game-button 3D shadow (primary / danger-primary buttons only; Input only when shadow={true}; Switch only has an inset track shadow, the handle has no box-shadow) */
 box-shadow: 0 5px 0 0 #bdaea0; /* primary button, default */
@@ -178,7 +178,7 @@ transform: translateY(-2px); /* cards */
 transform: translateY(2px); /* button active */
 
 /* Entrance animations */
-@keyframes animal-zoom-in {
+@keyframes island-zoom-in {
     from {
         opacity: 0;
         transform: scale(0.92);
@@ -188,7 +188,7 @@ transform: translateY(2px); /* button active */
         transform: scale(1);
     }
 }
-@keyframes animal-fade-in {
+@keyframes island-fade-in {
     from {
         opacity: 0;
     }

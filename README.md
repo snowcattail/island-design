@@ -69,13 +69,13 @@ For a deep ESM import, the export map also exposes paths under <code>island-desi
 
 ## Design tokens and themes
 
-The token source has three layers: primitive Less values, semantic CSS variables, and the default theme mapping. Components use variables such as <code>--animal-primary-color</code>, <code>--animal-text-color</code>, and <code>--animal-border-radius-base</code>. Override them after loading the stylesheet:
+The token source has three layers: primitive Less values, semantic CSS variables, and the default theme mapping. Components use variables such as <code>--island-primary-color</code>, <code>--island-text-color</code>, and <code>--island-border-radius-base</code>. Override them after loading the stylesheet:
 
 ```css
 :root {
-    --animal-primary-color: #247c78;
-    --animal-primary-color-hover: #32958f;
-    --animal-border-radius-base: 12px;
+    --island-primary-color: #247c78;
+    --island-primary-color-hover: #32958f;
+    --island-border-radius-base: 12px;
 }
 ```
 

@@ -44,7 +44,7 @@ const pad = (value: number) => String(value).padStart(2, '0');
 /** 开启提醒时的默认配色，橙色保持暖色调，红色沿用错误色令牌。 */
 const DEFAULT_REMINDERS: readonly CountdownReminderRule[] = [
     { seconds: 60, color: '#c77c34' },
-    { seconds: 10, color: 'var(--animal-error-color, #e05a5a)' },
+    { seconds: 10, color: 'var(--island-error-color, #e05a5a)' },
 ];
 
 /** 从任意顺序的规则中取最小命中阈值，不排序或修改调用方的数组。 */
@@ -270,7 +270,7 @@ export const Countdown: React.FC<CountdownProps> = ({
             style={
                 {
                     ...style,
-                    '--animal-countdown-reminder-color': reminderColor,
+                    '--island-countdown-reminder-color': reminderColor,
                     '--countdown-shake-duration': `${shakeOptions.duration}ms`,
                     '--countdown-shake-distance': `${shakeOptions.distance}px`,
                     '--countdown-shake-angle': `${shakeOptions.rotation}deg`,

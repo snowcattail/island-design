@@ -142,9 +142,9 @@ box-shadow: 0 8px 24px 0 rgba(61, 52, 40, 0.14); /* 较大 */
 /* Card 默认无 box-shadow（依赖 border / pattern 营造层次，不靠悬浮阴影）*/
 
 /* 默认/虚线/文字/链接按钮阴影（柔和 elevation —— 非 3D 厚阴影）*/
-box-shadow: 0 2px 4px 0 rgba(61, 52, 40, 0.06); /* btn-default 静止：--animal-shadow-sm */
-box-shadow: 0 3px 10px 0 rgba(61, 52, 40, 0.1); /* btn-default hover：--animal-shadow-base */
-/* active 回落到 --animal-shadow-sm，translateY(0) */
+box-shadow: 0 2px 4px 0 rgba(61, 52, 40, 0.06); /* btn-default 静止：--island-shadow-sm */
+box-shadow: 0 3px 10px 0 rgba(61, 52, 40, 0.1); /* btn-default hover：--island-shadow-base */
+/* active 回落到 --island-shadow-sm，translateY(0) */
 
 /* 游戏按键 3D 立体阴影（仅 primary / danger-primary 按钮；Input 仅 shadow={true} 时启用；Switch 仅 track inset 阴影，handle 无 box-shadow）*/
 box-shadow: 0 5px 0 0 #bdaea0; /* primary 按钮默认 */
@@ -178,7 +178,7 @@ transform: translateY(-2px); /* 卡片 */
 transform: translateY(2px); /* 按钮 active */
 
 /* 出现动画 */
-@keyframes animal-zoom-in {
+@keyframes island-zoom-in {
     from {
         opacity: 0;
         transform: scale(0.92);
@@ -188,7 +188,7 @@ transform: translateY(2px); /* 按钮 active */
         transform: scale(1);
     }
 }
-@keyframes animal-fade-in {
+@keyframes island-fade-in {
     from {
         opacity: 0;
     }

@@ -87,7 +87,7 @@ export const Select: React.FC<SelectProps> = ({
     // 输入框在非搜索状态下的回显：有选中值显示 label，否则留空让 placeholder 生效
     const labelForInput = currentValue ? currentLabel : '';
 
-    const idPrefix = `animal-select-${useId().replace(/:/g, '')}`;
+    const idPrefix = `island-select-${useId().replace(/:/g, '')}`;
     const listboxId = `${idPrefix}-listbox`;
     const optionId = (k: string) => `${idPrefix}-option-${k}`;
 

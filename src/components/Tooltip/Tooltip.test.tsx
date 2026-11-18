@@ -111,7 +111,7 @@ describe('Tooltip', () => {
             expect(trigger).not.toHaveAttribute('aria-describedby');
             await user.click(trigger);
             expect(trigger.getAttribute('aria-describedby')).toBe(tip.id);
-            expect(tip.id).toMatch(/^animal-tooltip-/);
+            expect(tip.id).toMatch(/^island-tooltip-/);
             // jest-dom v6: 从 aria-describedby 推出可访问描述
             expect(trigger).toHaveAccessibleDescription('hi');
         });

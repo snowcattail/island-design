@@ -69,13 +69,13 @@ export map 还提供 <code>island-design/es/*</code> 深层 ESM 路径。普通�
 
 ## Design Token 与主题
 
-Token 源码分为三层：原始 Less 值、语义 CSS 变量、默认主题映射。组件使用 <code>--animal-primary-color</code>、<code>--animal-text-color</code> 和 <code>--animal-border-radius-base</code> 等变量。加载样式后即可覆盖：
+Token 源码分为三层：原始 Less 值、语义 CSS 变量、默认主题映射。组件使用 <code>--island-primary-color</code>、<code>--island-text-color</code> 和 <code>--island-border-radius-base</code> 等变量。加载样式后即可覆盖：
 
 ```css
 :root {
-    --animal-primary-color: #247c78;
-    --animal-primary-color-hover: #32958f;
-    --animal-border-radius-base: 12px;
+    --island-primary-color: #247c78;
+    --island-primary-color-hover: #32958f;
+    --island-border-radius-base: 12px;
 }
 ```
 

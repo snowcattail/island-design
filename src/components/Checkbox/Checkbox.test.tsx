@@ -83,7 +83,7 @@ describe('Checkbox', () => {
             const { getInputs } = setup();
             const ids = getInputs().map((i) => i.id);
             expect(new Set(ids).size).toBe(ids.length);
-            ids.forEach((id) => expect(id).toMatch(/^animal-cbx-/));
+            ids.forEach((id) => expect(id).toMatch(/^island-cbx-/));
         });
     });
 

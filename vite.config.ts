@@ -394,8 +394,8 @@ export default defineConfig({
     },
     css: {
         modules: {
-            // 生成类名格式：animal-[类名]-[hash]
-            generateScopedName: 'animal-[local]-[hash:base64:5]',
+            // 生成类名格式：island-[类名]-[hash]
+            generateScopedName: 'island-[local]-[hash:base64:5]',
             localsConvention: 'camelCase',
         },
         preprocessorOptions: {

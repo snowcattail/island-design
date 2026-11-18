@@ -16,7 +16,7 @@
 
 `vite.config.ts` 与 `vitest.config.ts` 声明了完全一致的 CSS Module 配置，因此构建与测试中类名解析结果相同：
 
-- `generateScopedName: 'animal-[local]-[hash:base64:5]'` —— 生成形如 `animal-btn-primary-abc12` 的类名
+- `generateScopedName: 'island-[local]-[hash:base64:5]'` —— 生成形如 `island-btn-primary-abc12` 的类名
 - `localsConvention: 'camelCase'`
 - Less 的 `additionalData` 自动注入 `src/styles/variables.less`，组件 `.less` 里可以直接用 `@primary-color` 之类的变量，无需显式 `@import`
 
@@ -27,9 +27,9 @@
 设计 token 有两套，彼此不可互换：
 
 1. **Less 编译期变量**（`src/styles/variables.less`，`@` 前缀）：`@primary-color`、`@text-color`、`@bg-color`、`@border-radius-base`、`@motion-ease`、`@height-base` 等。构建时被替换为字面量，不进运行时。
-2. **运行时 CSS 自定义属性**（`src/styles/themes/default.less`，`--animal-` 前缀）：`--animal-primary-color`、`--animal-text-color`、`--animal-spacing-sm`、`--animal-font-family`、`--animal-shadow-sm` 等。组件 `.module.less` 通过 `var(--animal-*)` 引用，消费者可以覆盖。
+2. **运行时 CSS 自定义属性**（`src/styles/themes/default.less`，`--island-` 前缀）：`--island-primary-color`、`--island-text-color`、`--island-spacing-sm`、`--island-font-family`、`--island-shadow-sm` 等。组件 `.module.less` 通过 `var(--island-*)` 引用，消费者可以覆盖。
 
-组件样式优先用 `var(--animal-*)`，下游主题定制才能生效。只有当值必须参与编译期计算（算术、`darken()`、mixin）时，才用 Less 变量。
+组件样式优先用 `var(--island-*)`，下游主题定制才能生效。只有当值必须参与编译期计算（算术、`darken()`、mixin）时，才用 Less 变量。
 
 具体数值定义在 [../design-system/design-tokens.md](../design-system/design-tokens.md) —— 不要在代码注释或其他文档里再抄一遍。
 

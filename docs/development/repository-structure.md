@@ -63,7 +63,7 @@ src/
       <ComponentName>.test.tsx   # unit test, colocated with the component
   styles/
     variables.less               # Less compile-time design tokens (@primary-color, ...)
-    themes/default.less          # runtime CSS custom properties (--animal-*)
+    themes/default.less          # runtime CSS custom properties (--island-*)
     fonts.less / reset.less / index.less
   assets/                        # fonts, images
   index.ts                       # library barrel export

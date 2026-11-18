@@ -17,7 +17,7 @@ Source: `src/components/Countdown/Countdown.tsx`, `motion.ts` and `countdown.mod
 | Normal | Last 5 seconds: 1000ms period, ±1.5px horizontal displacement, ±0.6° rotation. |
 | Urgent | Last 3 seconds: 650ms period, ±2.5px horizontal displacement, ±0.9° rotation. |
 | Burst | The active burst occupies the first 30% of each period; the digit group rests for the remaining 70%. |
-| Easing | `var(--animal-motion-ease, cubic-bezier(0.4, 0, 0.2, 1))`, configurable. |
+| Easing | `var(--island-motion-ease, cubic-bezier(0.4, 0, 0.2, 1))`, configurable. |
 
 The animation targets the inner digit group only. The prefix, panel and surrounding layout stay still, and the rolling digits keep their own vertical transform.
 

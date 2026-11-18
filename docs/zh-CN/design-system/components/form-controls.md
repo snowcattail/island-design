@@ -155,10 +155,10 @@ height: 11px;
 border: 2px solid #6fba2c;
 border-right-color: transparent;
 border-radius: 50%;
-animation: animal-spin 0.6s linear infinite;
+animation: island-spin 0.6s linear infinite;
 /* 关闭态 */
 border-color: #a89878;
-@keyframes animal-spin {
+@keyframes island-spin {
     to {
         transform: rotate(360deg);
     }
@@ -234,8 +234,8 @@ border-color: #50b9ab; /* @primary-color-active，作用于 input:checked */
 input:checked ~ .check path { stroke-dashoffset: 0; }
 
 /* 选中 splash 迸溅 —— 六个圆点向外飞散后淡出 */
-input:checked ~ .splash { animation: animal-cbx-splash 0.6s ease forwards; }
-@keyframes animal-cbx-splash {
+input:checked ~ .splash { animation: island-cbx-splash 0.6s ease forwards; }
+@keyframes island-cbx-splash {
     40% {
         background: #19c8b9; /* @splash-color = @primary-color */
         box-shadow:
@@ -372,11 +372,11 @@ gap: var(--rate-gap); /* 按尺寸 4 / 6 / 8px */
 .star .icon {
     /* naive-icons 的 StarIcon 写死了描边 #2A2A2A、填充 #E9C46A 和两只眼睛 */
     display: block; width: 100%; height: 100%;
-    stroke: #c4b89e; /* --animal-text-color-disabled —— 未选中只有描边 */
+    stroke: #c4b89e; /* --island-text-color-disabled —— 未选中只有描边 */
     transition: stroke 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .star .icon path {
-    fill: #f5c31c; /* --animal-warning-color */
+    fill: #f5c31c; /* --island-warning-color */
     fill-opacity: 0;
     transition: fill-opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -386,7 +386,7 @@ gap: var(--rate-gap); /* 按尺寸 4 / 6 / 8px */
     opacity: 0;
     transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.active .star .icon { stroke: #dba90e; /* --animal-warning-color-active */ }
+.active .star .icon { stroke: #dba90e; /* --island-warning-color-active */ }
 .active .star .icon path { fill-opacity: 1; }
 .active .star .icon circle { opacity: 1; }
 
@@ -402,7 +402,7 @@ gap: var(--rate-gap); /* 按尺寸 4 / 6 / 8px */
 }
 
 /* 选中动画 —— 新点亮的星星弹一下，再补一组六点扩散 */
-@keyframes animal-rate-pop {
+@keyframes island-rate-pop {
     0% { transform: scale(0.55); }
     60% { transform: scale(1.15); }
     100% { transform: scale(1); }
@@ -415,10 +415,10 @@ gap: var(--rate-gap); /* 按尺寸 4 / 6 / 8px */
     width: 22px; height: 22px; margin: -11px 0 0 -11px;
     border-radius: 50%;
     transform: scale(var(--rate-splash-scale)); /* 22px 基准几何 → 当前星尺寸 */
-    animation: animal-rate-splash 0.6s ease forwards;
+    animation: island-rate-splash 0.6s ease forwards;
     pointer-events: none;
 }
-/* animal-rate-splash 只画六个点，不铺底色 —— 最终被填充的只有星星本身。点向外飞到
+/* island-rate-splash 只画六个点，不铺底色 —— 最终被填充的只有星星本身。点向外飞到
    36px/32px 并带负 spread，同时渐隐，颜色取 #f5c31c。同一时刻只挂载一个 splash
    （被点击的那颗星），并以提交计数器作为 key，因此每次提交都能重放动画。 */
 
@@ -497,7 +497,7 @@ gap: var(--rate-gap); /* 按尺寸 4 / 6 / 8px */
     background: transparent;
     border: none;
     border-radius: 50%;
-    transition: all var(--animal-motion-duration-fast) var(--animal-motion-ease);
+    transition: all var(--island-motion-duration-fast) var(--island-motion-ease);
     /* hover：color #725d42，background rgba(114, 93, 66, 0.1) */
     /* :focus-visible：outline 2px solid #19c8b9 */
 }

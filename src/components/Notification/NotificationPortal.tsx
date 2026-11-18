@@ -46,7 +46,7 @@ const getServerSnapshot = (): NotificationItem[] => [];
 const mount = (): void => {
     if (root || typeof document === 'undefined') return;
     const el = document.createElement('div');
-    el.setAttribute('data-animal-notification-root', '');
+    el.setAttribute('data-island-notification-root', '');
     el.className = styles.notificationRoot;
     document.body.appendChild(el);
     container = el;
@@ -99,7 +99,7 @@ const buildItem = (config: NotificationConfig | string, type: NotificationType):
     return {
         ...normalized,
         type,
-        key: normalized.key ?? `animal-notification-${Date.now()}-${counter}`,
+        key: normalized.key ?? `island-notification-${Date.now()}-${counter}`,
         position,
         placement: POSITION_PLACEMENT[position],
         duration: normalized.duration ?? DEFAULT_DURATION,

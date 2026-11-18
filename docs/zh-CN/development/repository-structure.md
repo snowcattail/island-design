@@ -58,7 +58,7 @@ src/
       <ComponentName>.test.tsx   # 单测，与组件同目录
   styles/
     variables.less               # Less 编译期设计 token（@primary-color 等）
-    themes/default.less          # 运行时 CSS 自定义属性（--animal-*）
+    themes/default.less          # 运行时 CSS 自定义属性（--island-*）
     fonts.less / reset.less / index.less
   assets/                        # 字体、图片资源
   index.ts                       # 组件库总导出桶文件

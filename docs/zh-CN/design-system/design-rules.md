@@ -22,7 +22,7 @@
 6. Input 默认无阴影，`shadow` prop 默认 `false`；只有显式 `shadow={true}` 才加 `0 3px 0 0 #d4c9b4`。状态（error/warning）阴影不受 `shadow` 控制，始终渲染。
 7. Switch 无外阴影。track 仅 `inset` 阴影，handle 是带 2.5px border 的扁圆、无 `box-shadow`，通过 `transform: translateY(-50%)` 垂直居中。
 8. Card 无 `box-shadow`，仅 hover `translateY(-2px)` 浮起。pattern 变体加 1.5px 同色调边框。
-9. Modal 必须用 SVG blob clip-path（`#animal-modal-clip`），不可换成圆角矩形。
+9. Modal 必须用 SVG blob clip-path（`#island-modal-clip`），不可换成圆角矩形。
 10. Title 是 swallowtail 飘带（clip-path + 折角三角阴影 + 3deg 透视），不是 blob / pill / 矩形。`<Card type="title">` 已移除，统一用 `<Title>`。
 11. 字体：`Nunito, 'Noto Sans SC'`（@fontsource 自带 woff2，构建时剥掉 woff 备份）。禁止系统等宽字体用于 UI 文字（CodeBlock 除外）。
 12. 字重：正文 500，按钮/标题 600–700，Countdown 数字 / Title 飘带 900，placeholder 400。任何位置不得低于 400。
@@ -67,7 +67,7 @@
 
 9. **Modal 必须用 SVG blob clip-path**
     - ❌ `border-radius: 20px;` 配合矩形容器
-    - ✅ `clip-path: url(#animal-modal-clip);` 引用 SVG blob
+    - ✅ `clip-path: url(#island-modal-clip);` 引用 SVG blob
 
 10. **Title 是 swallowtail 飘带**
     - ❌ 用 `<Card type="title">` 或带 `border-radius` 的矩形 Title
@@ -75,7 +75,7 @@
 
 11. **字体**
     - ❌ `font-family: -apple-system, sans-serif;`（UI 文字）
-    - ✅ `font-family: var(--animal-font-family, 'Nunito', 'Noto Sans SC');`
+    - ✅ `font-family: var(--island-font-family, 'Nunito', 'Noto Sans SC');`
 
 12. **字重不得低于 400**
     - ❌ `font-weight: 300;` / `font-weight: normal;`（< 400）

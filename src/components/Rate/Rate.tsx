@@ -62,7 +62,7 @@ export const Rate: React.FC<RateProps> = ({
     const checkedValue = toStarCount(rateValue, count);
 
     const reactId = useId();
-    const groupName = `animal-rate-${reactId.replace(/:/g, '')}`;
+    const groupName = `island-rate-${reactId.replace(/:/g, '')}`;
     const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
 
     const commit = useCallback(

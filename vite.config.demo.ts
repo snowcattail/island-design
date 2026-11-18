@@ -15,7 +15,7 @@ export default defineConfig({
     },
     css: {
         modules: {
-            generateScopedName: 'animal-[local]-[hash:base64:5]',
+            generateScopedName: 'island-[local]-[hash:base64:5]',
             localsConvention: 'camelCase',
         },
         preprocessorOptions: {

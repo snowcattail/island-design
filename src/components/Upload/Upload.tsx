@@ -157,7 +157,7 @@ export interface UploadProps {
 }
 
 let uidSeed = 0;
-const genUid = () => `animal-upload-${Date.now().toString(36)}-${(uidSeed += 1)}`;
+const genUid = () => `island-upload-${Date.now().toString(36)}-${(uidSeed += 1)}`;
 
 /** 统一列表文字与进度条的数值，忽略上传回调中的 NaN。 */
 const clampPercent = (n: number) => {

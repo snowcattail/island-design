@@ -42,7 +42,7 @@ export const Wave: React.FC<WaveProps> = ({ animated }) => {
             ref={ref}
             aria-hidden="true"
             className={styles.wave}
-            style={{ '--animal-wave-play-state': animated && playing ? 'running' : 'paused' } as React.CSSProperties}
+            style={{ '--island-wave-play-state': animated && playing ? 'running' : 'paused' } as React.CSSProperties}
         />
     );
 };

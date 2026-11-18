@@ -43,19 +43,19 @@ opacity: 0.5;
 
 ```css
 /* resting */
-box-shadow: var(--animal-shadow-sm); /* 0 2px 4px 0 rgba(61,52,40,0.06) */
+box-shadow: var(--island-shadow-sm); /* 0 2px 4px 0 rgba(61,52,40,0.06) */
 
 /* hover */
 color: #19c8b9;
 border-color: #19c8b9;
-box-shadow: var(--animal-shadow-base); /* 0 3px 10px 0 rgba(61,52,40,0.10) */
+box-shadow: var(--island-shadow-base); /* 0 3px 10px 0 rgba(61,52,40,0.10) */
 transform: translateY(-1px);
 
 /* active */
 color: #11a89b;
 border-color: #11a89b;
 transform: translateY(0);
-box-shadow: var(--animal-shadow-sm); /* falls back to the resting state */
+box-shadow: var(--island-shadow-sm); /* falls back to the resting state */
 ```
 
 > Never carry the primary `0 5px / 6px / 1px #bdaea0` stack over to default / dashed — the whole thing turns too heavy and too cartoonish.
@@ -68,9 +68,9 @@ border: 4px solid #4de2da;
 color: #fff;
 background-image: repeating-linear-gradient(-45deg, #0ec4b6, #0ec4b6 10px, #01b0a7 10px, #01b0a7 20px);
 background-size: 28.28px 28.28px;
-animation: animal-btn-loading 1s linear infinite;
+animation: island-btn-loading 1s linear infinite;
 
-@keyframes animal-btn-loading {
+@keyframes island-btn-loading {
     0% {
         background-position: 0 0;
     }
@@ -125,7 +125,7 @@ Props:
 </Cursor>
 ```
 
-The stylesheet is **plain CSS** (`cursor.css`, not a CSS module) with two style variants selected by the `type` prop and two modes selected by the `forceAll` prop (default `true`); the root `<div>` carries `animal-cursor` plus a mode class (`animal-cursor--raindrop` is appended for the drop):
+The stylesheet is **plain CSS** (`cursor.css`, not a CSS module) with two style variants selected by the `type` prop and two modes selected by the `forceAll` prop (default `true`); the root `<div>` carries `island-cursor` plus a mode class (`island-cursor--raindrop` is appended for the drop):
 
 - `'default'` — bold-outline rounded arrow, 32×32 inline SVG, hotspot `8 5`
 - `'raindrop'` — blue water drop, 32×32 inline SVG with a lighter highlight ellipse, hotspot `16 6`
@@ -146,7 +146,7 @@ The drop is **left as plain geometric geometry** — a round-capped path plus a 
 
 **Text selection.** The `default` variant also restyles selected text inside its subtree: `#e9c46a` background with `#2b2620` text. The text color is not optional — the design system's body color `#794f27` on that background is only **4.25:1**, which misses AA for body text, while `#2b2620` reaches **8.97:1**, past WCAG AAA.
 
-The two variants are carried by custom properties (`--animal-selection-bg` / `--animal-selection-fg`) that the raindrop rule overwrites with the system colors `Highlight` / `HighlightText`. This is not cosmetic. A plain `.animal-cursor:not(.animal-cursor--raindrop) ::selection` looks equivalent but breaks twice over, because a Cursor is very often nested inside another one (the demo wraps its whole page in a `default` Cursor):
+The two variants are carried by custom properties (`--island-selection-bg` / `--island-selection-fg`) that the raindrop rule overwrites with the system colors `Highlight` / `HighlightText`. This is not cosmetic. A plain `.island-cursor:not(.island-cursor--raindrop) ::selection` looks equivalent but breaks twice over, because a Cursor is very often nested inside another one (the demo wraps its whole page in a `default` Cursor):
 
 - a descendant combinator matches a raindrop nested in a default at **any depth**, so the drop gets painted `#2b2620`
 - a top-level raindrop matches **nothing at all**, and silently loses any selection styling
@@ -157,68 +157,68 @@ Custom properties resolve against the *nearest* declaring ancestor, so the inner
 
 ```css
 /* artwork + hotspot declared once, inherited down by every descendant */
-.animal-cursor {
-    --animal-cursor-img: url("data:image/svg+xml,…bold-outline arrow…");
-    --animal-cursor-hotspot: 8 5;
+.island-cursor {
+    --island-cursor-img: url("data:image/svg+xml,…bold-outline arrow…");
+    --island-cursor-hotspot: 8 5;
 }
-.animal-cursor--raindrop {
-    --animal-cursor-img: url("data:image/svg+xml,…water drop…");
-    --animal-cursor-hotspot: 16 6;
+.island-cursor--raindrop {
+    --island-cursor-img: url("data:image/svg+xml,…water drop…");
+    --island-cursor-hotspot: 16 6;
 }
 /* force mode (default, forceAll={true}): every descendant gets the custom cursor.
    Custom properties inherit, so descendants resolve the right variant automatically. */
-.animal-cursor--force,
-.animal-cursor--force * {
-    cursor: var(--animal-cursor-img) var(--animal-cursor-hotspot), default !important;
+.island-cursor--force,
+.island-cursor--force * {
+    cursor: var(--island-cursor-img) var(--island-cursor-hotspot), default !important;
 }
 
 /* scoped mode (forceAll={false}): only the container shows the custom cursor …
    (double-class selector so a scoped Cursor nested inside a force Cursor still wins) */
-.animal-cursor.animal-cursor--scoped {
-    cursor: var(--animal-cursor-img) var(--animal-cursor-hotspot), default !important;
+.island-cursor.island-cursor--scoped {
+    cursor: var(--island-cursor-img) var(--island-cursor-hotspot), default !important;
 }
 
 /* … while descendants fall back to browser semantics */
-.animal-cursor--scoped *,
-.animal-cursor.animal-cursor--scoped * {
+.island-cursor--scoped *,
+.island-cursor.island-cursor--scoped * {
     cursor: auto !important;
 }
 
 /* interactive elements restore pointer */
-.animal-cursor--scoped a[href],
-.animal-cursor--scoped button,
-.animal-cursor--scoped [role='button'],
-.animal-cursor--scoped [role='link'],
-.animal-cursor--scoped label[for],
-.animal-cursor--scoped select,
-.animal-cursor--scoped summary,
-.animal-cursor--scoped input[type='button'],
-.animal-cursor--scoped input[type='submit'],
-.animal-cursor--scoped input[type='reset'],
-.animal-cursor--scoped input[type='checkbox'],
-.animal-cursor--scoped input[type='radio'],
-.animal-cursor--scoped [data-cursor='pointer'] {
+.island-cursor--scoped a[href],
+.island-cursor--scoped button,
+.island-cursor--scoped [role='button'],
+.island-cursor--scoped [role='link'],
+.island-cursor--scoped label[for],
+.island-cursor--scoped select,
+.island-cursor--scoped summary,
+.island-cursor--scoped input[type='button'],
+.island-cursor--scoped input[type='submit'],
+.island-cursor--scoped input[type='reset'],
+.island-cursor--scoped input[type='checkbox'],
+.island-cursor--scoped input[type='radio'],
+.island-cursor--scoped [data-cursor='pointer'] {
     cursor: pointer !important;
 }
 
 /* text inputs keep the text cursor */
-.animal-cursor--scoped input[type='text'],
-.animal-cursor--scoped input[type='search'],
-.animal-cursor--scoped input[type='email'],
-.animal-cursor--scoped input[type='password'],
-.animal-cursor--scoped input[type='number'],
-.animal-cursor--scoped input[type='tel'],
-.animal-cursor--scoped input[type='url'],
-.animal-cursor--scoped textarea {
+.island-cursor--scoped input[type='text'],
+.island-cursor--scoped input[type='search'],
+.island-cursor--scoped input[type='email'],
+.island-cursor--scoped input[type='password'],
+.island-cursor--scoped input[type='number'],
+.island-cursor--scoped input[type='tel'],
+.island-cursor--scoped input[type='url'],
+.island-cursor--scoped textarea {
     cursor: text !important;
 }
 
 /* disabled state wins */
-.animal-cursor--scoped [disabled],
-.animal-cursor--scoped [aria-disabled='true'] {
+.island-cursor--scoped [disabled],
+.island-cursor--scoped [aria-disabled='true'] {
     cursor: not-allowed !important;
 }
 ```
 
-- The artwork is inline SVG only — there is no `cursor-icon.png` and no base64 fallback; both variants are defined once in `cursor.css` and reach every rule through `--animal-cursor-img`
-- `!important` on every rule so the mode semantics survive component-level cursor styles; `className` is applied to the root `<div>` alongside the fixed `animal-cursor` class
+- The artwork is inline SVG only — there is no `cursor-icon.png` and no base64 fallback; both variants are defined once in `cursor.css` and reach every rule through `--island-cursor-img`
+- `!important` on every rule so the mode semantics survive component-level cursor styles; `className` is applied to the root `<div>` alongside the fixed `island-cursor` class

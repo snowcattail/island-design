@@ -7,8 +7,8 @@ const FLAKE_COUNT = 50;
 
 /** 遮罩半径由 JS 计算后写进 CSS 变量，自定义属性必须注册才能被 transition 插值 */
 type MaskStyle = React.CSSProperties & {
-    '--animal-loading-mask-duration'?: string;
-    '--animal-loading-mask-r'?: string;
+    '--island-loading-mask-duration'?: string;
+    '--island-loading-mask-r'?: string;
 };
 
 export const Loading: React.FC<LoadingProps> = ({
@@ -121,8 +121,8 @@ export const Loading: React.FC<LoadingProps> = ({
 
     const rootStyle: MaskStyle = {
         zIndex,
-        ...(isCircle ? { '--animal-loading-mask-duration': `${fadeDuration}s` } : {}),
-        ...(isCircle ? { '--animal-loading-mask-r': `${maskRadius}px` } : {}),
+        ...(isCircle ? { '--island-loading-mask-duration': `${fadeDuration}s` } : {}),
+        ...(isCircle ? { '--island-loading-mask-r': `${maskRadius}px` } : {}),
         ...(exiting && !isCircle ? { transitionDuration: `${fadeDuration}s` } : {}),
         ...style,
     };

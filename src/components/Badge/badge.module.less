@@ -36,9 +36,9 @@
     white-space: nowrap;
     border-radius: 999px;
     // 奶油色描边：与 Avatar 的贴纸描边一致，把角标从被覆盖的元素上分离出来
-    border: 2px solid var(--animal-bg-color, #f8f8f0);
-    box-shadow: var(--animal-shadow-sm, 0 2px 4px 0 rgba(61, 52, 40, 0.06));
-    animation: animal-badge-zoom-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid var(--island-bg-color, #f8f8f0);
+    box-shadow: var(--island-shadow-sm, 0 2px 4px 0 rgba(61, 52, 40, 0.06));
+    animation: island-badge-zoom-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // ---------- 独立使用 ----------
@@ -158,7 +158,7 @@
 }
 
 // ---------- Motion ----------
-@keyframes animal-badge-zoom-in {
+@keyframes island-badge-zoom-in {
     from {
         opacity: 0;
         transform: translate(var(--badge-shift-x), var(--badge-shift-y)) scale(0.6);

@@ -50,7 +50,7 @@ export const Radio: React.FC<RadioProps> = ({
     const checkedValue = isControlled ? value : innerValue;
 
     const reactId = useId();
-    const idBase = `animal-radio-${reactId.replace(/:/g, '')}`;
+    const idBase = `island-radio-${reactId.replace(/:/g, '')}`;
     const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
 
     // 当前聚焦的索引（用于 roving tabindex）

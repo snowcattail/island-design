@@ -36,7 +36,7 @@ export const Tabs: React.FC<TabsProps> = ({
     const currentActiveKey = activeKey !== undefined ? activeKey : internalActiveKey;
 
     // tablist 内每个 tab 的稳定 id 前缀，用于 aria-controls / aria-labelledby 双向关联
-    const idPrefix = `animal-tabs-${useId().replace(/:/g, '')}`;
+    const idPrefix = `island-tabs-${useId().replace(/:/g, '')}`;
     const tabId = (k: string) => `${idPrefix}-tab-${k}`;
     const panelId = (k: string) => `${idPrefix}-panel-${k}`;
 

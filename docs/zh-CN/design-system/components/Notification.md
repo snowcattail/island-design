@@ -1,7 +1,7 @@
 # Notification
 
 源码：`src/components/Notification/NotificationPortal.tsx`（命令式 API + 全局 store + 容器） + `Notification.tsx`（单条视图） + `notification.module.less`。
-**命令式组件**：无 `<Notification>` JSX 元素，全部通过 `Notification.open / .success / .info / .warning / .error / .destroy` 触发；首次调用时在 `document.body` 挂一个根容器（`data-animal-notification-root`），后续 `useSyncExternalStore` 订阅 store 变化。SSR 安全（typeof document 守卫）。
+**命令式组件**：无 `<Notification>` JSX 元素，全部通过 `Notification.open / .success / .info / .warning / .error / .destroy` 触发；首次调用时在 `document.body` 挂一个根容器（`data-island-notification-root`），后续 `useSyncExternalStore` 订阅 store 变化。SSR 安全（typeof document 守卫）。
 
 ## 命令式 API
 
@@ -112,26 +112,26 @@ Notification.destroy('upload'); // close a specific key
 ## 入场 / 退场动画（按 placement 分方向）
 
 ```css
-.placement-top    { animation: animal-notification-slide-from-top 0.25s cubic-bezier(0.4,0,0.2,1) both; }
-.placement-top.leaving    { animation: animal-notification-slide-out-top 0.25s cubic-bezier(0.4,0,0.2,1) both; }
-.placement-bottom { animation: animal-notification-rise-from-bottom 0.25s cubic-bezier(0.4,0,0.2,1) both; }
-.placement-bottom.leaving { animation: animal-notification-sink-out-bottom 0.25s cubic-bezier(0.4,0,0.2,1) both; }
+.placement-top    { animation: island-notification-slide-from-top 0.25s cubic-bezier(0.4,0,0.2,1) both; }
+.placement-top.leaving    { animation: island-notification-slide-out-top 0.25s cubic-bezier(0.4,0,0.2,1) both; }
+.placement-bottom { animation: island-notification-rise-from-bottom 0.25s cubic-bezier(0.4,0,0.2,1) both; }
+.placement-bottom.leaving { animation: island-notification-sink-out-bottom 0.25s cubic-bezier(0.4,0,0.2,1) both; }
 
 /* top 方向：从 -16px 滑入，离场向上滑出 */
-@keyframes animal-notification-slide-from-top {
+@keyframes island-notification-slide-from-top {
     from { opacity: 0; transform: translateY(-16px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes animal-notification-slide-out-top {
+@keyframes island-notification-slide-out-top {
     from { opacity: 1; transform: translateY(0); }
     to   { opacity: 0; transform: translateY(-16px); }
 }
 /* bottom 方向：从 +16px 升入，离场向下沉出 */
-@keyframes animal-notification-rise-from-bottom {
+@keyframes island-notification-rise-from-bottom {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes animal-notification-sink-out-bottom {
+@keyframes island-notification-sink-out-bottom {
     from { opacity: 1; transform: translateY(0); }
     to   { opacity: 0; transform: translateY(16px); }
 }

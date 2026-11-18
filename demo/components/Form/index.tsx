@@ -353,7 +353,7 @@ const FormDemo: React.FC = () => {
                             { type: 'email', message: '邮箱格式不正确' },
                         ]}
                     >
-                        <Input placeholder="example@animal.com" />
+                        <Input placeholder="example@island.com" />
                     </FormItem>
                     <FormItem
                         label="年龄"

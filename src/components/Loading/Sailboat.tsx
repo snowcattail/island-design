@@ -41,8 +41,8 @@ const BOAT_PIVOT_Y = 39.32;
 export const Sailboat: React.FC = () => {
     // 同一页面可能渲染多个帆船，<use> 与裁剪区的引用目标必须逐实例唯一
     const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
-    const waveId = `animal-loading-wave-${uid}`;
-    const clipId = `animal-loading-wave-clip-${uid}`;
+    const waveId = `island-loading-wave-${uid}`;
+    const clipId = `island-loading-wave-clip-${uid}`;
 
     return (
         <svg
@@ -80,7 +80,7 @@ export const Sailboat: React.FC = () => {
                     <g
                         className={styles.waveTrack}
                         // 滚动距离由 TS 常量下发，LESS 侧只读不写，避免两处数字对不上
-                        style={{ '--animal-sailboat-wave-scroll': `${WAVE_SCROLL}px` } as React.CSSProperties}
+                        style={{ '--island-sailboat-wave-scroll': `${WAVE_SCROLL}px` } as React.CSSProperties}
                     >
                         {WAVE_OFFSETS.map((offset) => (
                             <use key={offset} href={`#${waveId}`} transform={`translate(${offset} 0)`} />

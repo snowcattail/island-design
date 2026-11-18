@@ -80,7 +80,7 @@ describe('Collapse', () => {
             const panel = screen.getByRole('region');
             expect(btn.getAttribute('aria-controls')).toBe(panel.id);
             expect(panel.getAttribute('aria-labelledby')).toBe(btn.id);
-            expect(panel.id).toMatch(/^animal-collapse-/);
+            expect(panel.id).toMatch(/^island-collapse-/);
             // a11y 契约：panel 必须显式暴露 region 语义角色
             expect(panel).toHaveRole('region');
         });

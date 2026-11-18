@@ -100,10 +100,10 @@ const SkillDemo: React.FC = () => {
                     </div>
                 </Section>
 
-                <Section title="设计令牌" tags={['--animal-*']}>
+                <Section title="设计令牌" tags={['--island-*']}>
                     <p className={`${styles.lead} ${styles.leadSpaced}`}>
                         打包样式在 :root 上声明了运行时 CSS 自定义属性（前缀
-                        --animal-*）。下面色板取的是当前页面真实令牌值 ——
+                        --island-*）。下面色板取的是当前页面真实令牌值 ——
                         消费者覆盖变量即可运行时换肤。精确清单见设计系统的 css-variables.md 与 design-tokens.md。
                     </p>
                     {COLOR_TOKEN_GROUPS.map((group) => (

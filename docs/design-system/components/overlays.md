@@ -9,7 +9,7 @@ Exact values for the layered surfaces that sit above page content: Modal, Drawer
 ```jsx
 <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden>
     <defs>
-        <clipPath id="animal-modal-clip" clipPathUnits="objectBoundingBox">
+        <clipPath id="island-modal-clip" clipPathUnits="objectBoundingBox">
             <path
                 d="M0.501,0.005 L0.501,0.005 L0.523,0.005 L0.549,0.006
         C0.704,0.01,0.796,0.017,0.825,0.027
@@ -45,21 +45,21 @@ Exact values for the layered surfaces that sit above page content: Modal, Drawer
 ```css
 /* mask */
 background: rgba(0, 0, 0, 0.35);
-animation: animal-fade-in 0.25s ease;
+animation: island-fade-in 0.25s ease;
 z-index: 1000;
 user-select: none; /* chrome — never hosts a selection */
 
 /* modal container */
 max-width: calc(100vw - 32px);
 max-height: calc(100vh - 64px);
-animation: animal-zoom-in 0.3s ease;
+animation: island-zoom-in 0.3s ease;
 
 /* prefers-reduced-motion: reduce — the scale(0.92) → scale(1) zoom is motion, so
    it is dropped (the panel falls back to its resting scale(1), never invisible).
    The mask's plain opacity fade is not motion and is kept. */
 
 /* clipped content area */
-clip-path: url(#animal-modal-clip);
+clip-path: url(#island-modal-clip);
 background: rgb(247, 243, 223);
 color: rgb(128, 115, 89);
 padding: 48px 48px 32px 48px;
@@ -122,7 +122,7 @@ border-color: rgba(255, 204, 0, 0.85);
 
 **Recessed depth-of-field drawer — the background sinks, scales down and dims to push the panel forward.**
 
-- `pushBackground` (default `true`): on open, every non-fixed direct child of `document.body` gets `transform: scale(0.94)`, `border-radius: 14px` and `overflow: hidden` over `0.36s cubic-bezier(0.2, 0, 0.2, 1)`. Fixed-position elements, `[data-animal-drawer-ignore]` nodes and the component's own portal wrapper are excluded.
+- `pushBackground` (default `true`): on open, every non-fixed direct child of `document.body` gets `transform: scale(0.94)`, `border-radius: 14px` and `overflow: hidden` over `0.36s cubic-bezier(0.2, 0, 0.2, 1)`. Fixed-position elements, `[data-island-drawer-ignore]` nodes and the component's own portal wrapper are excluded.
 - The pushed background deliberately carries **no `filter`**. `filter` is a non-composited property — it forces a fresh composited layer and a per-pixel gaussian blur across the viewport for each background element, so the *first* open stalls while the layers are rasterized from scratch and later opens feel fine. The depth read comes from `scale` + rounded corners + the dimming mask. `will-change: transform` is applied before the transition starts so layer promotion does not happen mid-animation.
 - `prefers-reduced-motion: reduce` disables **both** the background push (the sunken translate/scale) **and** the panel's own `translateX/Y(±100%) → none` slide-in, matching `Modal`, which drops its `scale(0.92) → scale(1)` zoom-in. The panel lands directly on its final transform — it never stops mid-flight or invisible. The mask's opacity transition is not motion and is kept.
 - **Panel chrome is not selectable; only the body is.** The mask, header, title, close × and footer carry `user-select: none`; the body carries `user-select: text` so content stays copyable. Without this, double-clicking the title selects a word, and double-clicking the trigger to open the drawer drops a selection onto the sliding-in panel — the warm `::selection` colour then paints a stray highlight inside the popup.
@@ -133,7 +133,7 @@ position: fixed;
 inset: 0;
 z-index: 1000;
 background: rgba(0, 0, 0, 0.18);
-animation: animal-drawer-fade-in 0.25s ease;
+animation: island-drawer-fade-in 0.25s ease;
 user-select: none; /* chrome — never hosts a selection */
 
 /* panel (shared) */
@@ -155,19 +155,19 @@ top: 0; right: 0; height: 100vh;
 max-width: calc(100vw - 32px);
 border-radius: 20px 0 0 20px;
 box-shadow: -12px 0 32px rgba(61, 52, 40, 0.18);
-animation-name: animal-drawer-slide-right; /* translateX(100%) → 0 */
+animation-name: island-drawer-slide-right; /* translateX(100%) → 0 */
 /* left */
 border-radius: 0 20px 20px 0;
 box-shadow: 12px 0 32px rgba(61, 52, 40, 0.18);
-animation-name: animal-drawer-slide-left; /* translateX(-100%) → 0 */
+animation-name: island-drawer-slide-left; /* translateX(-100%) → 0 */
 /* top */
 border-radius: 0 0 20px 20px;
 box-shadow: 0 12px 32px rgba(61, 52, 40, 0.18);
-animation-name: animal-drawer-slide-top; /* translateY(-100%) → 0 */
+animation-name: island-drawer-slide-top; /* translateY(-100%) → 0 */
 /* bottom */
 border-radius: 20px 20px 0 0;
 box-shadow: 0 -12px 32px rgba(61, 52, 40, 0.18);
-animation-name: animal-drawer-slide-bottom; /* translateY(100%) → 0 */
+animation-name: island-drawer-slide-bottom; /* translateY(100%) → 0 */
 
 /* title */
 font-size: 28px;

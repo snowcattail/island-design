@@ -11,15 +11,15 @@
 
 // 船身浮沉：上下轻移并微微摇曳
 .boat {
-    animation: animal-sailboat-bob 1s ease-in-out infinite alternate;
+    animation: island-sailboat-bob 1s ease-in-out infinite alternate;
 }
 
 // 波浪层：整条路径横移一个可见窗口的宽度（28.74 user units），与起点无缝衔接
 .waveTrack {
-    animation: animal-sailboat-wave 4s linear infinite;
+    animation: island-sailboat-wave 4s linear infinite;
 }
 
-@keyframes animal-sailboat-bob {
+@keyframes island-sailboat-bob {
     from {
         transform: translateY(0) rotate(0deg);
     }
@@ -28,12 +28,12 @@
     }
 }
 
-@keyframes animal-sailboat-wave {
+@keyframes island-sailboat-wave {
     from {
         transform: translateX(0);
     }
     to {
-        transform: translateX(var(--animal-sailboat-wave-scroll, 28.73px));
+        transform: translateX(var(--island-sailboat-wave-scroll, 28.73px));
     }
 }
 

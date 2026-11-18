@@ -332,7 +332,7 @@ tab-size: 4;
 }
 .is-clickable:active { transform: translateY(0); }
 .is-clickable:focus-visible {
-    outline: 2px solid var(--animal-focus-yellow, #f5c31c);
+    outline: 2px solid var(--island-focus-yellow, #f5c31c);
     outline-offset: 2px;
 }
 .is-disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
@@ -380,9 +380,9 @@ tab-size: 4;
     line-height: 1;
     white-space: nowrap;
     border-radius: 999px; /* 胶囊 */
-    border: 2px solid var(--animal-bg-color, #f8f8f0); /* 与 Avatar 一致的奶油贴纸描边 */
-    box-shadow: var(--animal-shadow-sm, 0 2px 4px 0 rgba(61, 52, 40, 0.06));
-    animation: animal-badge-zoom-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid var(--island-bg-color, #f8f8f0); /* 与 Avatar 一致的奶油贴纸描边 */
+    box-shadow: var(--island-shadow-sm, 0 2px 4px 0 rgba(61, 52, 40, 0.06));
+    animation: island-badge-zoom-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* 独立使用 —— 没有覆盖目标：取消位移、奶油描边与投影 */
@@ -440,7 +440,7 @@ tab-size: 4;
 **出场动画** —— `<sup>` 只在可见时才挂载，所以这组 keyframes 恰好只在 0 → N 的切换时播放；`prefers-reduced-motion: reduce` 下关闭：
 
 ```less
-@keyframes animal-badge-zoom-in {
+@keyframes island-badge-zoom-in {
     from { opacity: 0; transform: translate(var(--badge-shift-x), var(--badge-shift-y)) scale(0.6); }
     to   { opacity: 1; transform: translate(var(--badge-shift-x), var(--badge-shift-y)) scale(1); }
 }
@@ -448,7 +448,7 @@ tab-size: 4;
 
 > **关键设计决策**：
 > - 角标是 `<sup>` 元素；`position: absolute` + `translate(50%, -50%)` 让它精确钉在被包裹元素的右上角，`transform-origin: 100% 0` 让弹出动画从该角生长。
-> - 2px 奶油描边（`--animal-bg-color`）复用 Avatar 的贴纸描边，角标压在图片 / 图标上时能干净分离，而不是浮在画面上。独立使用时没有需要分离的目标，因此去掉描边、投影与位移。
+> - 2px 奶油描边（`--island-bg-color`）复用 Avatar 的贴纸描边，角标压在图片 / 图标上时能干净分离，而不是浮在画面上。独立使用时没有需要分离的目标，因此去掉描边、投影与位移。
 > - 封顶只对数字与数字字符串生效（`100` → `99+`）；ReactNode 类型的 `count`（如 naive-icons 图标）原样展示。可见文字被封顶时，真实数值仍保留在原生 `title` 中 —— 显式传入 `title` 可覆盖它。
 > - 显隐规则：`count` 为空（`null`、`undefined` 或空 / 纯空白字符串）、数值为 `0` / `"0"` 且未开启 `showZero` 时隐藏；`dot` 且数值为 0 时同样隐藏，但 `dot` 未传 `count` 仍会展示。`size` 只作用于数字胶囊 —— 小圆点的盒子尺寸优先。
 > - `color` 使用共享的海岛调色板而非自由的 CSS 颜色，角标不会脱离 Card / Tag 的色彩语言。
@@ -532,7 +532,7 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
 **大图预览**（点击放大，`preview` prop，**默认开启**）。相框升格为 `<button type="button">`（原生支持 Enter / Space，`cursor: zoom-in`）；弹层经 Portal 挂到 `document.body`，避开祖先 `transform` 造成的定位上下文：
 
 ```less
-// 全屏遮罩 — 与 Modal 同款（--animal-mask-bg，默认 rgba(0,0,0,0.35)），点击关闭
+// 全屏遮罩 — 与 Modal 同款（--island-mask-bg，默认 rgba(0,0,0,0.35)），点击关闭
 .mask {
     position: fixed;
     inset: 0;
@@ -540,8 +540,8 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--animal-mask-bg);
-    animation: animal-image-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--island-mask-bg);
+    animation: island-image-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // dialog — 包裹大图；其 click 被 stopPropagation（只有遮罩能关闭）
@@ -554,7 +554,7 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
     border-radius: 20px;
     box-shadow: 0 12px 40px rgba(43, 33, 24, 0.55);
     object-fit: contain;
-    animation: animal-image-zoom-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: island-image-zoom-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // 关闭按钮 — 40×40 圆形，浅灰背景 + 白色叉号，纯 CSS 绘制 ×
@@ -593,8 +593,8 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
     justify-content: center;
     flex-shrink: 0;
     overflow: hidden;
-    background: var(--animal-primary-color-bg); /* #e6f9f6 浅青 */
-    color: var(--animal-primary-color);         /* #19c8b9 青绿 */
+    background: var(--island-primary-color-bg); /* #e6f9f6 浅青 */
+    color: var(--island-primary-color);         /* #19c8b9 青绿 */
     font-weight: 600;
     border-radius: 999px; /* 圆形 */
     vertical-align: middle;
@@ -610,14 +610,14 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
 .string { display: inline-flex; align-items: center; justify-content: center; line-height: 1; white-space: nowrap; }
 
 /* 占位（图标 / 文字）—— 奶油贴纸描边 */
-.placeholder { border: 2px solid var(--animal-bg-color); }
+.placeholder { border: 2px solid var(--island-bg-color); }
 ```
 
-**文字 / 图标占位** —— 内容为青绿主色，落在浅青 primary-bg 上；2px `--animal-bg-color`（#f8f8f0）描边形成「贴纸」分离感。预设字号 14 / 16 / 20px；数字尺寸按 `max(12, round(size * 0.4))` 推导。**`gap` 自动缩小**：挂载后测量 `.string` 宽度，超过 `size - gap * 2` 时按比例缩小字号（`useLayoutEffect` → `setScale`）——仅文字头像。将 naive-icons 图标组件作为 `children`（元素 type 为函数组件）会创建图标头像，与 `icon` 走同一渲染路径（不参与缩小测量）；字符串 / 数字 children 为文字头像。
+**文字 / 图标占位** —— 内容为青绿主色，落在浅青 primary-bg 上；2px `--island-bg-color`（#f8f8f0）描边形成「贴纸」分离感。预设字号 14 / 16 / 20px；数字尺寸按 `max(12, round(size * 0.4))` 推导。**`gap` 自动缩小**：挂载后测量 `.string` 宽度，超过 `size - gap * 2` 时按比例缩小字号（`useLayoutEffect` → `setScale`）——仅文字头像。将 naive-icons 图标组件作为 `children`（元素 type 为函数组件）会创建图标头像，与 `icon` 走同一渲染路径（不参与缩小测量）；字符串 / 数字 children 为文字头像。
 
 **图片加载** —— `<img>` 铺满（`object-fit: cover`，无内边距）。`error` 时重渲染为占位（图标，缺省 naive-icons `UserIcon`，或 `children`），除非 `onError` 返回 `false`。`src` 变化重置加载状态。img 带 `alt`（缺省 `alt=""` 为装饰性图片）；纯默认图标暴露 `role="img"` + `aria-label="avatar"`。
 
-**Avatar.Group** —— `.group` 外壳 `display: inline-flex`；头像通过 `margin-left: calc(-1 * var(--avatar-group-gap))` 相互叠加，gap 变量由 `gap` prop（默认 8px）内联设置。每个头像保留 2px `--animal-bg-color` 描边，让叠加读作「刻意堆叠」而非「裁切」。`maxCount` 裁切子级并渲染 `+N` 胶囊（`styles.avatar` + `placeholder`，可用 `maxStyle` 覆盖样式）；组级 `size` / `shape` 会克隆注入到未显式指定的子 Avatar。`Avatar.Group` 也可经 `Avatar` 静态属性访问（便捷别名）。
+**Avatar.Group** —— `.group` 外壳 `display: inline-flex`；头像通过 `margin-left: calc(-1 * var(--avatar-group-gap))` 相互叠加，gap 变量由 `gap` prop（默认 8px）内联设置。每个头像保留 2px `--island-bg-color` 描边，让叠加读作「刻意堆叠」而非「裁切」。`maxCount` 裁切子级并渲染 `+N` 胶囊（`styles.avatar` + `placeholder`，可用 `maxStyle` 覆盖样式）；组级 `size` / `shape` 会克隆注入到未显式指定的子 Avatar。`Avatar.Group` 也可经 `Avatar` 静态属性访问（便捷别名）。
 
 ## CountUp（计分数字滚动，数字块 + 可选庆祝动效）
 
@@ -661,13 +661,13 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 .count-up {                          /* 与 Countdown 同一套面板语言 */
     display: inline-flex;
     align-items: center;
-    gap: var(--animal-spacing-sm, 8px);
-    color: var(--animal-text-color, #794f27);
-    font-family: var(--animal-font-family, 'Nunito', 'Noto Sans SC');
+    gap: var(--island-spacing-sm, 8px);
+    color: var(--island-text-color, #794f27);
+    font-family: var(--island-font-family, 'Nunito', 'Noto Sans SC');
     font-weight: 700;
     border-radius: 20px;
 }
-.default { padding: 12px 18px; background: var(--animal-bg-color, #fff); box-shadow: var(--animal-shadow-sm, ...); }
+.default { padding: 12px 18px; background: var(--island-bg-color, #fff); box-shadow: var(--island-shadow-sm, ...); }
 .island  { padding: 13px 20px; background: rgb(247, 243, 223); border: 2px dashed #d4c4a8; }
 
 .plate {                             /* 与 Countdown 的 .unit 完全同款 */
@@ -693,18 +693,18 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 **庆祝动效（可选，精确取值）**：
 ```css
 /* 数字块自己弹两下 */
-.celebrating .plate { animation: animal-countup-pop 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.celebrating .plate { animation: island-countup-pop 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }
 /* 1 → 1.14(-2deg) → 0.98 → 1.08(1.6deg) → 0.99 → 1 */
 
 /* 两圈向外扩散的光环，错开 0.12s */
 .ring { position: absolute; inset: 0; border: 2px solid rgba(247, 205, 103, 0.85); border-radius: 14px;
-        animation: animal-countup-ring 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }   /* scale 1→1.5，opacity .9→0 */
+        animation: island-countup-ring 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }   /* scale 1→1.5，opacity .9→0 */
 .ring:nth-child(2) { border-color: rgba(255, 204, 0, 0.7); animation-delay: 0.12s; }
 
 /* 四颗纯 CSS 四角星从数字块四角飞出 */
 .sparkle { position: absolute; width: 10px; height: 10px; background: #f7cd67;
            clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
-           animation: animal-countup-sparkle 0.72s cubic-bezier(0.4, 0, 0.2, 1) both; }
+           animation: island-countup-sparkle 0.72s cubic-bezier(0.4, 0, 0.2, 1) both; }
 /* 四角的位移量由 nth-child 提供 --cu-x / --cu-y；延迟 0 / .06 / .12 / .18s */
 
 /* 贴纸，浮在数字块上方 —— 只有传了 celebrate.text 才渲染 */
@@ -712,7 +712,7 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 .badge { padding: 2px 10px; color: #725d42; font-weight: 800; 按尺寸 12/13/15px; letter-spacing: 0.04em;
          background: linear-gradient(180deg, #ffe08a 0%, #f7cd67 100%);
          border: 1.5px solid #e0b800; border-radius: 50px; box-shadow: 0 2px 6px rgba(61, 52, 40, 0.18);
-         animation: animal-countup-badge 0.5s cubic-bezier(0.4, 0, 0.2, 1) both; }   /* 0.4 → 1.12(3deg) → 1 */
+         animation: island-countup-badge 0.5s cubic-bezier(0.4, 0, 0.2, 1) both; }   /* 0.4 → 1.12(3deg) → 1 */
 ```
 
 **关键交互细节：**
@@ -730,7 +730,7 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 
 源码：`src/components/Calendar/calendar.module.less`。**独立**的月历（不是弹出面板）：月份面板常驻，所以外壳是一张奶油卡片而不是定位浮层。视觉沿用 DatePicker —— `#fffdf7` 卡片、`#e8dcc8` 1.5px 描边、20px 圆角、圆形日期格 —— 并在每一周的日期下方增加事项带。
 
-**外壳与头部。** 面板没有尺寸档位：它测量自身盒子（`ResizeObserver`，或直接取数值型 `width`），再由宽度推导所有度量。`--animal-calendar-scale` = 实际宽度 / **750**（基准面板宽 750px），夹在 `0.6 … 2`，整套节奏都是 `基准值 × 系数`：
+**外壳与头部。** 面板没有尺寸档位：它测量自身盒子（`ResizeObserver`，或直接取数值型 `width`），再由宽度推导所有度量。`--island-calendar-scale` = 实际宽度 / **750**（基准面板宽 750px），夹在 `0.6 … 2`，整套节奏都是 `基准值 × 系数`：
 
 | 度量 | 750px 基准 | 1000px（系数 1.33） |
 | ---- | ---------- | ------------------- |
@@ -747,17 +747,17 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 
 ```css
 .calendar {                       /* 固定强调色三件套（DatePicker 的青绿）；所有度量都是 基准值 × 系数 */
-    --animal-calendar-accent: #19c8b9;
-    --animal-calendar-accent-soft: rgba(25, 200, 185, 0.14);
-    --animal-calendar-accent-tint: #e6f9f6;
-    --animal-calendar-header-height: calc(32px * var(--animal-calendar-scale, 1));
-    --animal-calendar-number-size: calc(28px * var(--animal-calendar-scale, 1));
-    --animal-calendar-cell-height: calc(104px * var(--animal-calendar-scale, 1));
-    --animal-calendar-row-height: calc(22px * var(--animal-calendar-scale, 1));
-    --animal-calendar-bar-height: calc(17px * var(--animal-calendar-scale, 1));
+    --island-calendar-accent: #19c8b9;
+    --island-calendar-accent-soft: rgba(25, 200, 185, 0.14);
+    --island-calendar-accent-tint: #e6f9f6;
+    --island-calendar-header-height: calc(32px * var(--island-calendar-scale, 1));
+    --island-calendar-number-size: calc(28px * var(--island-calendar-scale, 1));
+    --island-calendar-cell-height: calc(104px * var(--island-calendar-scale, 1));
+    --island-calendar-row-height: calc(22px * var(--island-calendar-scale, 1));
+    --island-calendar-bar-height: calc(17px * var(--island-calendar-scale, 1));
 }
 
-.body   { position: relative; padding: 8px 8px calc(var(--animal-calendar-row-height) * 2 + 6px + 8px);
+.body   { position: relative; padding: 8px 8px calc(var(--island-calendar-row-height) * 2 + 6px + 8px);
           border: 1.5px solid #e8dcc8; border-radius: 20px;
           background: radial-gradient(circle, rgba(196,184,158,0.15) 1.1px, transparent 1.1px) 0 0 / 28px 28px,
                       radial-gradient(circle, rgba(196,184,158,0.1) 0.8px, transparent 0.8px) 7px 7px / 14px 14px,
@@ -766,29 +766,29 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 .monthLabel { padding: 4px 12px; border-radius: 12px; background: #fffbe7; /* 与 DatePicker 的导航标签同款胶囊 */
               color: #725d42; font-size: 15px; font-weight: 700; }
 .navBtn { width: 28px; height: 28px; border-radius: 10px; color: #a0936e;   /* 14px / 16px 箭头 */
-          /* hover */ background: rgba(114, 93, 66, 0.1); color: var(--animal-calendar-accent); }
+          /* hover */ background: rgba(114, 93, 66, 0.1); color: var(--island-calendar-accent); }
 .todayBtn { padding: 4px 12px; border-radius: 10px; color: #8a7b66; font-size: 13px; font-weight: 700;
             /* hover */ background: rgba(114, 93, 66, 0.1); color: #725d42; }
 ```
 
-**日期网格** —— 单个 `<table role="grid">`，7 等分列 × 6 周（恒定 42 格，含上下月日期并置灰）。每格高度为 `--animal-calendar-cell-height`，并带与事项条相同的左右 5px 内边距，因此事项条与它上方的日期圆落在同一条轨道上：
+**日期网格** —— 单个 `<table role="grid">`，7 等分列 × 6 周（恒定 42 格，含上下月日期并置灰）。每格高度为 `--island-calendar-cell-height`，并带与事项条相同的左右 5px 内边距，因此事项条与它上方的日期圆落在同一条轨道上：
 
 ```css
 .weekCell { height: 32px; color: #a09080; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; }
-.cell     { height: var(--animal-calendar-cell-height); padding: 5px 5px 0; box-sizing: border-box;
+.cell     { height: var(--island-calendar-cell-height); padding: 5px 5px 0; box-sizing: border-box;
             vertical-align: top; border-radius: 12px; cursor: pointer; }
 .cell:hover           { background: #f4f0e4; }                      /* 整个格子，不只是数字 */
 .cell:hover .dayNumber { color: #5a4530; font-weight: 700; }        /* hover 时数字转深棕，绝不转青绿 */
-.cell:focus-visible   { outline: 2px solid var(--animal-calendar-accent); outline-offset: -2px; }
-.cellSelected         { background: var(--animal-calendar-accent-tint); }
+.cell:focus-visible   { outline: 2px solid var(--island-calendar-accent); outline-offset: -2px; }
+.cellSelected         { background: var(--island-calendar-accent-tint); }
 .dayNumber            { width: 1em; height: 1em; border-radius: 50%; line-height: 1em; text-align: center;
                         color: #725d42; font-size: 13px; font-weight: 500; }
 .cellOutside .dayNumber { color: #c4b89e; font-weight: 400; }
-.cellToday   .dayNumber { box-shadow: inset 0 0 0 1.5px var(--animal-calendar-accent);
-                          color: var(--animal-calendar-accent); font-weight: 700; }
-.cellSelected .dayNumber { background: var(--animal-calendar-accent); box-shadow: none; color: #fff; font-weight: 700; }
+.cellToday   .dayNumber { box-shadow: inset 0 0 0 1.5px var(--island-calendar-accent);
+                          color: var(--island-calendar-accent); font-weight: 700; }
+.cellSelected .dayNumber { background: var(--island-calendar-accent); box-shadow: none; color: #fff; font-weight: 700; }
 .more  { margin: 2px 0 6px; padding: 1px 5px; border-radius: 8px; font-size: 10px; font-weight: 700;   /* +N 折叠 */
-         background: var(--animal-calendar-accent-soft); color: var(--animal-calendar-accent); }
+         background: var(--island-calendar-accent-soft); color: var(--island-calendar-accent); }
 ```
 
 **事项条** —— 事项层绝对定位覆盖整张卡片，组件为每条事项下发三个算好的值。这里**刻意不用** `grid-column`：事项条是绝对定位元素，已经脱离网格布局，写网格定位不会生效。
@@ -796,13 +796,13 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 ```css
 .eventsLayer { position: absolute; inset: 8px; pointer-events: none; }   /* 与 .body 的内边距一致，事项条才对得上列 */
 .event { position: absolute;
-         top: var(--animal-calendar-bar-top);   /* 表头 + 周序 × 单元格 + 日期数字带 + 事项行序 × 行高 + 半行 */
-         left: var(--animal-calendar-bar-left);    /* (100% / 7) × 列序 + 5px —— 与 .cell 同一个 5px 内边距 */
-         width: var(--animal-calendar-bar-width);  /* (100% / 7) × 跨列数 − 10px */
-         height: var(--animal-calendar-bar-height); margin: 0; padding: 0 6px;
+         top: var(--island-calendar-bar-top);   /* 表头 + 周序 × 单元格 + 日期数字带 + 事项行序 × 行高 + 半行 */
+         left: var(--island-calendar-bar-left);    /* (100% / 7) × 列序 + 5px —— 与 .cell 同一个 5px 内边距 */
+         width: var(--island-calendar-bar-width);  /* (100% / 7) × 跨列数 − 10px */
+         height: var(--island-calendar-bar-height); margin: 0; padding: 0 6px;
          transform: translateY(-50%);   /* top 指向行首，这里把条在行内垂直居中 */
-         border-radius: 10px; font-size: calc(11px * var(--animal-calendar-scale, 1)); font-weight: 600;
-         line-height: var(--animal-calendar-bar-height); overflow: hidden; white-space: nowrap; }
+         border-radius: 10px; font-size: calc(11px * var(--island-calendar-scale, 1)); font-weight: 600;
+         line-height: var(--island-calendar-bar-height); overflow: hidden; white-space: nowrap; }
 /* 跨天条在接缝处只留 1px 空档，相邻两周读起来是一条 */
 .event[data-span='true']  { margin-left: 1px; margin-right: 1px; border-radius: 6px; }
 .event[data-start='true'] { margin-left: 0; }    /* 起始周贴齐网格左缘 */

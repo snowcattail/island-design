@@ -21,7 +21,7 @@ export interface CountdownShakeOptions {
 }
 
 /** 缺省使用组件库缓动，调用方可以按场景覆盖。 */
-const DEFAULT_EASING = 'var(--animal-motion-ease, cubic-bezier(0.4, 0, 0.2, 1))';
+const DEFAULT_EASING = 'var(--island-motion-ease, cubic-bezier(0.4, 0, 0.2, 1))';
 
 /** 归一化数值配置，忽略非有限数，越界值钳制到可绘制范围。 */
 function numberOption(value: number | undefined, fallback: number, min = 0, max = 60_000): number {

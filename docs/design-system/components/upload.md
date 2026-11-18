@@ -6,7 +6,7 @@ File upload with a cream-capsule trigger (text mode) or a dashed drop zone (`dra
 
 ## props
 
-`progress` defaults to `false`, preserving the original spinner and percentage. Passing an object enables progress: `type="bar"` (the object default) reuses small 14px Progress, 6px below the filename in text / picture rows with 11px info; picture cards have 8px side insets and white percentage text above the bar. `type="background"` fills the entire file-item background left-to-right according to percentage without an extra bar. The fill uses `var(--animal-primary-color, #19c8b9)` with opacity 0.28 and clips to the item radius; picture cards use a cream mask at opacity 0.88 to keep text readable. Both modes support `color / wave / animated / showInfo / duration`, follow `file.percent` (missing or NaN becomes 0, clamped to 0–100), and appear only while uploading. The background progress node stays separate from action buttons and has a file-specific accessible name; reduced motion stops waves and width transitions.
+`progress` defaults to `false`, preserving the original spinner and percentage. Passing an object enables progress: `type="bar"` (the object default) reuses small 14px Progress, 6px below the filename in text / picture rows with 11px info; picture cards have 8px side insets and white percentage text above the bar. `type="background"` fills the entire file-item background left-to-right according to percentage without an extra bar. The fill uses `var(--island-primary-color, #19c8b9)` with opacity 0.28 and clips to the item radius; picture cards use a cream mask at opacity 0.88 to keep text readable. Both modes support `color / wave / animated / showInfo / duration`, follow `file.percent` (missing or NaN becomes 0, clamped to 0–100), and appear only while uploading. The background progress node stays separate from action buttons and has a file-specific accessible name; reduced motion stops waves and width transitions.
 
 ```tsx
 <Upload progress={{ type: 'background', wave: true }} />
@@ -159,7 +159,7 @@ The zone carries the arrow-up icon at 1.5× scale and the caption `点击或拖�
 .statusError { color: #e05a5a; }                             /* ⚠ icon */
 .spinner { width: 12px; height: 12px; border-radius: 50%;
            border: 2px solid #e6f9f6; border-top-color: #19c8b9;
-           animation: animal-upload-spin 0.8s linear infinite; }
+           animation: island-upload-spin 0.8s linear infinite; }
 .percent { font-size: 11px; font-weight: 700; color: #19c8b9; font-variant-numeric: tabular-nums; }
 .removeBtn { width: 18px; height: 18px; border-radius: 50%;
              background: rgba(0, 0, 0, 0.06); }

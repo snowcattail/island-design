@@ -9,7 +9,7 @@
     width: 100%;
     background: #fffdf7;
     border-radius: 50px;
-    transition: all var(--animal-motion-duration-base) var(--animal-motion-ease);
+    transition: all var(--island-motion-duration-base) var(--island-motion-ease);
     box-shadow: 0 3px 0 0 #d4c9b4;
 
     &:hover:not(.wrapper-disabled) {
@@ -39,9 +39,9 @@
 
 // ---------- Size ----------
 .wrapper-small {
-    height: var(--animal-height-sm);
+    height: var(--island-height-sm);
     padding: 0 14px;
-    font-size: var(--animal-font-size-sm);
+    font-size: var(--island-font-size-sm);
     border-radius: 40px;
 
     &:not(.wrapper-no-shadow) {
@@ -50,15 +50,15 @@
 }
 
 .wrapper-middle {
-    height: var(--animal-height-base);
+    height: var(--island-height-base);
     padding: 0 18px;
-    font-size: var(--animal-font-size-base);
+    font-size: var(--island-font-size-base);
 }
 
 .wrapper-large {
-    height: var(--animal-height-lg);
+    height: var(--island-height-lg);
     padding: 0 22px;
-    font-size: var(--animal-font-size-lg);
+    font-size: var(--island-font-size-lg);
     border-radius: 50px;
 
     &:not(.wrapper-no-shadow) {
@@ -68,18 +68,18 @@
 
 // ---------- Status ----------
 .wrapper-error {
-    box-shadow: 0 3px 0 0 var(--animal-error-color-active);
+    box-shadow: 0 3px 0 0 var(--island-error-color-active);
 
     &:hover:not(.wrapper-disabled) {
-        box-shadow: 0 3px 0 0 var(--animal-error-color-active);
+        box-shadow: 0 3px 0 0 var(--island-error-color-active);
     }
 }
 
 .wrapper-warning {
-    box-shadow: 0 3px 0 0 var(--animal-warning-color-active);
+    box-shadow: 0 3px 0 0 var(--island-warning-color-active);
 
     &:hover:not(.wrapper-disabled) {
-        box-shadow: 0 3px 0 0 var(--animal-warning-color-active);
+        box-shadow: 0 3px 0 0 var(--island-warning-color-active);
     }
 }
 
@@ -93,9 +93,9 @@
     background: transparent;
     color: #794f3f;
     font-size: inherit;
-    font-family: var(--animal-font-family);
+    font-family: var(--island-font-family);
     font-weight: 500;
-    line-height: var(--animal-line-height-base);
+    line-height: var(--island-line-height-base);
     letter-spacing: 0.01em;
 
     &::placeholder {
@@ -136,7 +136,7 @@
     border: none;
     border-radius: 50%;
     background: transparent;
-    transition: all var(--animal-motion-duration-fast);
+    transition: all var(--island-motion-duration-fast);
 
     &:hover {
         color: #725d42;

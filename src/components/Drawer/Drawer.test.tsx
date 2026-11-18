@@ -140,7 +140,7 @@ describe('Drawer', () => {
         // 动画开始前先提升为合成层，避开首帧的合成往返
         expect(content.style.willChange).toBe('transform');
         // 回归：portal 包裹器自身不能被下沉（否则 transform 会破坏内部 fixed 面板定位）
-        const portalWrapper = document.querySelector('[data-animal-drawer-portal]') as HTMLElement;
+        const portalWrapper = document.querySelector('[data-island-drawer-portal]') as HTMLElement;
         expect(portalWrapper).toBeTruthy();
         expect(portalWrapper.style.transform).toBe('');
         document.body.removeChild(content);

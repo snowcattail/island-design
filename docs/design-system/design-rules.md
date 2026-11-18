@@ -22,7 +22,7 @@ These fourteen contracts are the visual contract of the library. Violating any o
 6. Input has no shadow by default; the `shadow` prop defaults to `false`. Only an explicit `shadow={true}` adds `0 3px 0 0 #d4c9b4`. Status shadows (error/warning) are not governed by `shadow` and always render.
 7. Switch has no outer shadow. The track carries an `inset` shadow only; the handle is a flat circle with a 2.5px border and no `box-shadow`, vertically centered via `transform: translateY(-50%)`.
 8. Card has no `box-shadow`; it only lifts with `translateY(-2px)` on hover. The pattern variant adds a 1.5px border in the matching hue.
-9. Modal must use the SVG blob clip-path (`#animal-modal-clip`); it may not be swapped for a rounded rectangle.
+9. Modal must use the SVG blob clip-path (`#island-modal-clip`); it may not be swapped for a rounded rectangle.
 10. Title is a swallowtail ribbon (clip-path + folded-corner triangle shadow + 3deg perspective), not a blob, pill, or rectangle. `<Card type="title">` has been removed; use `<Title>`.
 11. Fonts: `Nunito, 'Noto Sans SC'` (shipped as woff2 through @fontsource, with the woff fallbacks stripped at build time). System monospace fonts are forbidden for UI text (CodeBlock excepted).
 12. Font weight: body 500, buttons and headings 600–700, Countdown digits and Title ribbons 900, placeholder 400. Never below 400 anywhere.
@@ -67,7 +67,7 @@ Check code against this list before submitting it. **Any ❌ that appears is a f
 
 9. **Modal must use the SVG blob clip-path**
     - ❌ `border-radius: 20px;` on a rectangular container
-    - ✅ `clip-path: url(#animal-modal-clip);` referencing the SVG blob
+    - ✅ `clip-path: url(#island-modal-clip);` referencing the SVG blob
 
 10. **Title is a swallowtail ribbon**
     - ❌ Using `<Card type="title">` or a rectangular Title with `border-radius`
@@ -75,7 +75,7 @@ Check code against this list before submitting it. **Any ❌ that appears is a f
 
 11. **Fonts**
     - ❌ `font-family: -apple-system, sans-serif;` (for UI text)
-    - ✅ `font-family: var(--animal-font-family, 'Nunito', 'Noto Sans SC');`
+    - ✅ `font-family: var(--island-font-family, 'Nunito', 'Noto Sans SC');`
 
 12. **Font weight never below 400**
     - ❌ `font-weight: 300;` / `font-weight: normal;` (< 400)

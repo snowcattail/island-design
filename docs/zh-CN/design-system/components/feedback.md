@@ -132,7 +132,7 @@ interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
     background: #0b101a;               /* night-sky base */
     opacity: 1;
     transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: animal-loading-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: island-loading-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .loading.circle {                     /* circle variant: no enter fade */
     animation: none;
@@ -155,7 +155,7 @@ interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
     top: -30px;                        /* starts above the viewport */
     background: #fff;
     border-radius: 50%;
-    animation: animal-loading-snow 10s linear infinite;
+    animation: island-loading-snow 10s linear infinite;
     /* per-flake inline style (generated once per mount via useMemo):
        width/height: Math.random() * 5 + 1 px        (1–6px)
        left: Math.random() * 100 %
@@ -164,7 +164,7 @@ interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
                                                        so the first frame is already full of snow) */
 }
 
-@keyframes animal-loading-snow {
+@keyframes island-loading-snow {
     0%   { transform: translateY(0) rotate(0deg); }
     100% { transform: translateY(calc(100vh + 60px)) rotate(360deg); }
 }
@@ -203,14 +203,14 @@ interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
 **波浪（侧向滚动，无接缝）：**
 ```css
 .waveTrack {
-    animation: animal-sailboat-wave 4s linear infinite;
+    animation: island-sailboat-wave 4s linear infinite;
 }
-@keyframes animal-sailboat-wave {
+@keyframes island-sailboat-wave {
     from { transform: translateX(0); }
-    to   { transform: translateX(var(--animal-sailboat-wave-scroll, 28.73px)); }  /* px = SVG user units here */
+    to   { transform: translateX(var(--island-sailboat-wave-scroll, 28.73px)); }  /* px = SVG user units here */
 }
 ```
-naive-icons 的波浪路径横跨 4.85 → 43.15，分成 4 段完全等长的 9.575，因此波形每 38.3 重复一次。路径整体平移 −4.85 让第 0 份正好从画布原点起画，再按 38.3 铺开（偏移 −81.45 / −43.15 / −4.85 / 33.45）。每个周期滚动 **28.74** 单位 —— 即一个可见窗口的宽度；滚动距离由 TS 常量通过内联 `--animal-sailboat-wave-scroll` 下发，两处数字不会对不上。
+naive-icons 的波浪路径横跨 4.85 → 43.15，分成 4 段完全等长的 9.575，因此波形每 38.3 重复一次。路径整体平移 −4.85 让第 0 份正好从画布原点起画，再按 38.3 铺开（偏移 −81.45 / −43.15 / −4.85 / 33.45）。每个周期滚动 **28.74** 单位 —— 即一个可见窗口的宽度；滚动距离由 TS 常量通过内联 `--island-sailboat-wave-scroll` 下发，两处数字不会对不上。
 
 **缩短的波浪**：只露出中间 3 个波形周期 —— 居中的 28.74 单位窗口，比 32.56 单位的船身窄一截。这个窗口是普通的 SVG **clipPath**（硬切，不做渐变）。线宽同步收细到 **1.9** —— naive-icons 的 2.5 是按 38.3 单位的整条波浪定的，波浪变短后不收细就会变成一条粗带子。
 
@@ -221,9 +221,9 @@ naive-icons 的波浪路径横跨 4.85 → 43.15，分成 4 段完全等长的 9
 **船身（浮沉与摇曳）：**
 ```css
 .boat {
-    animation: animal-sailboat-bob 1s ease-in-out infinite alternate;
+    animation: island-sailboat-bob 1s ease-in-out infinite alternate;
 }
-@keyframes animal-sailboat-bob {
+@keyframes island-sailboat-bob {
     from { transform: translateY(0) rotate(0deg); }
     to   { transform: translateY(-2px) rotate(1deg); }
 }
@@ -232,17 +232,17 @@ naive-icons 的波浪路径横跨 4.85 → 43.15，分成 4 段完全等长的 9
 
 **圆形展开（退出）：**
 ```css
-@property --animal-loading-mask-r {   /* registered → the radius can be transitioned */
+@property --island-loading-mask-r {   /* registered → the radius can be transitioned */
     syntax: '<length>'; inherits: false; initial-value: 0px;
 }
 .masking {
     -webkit-mask-image: radial-gradient(circle at center,
-        transparent var(--animal-loading-mask-r),
-        black calc(var(--animal-loading-mask-r) + 1px));
+        transparent var(--island-loading-mask-r),
+        black calc(var(--island-loading-mask-r) + 1px));
     mask-image: radial-gradient(circle at center,
-        transparent var(--animal-loading-mask-r),
-        black calc(var(--animal-loading-mask-r) + 1px));
-    transition: --animal-loading-mask-r var(--animal-loading-mask-duration, 0.6s) linear;
+        transparent var(--island-loading-mask-r),
+        black calc(var(--island-loading-mask-r) + 1px));
+    transition: --island-loading-mask-r var(--island-loading-mask-duration, 0.6s) linear;
     pointer-events: none;
 }
 ```
@@ -308,7 +308,7 @@ SkeletonAvatarProps { size?: 'small'|'middle'|'large'; shape?: 'circle'|'square'
 // shimmer animation
 .active::after {
     background: linear-gradient(90deg, transparent, @shimmer-mid, @shimmer-light, @shimmer-mid, transparent);
-    animation: animal-skeleton-shimmer 1.6s ease-in-out infinite;
+    animation: island-skeleton-shimmer 1.6s ease-in-out infinite;
 }
 
 // per-variant radius
@@ -417,7 +417,7 @@ interface CountdownProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'
 
 默认风格是白色 20px 圆角面板、暖色边框和柔和投影；`island` 使用 `rgb(247,243,223)` 羊皮纸背景与 2px `#d4c4a8` 虚线边框。每个 DD / HH / mm / ss token 渲染为独立的 12px 圆角数字块（奶油渐变底 `linear-gradient(180deg, #fff, #f8f8f0)`；island 风格下为 `#fffdf4→#f8f8f0` 渐变底；1.5px `#d4c9b4` 细边框通过 `bordered` 属性开启，默认无边框），格式中的字面量（如 `:`、`天`）渲染为普通分隔符，冒号与数字同字号、900 字重、`#8b7355`。数字块内每一位数字是包含两轮 0-9 的纵向数字条，所有变化都以 0.35s `cubic-bezier(0.4, 0, 0.2, 1)` 过渡向下滚动（里程表式）；数字滚过 0 回绕时，数字条先无动画瞬移到下一循环的同数字位置，再继续向下滚动，方向永不反向。数字采用大地棕 `#8b7355`、900 字重、等宽数字，三档字号为 20/26/34px。滚动数字条对辅助技术隐藏，由视觉隐藏的完整格式化文本代替；根节点使用 `role="timer"` 与 `aria-live="off"`，避免读屏软件每 250ms 打断用户。
 
-`reminder` 默认关闭；设为 `true` 使用默认规则：剩余 ≤60 秒为暖橙 `#c77c34`，≤10 秒为错误色 `var(--animal-error-color, #e05a5a)`。传入 `{ seconds, color }` 数组完全替换默认规则；颜色支持 CSS 颜色或变量。阈值按显示的向上取整秒数判断，命中多档时采用最小阈值，不要求数组排序；相同阈值取首项，无效阈值（负数或非有限数）与空颜色被忽略，空数组等同关闭。提醒只修改数字、分隔符及已开启的数字块边框，颜色过渡 0.2s，保持前缀与面板原样。归零保留命中的提醒色，重置到阈值外或关闭提醒时恢复默认色，计时与回调语义不变。
+`reminder` 默认关闭；设为 `true` 使用默认规则：剩余 ≤60 秒为暖橙 `#c77c34`，≤10 秒为错误色 `var(--island-error-color, #e05a5a)`。传入 `{ seconds, color }` 数组完全替换默认规则；颜色支持 CSS 颜色或变量。阈值按显示的向上取整秒数判断，命中多档时采用最小阈值，不要求数组排序；相同阈值取首项，无效阈值（负数或非有限数）与空颜色被忽略，空数组等同关闭。提醒只修改数字、分隔符及已开启的数字块边框，颜色过渡 0.2s，保持前缀与面板原样。归零保留命中的提醒色，重置到阈值外或关闭提醒时恢复默认色，计时与回调语义不变。
 
 `shake` 保留布尔值和秒数简写，新增对象配置阈值、加强阶段、周期、位移、旋转与缓动。抖动只作用于内部数字组：前缀、面板和布局保持不动，滚动数字条保留自身的纵向位移。离屏和隐藏页面停止循环动画；重置或关闭会清理当前效果。减少动态效果时完全移除抖动。完整参数与像素规范见 [倒计时抖动](countdown-motion.md)。
 
@@ -451,6 +451,6 @@ export interface TimeProps extends React.HTMLAttributes<HTMLDivElement> {
 两种排布共用同一套内容规则（`weekdayFormat` / `dateFormat` / `locale` 对两者都生效）：
 
 - **`default`** —— 卡片：上方时间，下方一个日期胶囊装星期与月日。
-- **`game`** —— 裸的竖排 HUD：**完全没有卡片外壳**（透明、无投影、无圆角），内边距 50px，上方时间、其下 8px 处一条细分隔线，下方月日用纯文本、周几单独装胶囊。沿用原版的版式：时钟 40px / 900 字重 / 2px 字距、颜色 `#8b7355`（冒号用 `top: -0.08em`、左右各 1px）；分隔线是横贯内容宽度再多 5px 的 2px `rgba(159, 146, 125, 0.35)`；月日 22px / 800 字重 / 2px 字距、颜色 `#8b7355`；周几装在 `#fffbe7` 药丸里（15px / 900 字重、`line-height: 1`、`padding: 7px 16px 5px`，高 27px；上方多 1px 让中文墨迹落在视觉中心，且不设字距以保证水平居中）、文字 `#8b7355`。**这些颜色是字面值而非 `--animal-*` 令牌** —— 它们就是原版的取色，所以覆盖库里的颜色变量不会改变这个变体。
+- **`game`** —— 裸的竖排 HUD：**完全没有卡片外壳**（透明、无投影、无圆角），内边距 50px，上方时间、其下 8px 处一条细分隔线，下方月日用纯文本、周几单独装胶囊。沿用原版的版式：时钟 40px / 900 字重 / 2px 字距、颜色 `#8b7355`（冒号用 `top: -0.08em`、左右各 1px）；分隔线是横贯内容宽度再多 5px 的 2px `rgba(159, 146, 125, 0.35)`；月日 22px / 800 字重 / 2px 字距、颜色 `#8b7355`；周几装在 `#fffbe7` 药丸里（15px / 900 字重、`line-height: 1`、`padding: 7px 16px 5px`，高 27px；上方多 1px 让中文墨迹落在视觉中心，且不设字距以保证水平居中）、文字 `#8b7355`。**这些颜色是字面值而非 `--island-*` 令牌** —— 它们就是原版的取色，所以覆盖库里的颜色变量不会改变这个变体。
 
-卡片为纵向堆叠的 inline-flex 面板 —— 背景为 `var(--animal-bg-color)`、20px 圆角、`--animal-shadow-sm` 柔和投影、无边框，挂载时以 `--animal-motion-duration-slow` 淡入。时钟为 44px / 900 字重 / `var(--animal-time-color, #8b7355)`，等宽数字、1px 字距；冒号按秒闪烁（`step-end`，50% 处透明度为 0）。日期胶囊为 `var(--animal-primary-color-bg)` 底、999px 圆角的药丸形，内含大写星期（`var(--animal-primary-color)`、800 字重、1px 字距）、`·` 分隔点（禁用色调）与月日（`var(--animal-text-color-secondary)`、700 字重）。根节点使用 `role="timer"` 与 `aria-live="off"`，每秒刷新不打断读屏软件。
+卡片为纵向堆叠的 inline-flex 面板 —— 背景为 `var(--island-bg-color)`、20px 圆角、`--island-shadow-sm` 柔和投影、无边框，挂载时以 `--island-motion-duration-slow` 淡入。时钟为 44px / 900 字重 / `var(--island-time-color, #8b7355)`，等宽数字、1px 字距；冒号按秒闪烁（`step-end`，50% 处透明度为 0）。日期胶囊为 `var(--island-primary-color-bg)` 底、999px 圆角的药丸形，内含大写星期（`var(--island-primary-color)`、800 字重、1px 字距）、`·` 分隔点（禁用色调）与月日（`var(--island-text-color-secondary)`、700 字重）。根节点使用 `role="timer"` 与 `aria-live="off"`，每秒刷新不打断读屏软件。

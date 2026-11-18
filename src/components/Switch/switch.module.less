@@ -13,7 +13,7 @@
     border: 2.5px solid #c4b89e;
     border-radius: 50px;
     cursor: pointer;
-    transition: all var(--animal-motion-duration-base) var(--animal-motion-ease);
+    transition: all var(--island-motion-duration-base) var(--island-motion-ease);
     outline: none;
     box-shadow: inset 0 2px 4px rgba(114, 93, 66, 0.15);
 
@@ -75,7 +75,7 @@
     background: rgb(247, 243, 223);
     border: 2.5px solid #c4b89e;
     border-radius: 50%;
-    transition: all var(--animal-motion-duration-base) var(--animal-motion-ease);
+    transition: all var(--island-motion-duration-base) var(--island-motion-ease);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -125,7 +125,7 @@
     border: 2px solid #6fba2c;
     border-right-color: transparent;
     border-radius: 50%;
-    animation: animal-spin 0.6s linear infinite;
+    animation: island-spin 0.6s linear infinite;
 }
 
 .switch:not(.switch-checked) .spinner {
@@ -133,7 +133,7 @@
     border-right-color: transparent;
 }
 
-@keyframes animal-spin {
+@keyframes island-spin {
     to {
         transform: rotate(360deg);
     }

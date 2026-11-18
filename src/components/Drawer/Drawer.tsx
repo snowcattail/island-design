@@ -178,10 +178,10 @@ export const Drawer: React.FC<DrawerProps> = ({
             const tag = el.tagName;
             if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return false;
             // 跳过显式标记忽略的元素
-            if (el.hasAttribute('data-animal-drawer-ignore')) return false;
+            if (el.hasAttribute('data-island-drawer-ignore')) return false;
             // 跳过本组件 portal 输出（Cursor 包裹器非 fixed，但其内部的 mask/panel 是 fixed，
             // 若对其施加 transform 会成为 fixed 后代的包含块，破坏视口定位）
-            if (el.hasAttribute('data-animal-drawer-portal')) return false;
+            if (el.hasAttribute('data-island-drawer-portal')) return false;
             // 跳过 fixed 定位（遮罩、面板、其他 portal 均为 fixed，自动排除）
             return getComputedStyle(el).position !== 'fixed';
         });
@@ -239,7 +239,7 @@ export const Drawer: React.FC<DrawerProps> = ({
         e.stopPropagation();
     }, []);
 
-    const idPrefix = `animal-drawer-${useId().replace(/:/g, '')}`;
+    const idPrefix = `island-drawer-${useId().replace(/:/g, '')}`;
     const titleId = `${idPrefix}-title`;
 
     // 始终在 DOM 中渲染：关闭态由 placement 类（transform: translateX/Y(...)）定义，
@@ -271,7 +271,7 @@ export const Drawer: React.FC<DrawerProps> = ({
     }
 
     const drawerContent = (
-        <div data-animal-drawer-portal>
+        <div data-island-drawer-portal>
             <Cursor>
                 <div
                     className={[styles.mask, open && styles.maskOpen].filter(Boolean).join(' ')}

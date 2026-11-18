@@ -186,8 +186,8 @@ describe('Loading', () => {
             const { rerender } = render(<Loading type="circle" fadeDuration={1.2} />);
             rerender(<Loading type="circle" fadeDuration={1.2} active={false} />);
             const status = screen.getByRole('status') as HTMLElement;
-            expect(status.style.getPropertyValue('--animal-loading-mask-duration')).toBe('1.2s');
-            expect(parseFloat(status.style.getPropertyValue('--animal-loading-mask-r'))).toBeGreaterThan(0);
+            expect(status.style.getPropertyValue('--island-loading-mask-duration')).toBe('1.2s');
+            expect(parseFloat(status.style.getPropertyValue('--island-loading-mask-r'))).toBeGreaterThan(0);
         });
 
         it('展开走完后卸载', () => {
@@ -207,11 +207,11 @@ describe('Loading', () => {
             rerender(<Loading type="circle" fadeDuration={0.6} active />);
             const status = screen.getByRole('status') as HTMLElement;
             expect(status).not.toHaveClass(styles.masking);
-            expect(status.style.getPropertyValue('--animal-loading-mask-r')).toBe('0px');
+            expect(status.style.getPropertyValue('--island-loading-mask-r')).toBe('0px');
 
             // 再次关闭时半径要重新写成目标值，而不是停留在 0
             rerender(<Loading type="circle" fadeDuration={0.6} active={false} />);
-            expect(parseFloat(status.style.getPropertyValue('--animal-loading-mask-r'))).toBeGreaterThan(0);
+            expect(parseFloat(status.style.getPropertyValue('--island-loading-mask-r'))).toBeGreaterThan(0);
         });
     });
 

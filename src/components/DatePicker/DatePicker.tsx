@@ -137,7 +137,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const selectedRange = range ? parseRange(currentValue) : null;
     const open = openProp !== undefined ? openProp : innerOpen;
 
-    const idPrefix = `animal-date-picker-${useId().replace(/:/g, '')}`;
+    const idPrefix = `island-date-picker-${useId().replace(/:/g, '')}`;
     const panelId = `${idPrefix}-panel`;
 
     // 面板展开时重置视图所用到的当前值引用，避免值变化本身触发重置

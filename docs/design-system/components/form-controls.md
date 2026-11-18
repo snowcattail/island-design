@@ -155,10 +155,10 @@ height: 11px;
 border: 2px solid #6fba2c;
 border-right-color: transparent;
 border-radius: 50%;
-animation: animal-spin 0.6s linear infinite;
+animation: island-spin 0.6s linear infinite;
 /* unchecked state */
 border-color: #a89878;
-@keyframes animal-spin {
+@keyframes island-spin {
     to {
         transform: rotate(360deg);
     }
@@ -234,8 +234,8 @@ border-color: #50b9ab; /* @primary-color-active, on input:checked */
 input:checked ~ .check path { stroke-dashoffset: 0; }
 
 /* splash burst on check — six dots flying outward then fading */
-input:checked ~ .splash { animation: animal-cbx-splash 0.6s ease forwards; }
-@keyframes animal-cbx-splash {
+input:checked ~ .splash { animation: island-cbx-splash 0.6s ease forwards; }
+@keyframes island-cbx-splash {
     40% {
         background: #19c8b9; /* @splash-color = @primary-color */
         box-shadow:
@@ -372,11 +372,11 @@ gap: var(--rate-gap); /* 4 / 6 / 8px by size */
 .star .icon {
     /* the naive-icons StarIcon hard-codes stroke #2A2A2A, fill #E9C46A and two eyes */
     display: block; width: 100%; height: 100%;
-    stroke: #c4b89e; /* --animal-text-color-disabled — an empty star is outline only */
+    stroke: #c4b89e; /* --island-text-color-disabled — an empty star is outline only */
     transition: stroke 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .star .icon path {
-    fill: #f5c31c; /* --animal-warning-color */
+    fill: #f5c31c; /* --island-warning-color */
     fill-opacity: 0;
     transition: fill-opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -386,7 +386,7 @@ gap: var(--rate-gap); /* 4 / 6 / 8px by size */
     opacity: 0;
     transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.active .star .icon { stroke: #dba90e; /* --animal-warning-color-active */ }
+.active .star .icon { stroke: #dba90e; /* --island-warning-color-active */ }
 .active .star .icon path { fill-opacity: 1; }
 .active .star .icon circle { opacity: 1; }
 
@@ -402,7 +402,7 @@ gap: var(--rate-gap); /* 4 / 6 / 8px by size */
 }
 
 /* selection animation — a pop on every newly lit star, then a six-dot burst */
-@keyframes animal-rate-pop {
+@keyframes island-rate-pop {
     0% { transform: scale(0.55); }
     60% { transform: scale(1.15); }
     100% { transform: scale(1); }
@@ -415,10 +415,10 @@ gap: var(--rate-gap); /* 4 / 6 / 8px by size */
     width: 22px; height: 22px; margin: -11px 0 0 -11px;
     border-radius: 50%;
     transform: scale(var(--rate-splash-scale)); /* 22px reference geometry → star size */
-    animation: animal-rate-splash 0.6s ease forwards;
+    animation: island-rate-splash 0.6s ease forwards;
     pointer-events: none;
 }
-/* animal-rate-splash draws the six dots only — no background disc, so the star is
+/* island-rate-splash draws the six dots only — no background disc, so the star is
    the only element that ends up filled. The dots fly out to 36px/32px with a
    negative spread and fade to transparent, painted in #f5c31c. Only one splash is
    mounted at a time (the clicked star) and it is keyed by the commit counter, so
@@ -499,7 +499,7 @@ Controlled dropdown selector; click the trigger to open, and options support ↑
     background: transparent;
     border: none;
     border-radius: 50%;
-    transition: all var(--animal-motion-duration-fast) var(--animal-motion-ease);
+    transition: all var(--island-motion-duration-fast) var(--island-motion-ease);
     /* hover: color #725d42, background rgba(114, 93, 66, 0.1) */
     /* :focus-visible: outline 2px solid #19c8b9 */
 }

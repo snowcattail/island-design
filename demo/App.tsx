@@ -411,7 +411,7 @@ const App: React.FC = () => {
                 }
                 /* 体验彩蛋：Cursor 演示页展示区 ambient 雨滴光标（预览框内部保留各自演示的光标） */
                 div.demo-raindrop-zone,
-                .demo-raindrop-zone *:not(.animal-cursor, .animal-cursor *) {
+                .demo-raindrop-zone *:not(.island-cursor, .island-cursor *) {
                     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 6s-9 12-9 16a9 9 0 0 0 18 0c0-4-9-16-9-16z' fill='%2374ccff' stroke='%232e86ab' stroke-width='1.5'/%3E%3Cellipse cx='12.5' cy='19' rx='2' ry='3.2' fill='%23dff4ff' transform='rotate(-18 12.5 19)'/%3E%3C/svg%3E") 16 6, default !important;
                 }
             `}</style>

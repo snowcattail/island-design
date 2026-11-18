@@ -663,7 +663,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 <div style={S.sectionTitle}>主题定制</div>
                 <div style={S.sectionDesc}>通过覆盖 CSS 自定义属性实现运行时换肤，无需重新构建</div>
                 <CodeBlock
-                    code={`/* 覆盖主题变量 */\n:root {\n    --animal-primary-color: #19c8b9;\n    --animal-text-color: #827157;\n    --animal-font-family: 'Noto Sans SC', sans-serif;\n    --animal-border-radius-base: 18px;\n    /* ... 40+ 设计令牌 */\n}`}
+                    code={`/* 覆盖主题变量 */\n:root {\n    --island-primary-color: #19c8b9;\n    --island-text-color: #827157;\n    --island-font-family: 'Noto Sans SC', sans-serif;\n    --island-border-radius-base: 18px;\n    /* ... 40+ 设计令牌 */\n}`}
                 />
             </div>
 

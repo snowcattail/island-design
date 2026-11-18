@@ -332,7 +332,7 @@ Source: `src/components/Tag/Tag.tsx` + `tag.module.less`. **Pill-shaped tag**: p
 }
 .is-clickable:active { transform: translateY(0); }
 .is-clickable:focus-visible {
-    outline: 2px solid var(--animal-focus-yellow, #f5c31c);
+    outline: 2px solid var(--island-focus-yellow, #f5c31c);
     outline-offset: 2px;
 }
 .is-disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
@@ -380,9 +380,9 @@ Source: `src/components/Badge/Badge.tsx` + `badge.module.less`. **Corner count b
     line-height: 1;
     white-space: nowrap;
     border-radius: 999px; /* pill */
-    border: 2px solid var(--animal-bg-color, #f8f8f0); /* cream ring, same as Avatar's */
-    box-shadow: var(--animal-shadow-sm, 0 2px 4px 0 rgba(61, 52, 40, 0.06));
-    animation: animal-badge-zoom-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid var(--island-bg-color, #f8f8f0); /* cream ring, same as Avatar's */
+    box-shadow: var(--island-shadow-sm, 0 2px 4px 0 rgba(61, 52, 40, 0.06));
+    animation: island-badge-zoom-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* standalone — nothing is covered: drop the offset, the cream ring and the shadow */
@@ -440,7 +440,7 @@ The rule measures the **displayed text**, so numbers go through `String(value)` 
 **Entrance motion** — the `<sup>` is only mounted once it becomes visible, so this keyframed pop plays exactly on a 0 → N transition; `prefers-reduced-motion: reduce` disables it:
 
 ```less
-@keyframes animal-badge-zoom-in {
+@keyframes island-badge-zoom-in {
     from { opacity: 0; transform: translate(var(--badge-shift-x), var(--badge-shift-y)) scale(0.6); }
     to   { opacity: 1; transform: translate(var(--badge-shift-x), var(--badge-shift-y)) scale(1); }
 }
@@ -448,7 +448,7 @@ The rule measures the **displayed text**, so numbers go through `String(value)` 
 
 > **Key design decisions**:
 > - The indicator is a `<sup>` element; `position: absolute` + `translate(50%, -50%)` pins it exactly on the wrapped element's top-right corner, and `transform-origin: 100% 0` makes the pop grow out of that corner.
-> - The 2px cream ring (`--animal-bg-color`) reuses Avatar's sticker ring, so a badge overlapping an image or icon separates cleanly instead of floating on the artwork. A standalone badge covers nothing, so it drops ring, shadow and offset.
+> - The 2px cream ring (`--island-bg-color`) reuses Avatar's sticker ring, so a badge overlapping an image or icon separates cleanly instead of floating on the artwork. A standalone badge covers nothing, so it drops ring, shadow and offset.
 > - Capping applies to numbers and numeric strings only (`100` → `99+`); a ReactNode `count` (e.g. a naive-icons glyph) renders verbatim. The true value stays in the native `title` even when the visible text is capped — pass `title` explicitly to override it.
 > - Visibility: hidden when `count` is empty (`null`, `undefined` or a blank string), when the value is `0` / `"0"` without `showZero`, and for `dot` when the value is zero; `dot` without a `count` still shows. `size` only affects the numeric pill — the dot box wins over it.
 > - `color` is drawn from the shared island palette rather than a free-form CSS colour, so a badge cannot drift outside the Card / Tag colour language.
@@ -532,7 +532,7 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
 **Preview lightbox** (click-to-zoom, `preview` prop — **on by default**). The frame is promoted to a `<button type="button">` (native Enter/Space support, `cursor: zoom-in`); the overlay is portaled to `document.body` so it escapes any ancestor `transform` stacking context:
 
 ```less
-// full-screen mask — same as Modal (`--animal-mask-bg`, default rgba(0,0,0,0.35)), click closes
+// full-screen mask — same as Modal (`--island-mask-bg`, default rgba(0,0,0,0.35)), click closes
 .mask {
     position: fixed;
     inset: 0;
@@ -540,8 +540,8 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--animal-mask-bg);
-    animation: animal-image-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--island-mask-bg);
+    animation: island-image-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // dialog — shrink-wraps the large image; its click is stopPropagation'd (only the mask closes)
@@ -554,7 +554,7 @@ stampYear?: string; // 发行年份，如「2026」 — 右上角照片上
     border-radius: 20px;
     box-shadow: 0 12px 40px rgba(43, 33, 24, 0.55);
     object-fit: contain;
-    animation: animal-image-zoom-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: island-image-zoom-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // close button — 40×40 circle, light gray scrim + white ×
@@ -593,8 +593,8 @@ Source: `src/components/Avatar/avatar.module.less`. A `<span>` that shows either
     justify-content: center;
     flex-shrink: 0;
     overflow: hidden;
-    background: var(--animal-primary-color-bg); /* #e6f9f6 light teal */
-    color: var(--animal-primary-color);         /* #19c8b9 teal */
+    background: var(--island-primary-color-bg); /* #e6f9f6 light teal */
+    color: var(--island-primary-color);         /* #19c8b9 teal */
     font-weight: 600;
     border-radius: 999px; /* circle */
     vertical-align: middle;
@@ -610,14 +610,14 @@ Source: `src/components/Avatar/avatar.module.less`. A `<span>` that shows either
 .string { display: inline-flex; align-items: center; justify-content: center; line-height: 1; white-space: nowrap; }
 
 /* placeholder (icon/text) — cream sticker ring */
-.placeholder { border: 2px solid var(--animal-bg-color); }
+.placeholder { border: 2px solid var(--island-bg-color); }
 ```
 
-**Text/icon placeholder** — content colour is the teal primary on a light-teal primary-bg; the 2px `--animal-bg-color` (#f8f8f0) border gives the "sticker" separation. Font size per preset is 14 / 16 / 20px; for numeric sizes it derives as `max(12, round(size * 0.4))`. **`gap` auto-shrink**: after mount the `.string` width is measured and, when it exceeds `size - gap * 2`, the font scales down by that ratio (`useLayoutEffect` → `setScale`) — text avatars only. Passing a naive-icons component as `children` (element type is a function component) creates an icon avatar that shares the `icon` rendering path (no shrink measurement); string/number children are text avatars.
+**Text/icon placeholder** — content colour is the teal primary on a light-teal primary-bg; the 2px `--island-bg-color` (#f8f8f0) border gives the "sticker" separation. Font size per preset is 14 / 16 / 20px; for numeric sizes it derives as `max(12, round(size * 0.4))`. **`gap` auto-shrink**: after mount the `.string` width is measured and, when it exceeds `size - gap * 2`, the font scales down by that ratio (`useLayoutEffect` → `setScale`) — text avatars only. Passing a naive-icons component as `children` (element type is a function component) creates an icon avatar that shares the `icon` rendering path (no shrink measurement); string/number children are text avatars.
 
 **Image loading** — an `<img>` fills the box (`object-fit: cover`, no padding). On `error` the component re-renders the placeholder (icon, defaulting to the naive-icons `UserIcon`, or `children`) unless `onError` returns `false`. `src` change resets the load state. The img carries `alt` when provided, `alt=""` (decorative) otherwise; the bare default icon exposes `role="img"` + `aria-label="avatar"`.
 
-**Avatar.Group** — `display: inline-flex` on a `.group` wrapper; avatars overlap via `margin-left: calc(-1 * var(--avatar-group-gap))` with the gap variable set inline from the `gap` prop (default 8px). Each avatar keeps a 2px `--animal-bg-color` ring so the overlap reads as deliberate stacking, not clipping. `maxCount` slices children and renders a `+N` pill (`styles.avatar` + `placeholder`, style overridable via `maxStyle`); group-level `size`/`shape` are cloned into children that don't set their own. `Avatar.Group` also works as a static property on `Avatar` (convenience alias).
+**Avatar.Group** — `display: inline-flex` on a `.group` wrapper; avatars overlap via `margin-left: calc(-1 * var(--avatar-group-gap))` with the gap variable set inline from the `gap` prop (default 8px). Each avatar keeps a 2px `--island-bg-color` ring so the overlap reads as deliberate stacking, not clipping. `maxCount` slices children and renders a `+N` pill (`styles.avatar` + `placeholder`, style overridable via `maxStyle`); group-level `size`/`shape` are cloned into children that don't set their own. `Avatar.Group` also works as a static property on `Avatar` (convenience alias).
 
 
 ## CountUp (score counter, digit plate + optional celebration)
@@ -662,13 +662,13 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 .count-up {                          /* same panel language as Countdown */
     display: inline-flex;
     align-items: center;
-    gap: var(--animal-spacing-sm, 8px);
-    color: var(--animal-text-color, #794f27);
-    font-family: var(--animal-font-family, 'Nunito', 'Noto Sans SC');
+    gap: var(--island-spacing-sm, 8px);
+    color: var(--island-text-color, #794f27);
+    font-family: var(--island-font-family, 'Nunito', 'Noto Sans SC');
     font-weight: 700;
     border-radius: 20px;
 }
-.default { padding: 12px 18px; background: var(--animal-bg-color, #fff); box-shadow: var(--animal-shadow-sm, ...); }
+.default { padding: 12px 18px; background: var(--island-bg-color, #fff); box-shadow: var(--island-shadow-sm, ...); }
 .island  { padding: 13px 20px; background: rgb(247, 243, 223); border: 2px dashed #d4c4a8; }
 
 .plate {                             /* identical tile to Countdown's .unit */
@@ -694,18 +694,18 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 **Celebration (opt-in, exact values):**
 ```css
 /* the plate itself bounces twice */
-.celebrating .plate { animation: animal-countup-pop 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.celebrating .plate { animation: island-countup-pop 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }
 /* 1 → 1.14(-2deg) → 0.98 → 1.08(1.6deg) → 0.99 → 1 */
 
 /* two shockwave rings, 0.12s apart */
 .ring { position: absolute; inset: 0; border: 2px solid rgba(247, 205, 103, 0.85); border-radius: 14px;
-        animation: animal-countup-ring 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }   /* scale 1→1.5, opacity .9→0 */
+        animation: island-countup-ring 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }   /* scale 1→1.5, opacity .9→0 */
 .ring:nth-child(2) { border-color: rgba(255, 204, 0, 0.7); animation-delay: 0.12s; }
 
 /* four CSS four-point sparkles flying out of the plate corners */
 .sparkle { position: absolute; width: 10px; height: 10px; background: #f7cd67;
            clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
-           animation: animal-countup-sparkle 0.72s cubic-bezier(0.4, 0, 0.2, 1) both; }
+           animation: island-countup-sparkle 0.72s cubic-bezier(0.4, 0, 0.2, 1) both; }
 .sparkle:nth-child(odd)  { --cu-x: -16px; }   /* corner offsets are per-nth-child; delays 0 / .06 / .12 / .18s */
 .sparkle:nth-child(even) { --cu-x: 16px; }
 
@@ -714,7 +714,7 @@ interface CountUpProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'prefi
 .badge { padding: 2px 10px; color: #725d42; font-weight: 800; font-size: 12/13/15px per size; letter-spacing: 0.04em;
          background: linear-gradient(180deg, #ffe08a 0%, #f7cd67 100%);
          border: 1.5px solid #e0b800; border-radius: 50px; box-shadow: 0 2px 6px rgba(61, 52, 40, 0.18);
-         animation: animal-countup-badge 0.5s cubic-bezier(0.4, 0, 0.2, 1) both; }   /* 0.4 → 1.12(3deg) → 1 */
+         animation: island-countup-badge 0.5s cubic-bezier(0.4, 0, 0.2, 1) both; }   /* 0.4 → 1.12(3deg) → 1 */
 ```
 
 **Key interaction details:**
@@ -735,7 +735,7 @@ permanent, so the shell is a cream card rather than a positioned popover. It reu
 `#fffdf7` card, `#e8dcc8` 1.5px border, 20px radius, day circles — and adds an event band under each week's dates.
 
 **Shell and header.** The panel has no size tiers: it measures its own box (`ResizeObserver`, or the numeric `width`
-prop when given) and derives every metric from it. `--animal-calendar-scale` = actual width / **750** (the baseline is
+prop when given) and derives every metric from it. `--island-calendar-scale` = actual width / **750** (the baseline is
 tuned to a 750px panel), clamped
 to `0.6 … 2`, and the whole rhythm is `baseline × scale`:
 
@@ -755,17 +755,17 @@ because a scaled-up digit overflows the circle. The cell must also fit the numbe
 
 ```css
 .calendar {                       /* fixed accent trio (DatePicker's teal); every metric is baseline × scale */
-    --animal-calendar-accent: #19c8b9;
-    --animal-calendar-accent-soft: rgba(25, 200, 185, 0.14);
-    --animal-calendar-accent-tint: #e6f9f6;
-    --animal-calendar-header-height: calc(32px * var(--animal-calendar-scale, 1));
-    --animal-calendar-number-size: calc(28px * var(--animal-calendar-scale, 1));
-    --animal-calendar-cell-height: calc(104px * var(--animal-calendar-scale, 1));
-    --animal-calendar-row-height: calc(22px * var(--animal-calendar-scale, 1));
-    --animal-calendar-bar-height: calc(17px * var(--animal-calendar-scale, 1));
+    --island-calendar-accent: #19c8b9;
+    --island-calendar-accent-soft: rgba(25, 200, 185, 0.14);
+    --island-calendar-accent-tint: #e6f9f6;
+    --island-calendar-header-height: calc(32px * var(--island-calendar-scale, 1));
+    --island-calendar-number-size: calc(28px * var(--island-calendar-scale, 1));
+    --island-calendar-cell-height: calc(104px * var(--island-calendar-scale, 1));
+    --island-calendar-row-height: calc(22px * var(--island-calendar-scale, 1));
+    --island-calendar-bar-height: calc(17px * var(--island-calendar-scale, 1));
 }
 
-.body   { position: relative; padding: 8px 8px calc(var(--animal-calendar-row-height) * 2 + 6px + 8px);
+.body   { position: relative; padding: 8px 8px calc(var(--island-calendar-row-height) * 2 + 6px + 8px);
           border: 1.5px solid #e8dcc8; border-radius: 20px;
           background: radial-gradient(circle, rgba(196,184,158,0.15) 1.1px, transparent 1.1px) 0 0 / 28px 28px,
                       radial-gradient(circle, rgba(196,184,158,0.1) 0.8px, transparent 0.8px) 7px 7px / 14px 14px,
@@ -774,31 +774,31 @@ because a scaled-up digit overflows the circle. The cell must also fit the numbe
 .monthLabel { padding: 4px 12px; border-radius: 12px; background: #fffbe7; /* same chip as the DatePicker nav label */
               color: #725d42; font-size: 15px; font-weight: 700; }
 .navBtn { width: 28px; height: 28px; border-radius: 10px; color: #a0936e;   /* 14px / 16px chevrons */
-          /* hover */ background: rgba(114, 93, 66, 0.1); color: var(--animal-calendar-accent); }
+          /* hover */ background: rgba(114, 93, 66, 0.1); color: var(--island-calendar-accent); }
 .todayBtn { padding: 4px 12px; border-radius: 10px; color: #8a7b66; font-size: 13px; font-weight: 700;
             /* hover */ background: rgba(114, 93, 66, 0.1); color: #725d42; }
 ```
 
 **Date grid** — one `<table role="grid">`, 7 equal columns × 6 weeks (42 cells, always full; leading/trailing days of the
-neighbouring months included but dimmed). Each cell is `--animal-calendar-cell-height` tall and carries the same 5px
+neighbouring months included but dimmed). Each cell is `--island-calendar-cell-height` tall and carries the same 5px
 gutter the event bars use, so a bar and the day circle above it sit on one track:
 
 ```css
 .weekCell { height: 32px; color: #a09080; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; }
-.cell     { height: var(--animal-calendar-cell-height); padding: 5px 5px 0; box-sizing: border-box;
+.cell     { height: var(--island-calendar-cell-height); padding: 5px 5px 0; box-sizing: border-box;
             vertical-align: top; border-radius: 12px; cursor: pointer; }
 .cell:hover           { background: #f4f0e4; }                      /* the whole cell, not just the number */
 .cell:hover .dayNumber { color: #5a4530; font-weight: 700; }        /* hover darkens the digit; it never turns teal */
-.cell:focus-visible   { outline: 2px solid var(--animal-calendar-accent); outline-offset: -2px; }
-.cellSelected         { background: var(--animal-calendar-accent-tint); }
+.cell:focus-visible   { outline: 2px solid var(--island-calendar-accent); outline-offset: -2px; }
+.cellSelected         { background: var(--island-calendar-accent-tint); }
 .dayNumber            { width: 1em; height: 1em; border-radius: 50%; line-height: 1em; text-align: center;
                         color: #725d42; font-size: 13px; font-weight: 500; }   /* fixed: the circle scales, the digit does not */
 .cellOutside .dayNumber { color: #c4b89e; font-weight: 400; }
-.cellToday   .dayNumber { box-shadow: inset 0 0 0 1.5px var(--animal-calendar-accent);
-                          color: var(--animal-calendar-accent); font-weight: 700; }
-.cellSelected .dayNumber { background: var(--animal-calendar-accent); box-shadow: none; color: #fff; font-weight: 700; }
+.cellToday   .dayNumber { box-shadow: inset 0 0 0 1.5px var(--island-calendar-accent);
+                          color: var(--island-calendar-accent); font-weight: 700; }
+.cellSelected .dayNumber { background: var(--island-calendar-accent); box-shadow: none; color: #fff; font-weight: 700; }
 .more  { margin: 2px 0 6px; padding: 1px 5px; border-radius: 8px; font-size: 10px; font-weight: 700;   /* the +N fold */
-         background: var(--animal-calendar-accent-soft); color: var(--animal-calendar-accent); }
+         background: var(--island-calendar-accent-soft); color: var(--island-calendar-accent); }
 ```
 
 **Event bars** — the layer is absolutely positioned over the card and the component hands each bar three computed
@@ -808,13 +808,13 @@ layout and a grid placement would be ignored.
 ```css
 .eventsLayer { position: absolute; inset: 8px; pointer-events: none; }   /* matches .body's padding, so bars track the columns */
 .event { position: absolute;
-         top: var(--animal-calendar-bar-top);   /* header + week × cell + number band + row × row-height + half a row */
-         left: var(--animal-calendar-bar-left);    /* (100% / 7) × column + 5px — the same 5px gutter as .cell */
-         width: var(--animal-calendar-bar-width);  /* (100% / 7) × span − 10px */
-         height: var(--animal-calendar-bar-height); margin: 0; padding: 0 6px;
+         top: var(--island-calendar-bar-top);   /* header + week × cell + number band + row × row-height + half a row */
+         left: var(--island-calendar-bar-left);    /* (100% / 7) × column + 5px — the same 5px gutter as .cell */
+         width: var(--island-calendar-bar-width);  /* (100% / 7) × span − 10px */
+         height: var(--island-calendar-bar-height); margin: 0; padding: 0 6px;
          transform: translateY(-50%);   /* top points at the row start; this centres the bar in it */
-         border-radius: 10px; font-size: calc(11px * var(--animal-calendar-scale, 1)); font-weight: 600;
-         line-height: var(--animal-calendar-bar-height); overflow: hidden; white-space: nowrap; }
+         border-radius: 10px; font-size: calc(11px * var(--island-calendar-scale, 1)); font-weight: 600;
+         line-height: var(--island-calendar-bar-height); overflow: hidden; white-space: nowrap; }
 /* a span bar only keeps a 1px gutter at the seams, so consecutive weeks read as one strip */
 .event[data-span='true']  { margin-left: 1px; margin-right: 1px; border-radius: 6px; }
 .event[data-start='true'] { margin-left: 0; }    /* flush with the grid edge on the week it starts */

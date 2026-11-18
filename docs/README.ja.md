@@ -45,8 +45,6 @@
 </h2>
 
 - アイコン（**naive-icons**）：<https://github.com/snowcattail/naive-icons>
-- Vue 版（**animal-island-vue**）：<https://github.com/snowcattail/animal-island-vue>
-- WeChat ミニプログラム版（**animal-island-wx**）：<https://github.com/lns567/animal-island-wx>
 
 <h2>
     <img src="img/icons/sparkles.svg" width="20" height="27" alt="" align="absmiddle" />

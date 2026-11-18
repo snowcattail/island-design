@@ -615,7 +615,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                 finishDrag();
                 onPointerCancel?.(event);
             }}
-            style={{ width, '--animal-calendar-scale': scale, ...style } as React.CSSProperties}
+            style={{ width, '--island-calendar-scale': scale, ...style } as React.CSSProperties}
             {...rest}
         >
             <div className={styles.header}>
@@ -684,14 +684,14 @@ export const Calendar: React.FC<CalendarProps> = ({
                                         // 事项条绝对定位到所属周的日期数字下方，横向与日期圆共用一条内容轨道。
                                         // 纵向 = 表头 + 周序 × 单元格高 + 日期数字带 + 事项行序 × 行高，
                                         // 再靠 CSS 的 translateY(-50%) 把条在行内居中
-                                        ['--animal-calendar-bar-top' as string]: `${
+                                        ['--island-calendar-bar-top' as string]: `${
                                             metrics.header +
                                             Math.floor(segment.index / COLS) * metrics.cellHeight +
                                             metrics.numberBand +
                                             (segment.row + 0.5) * metrics.eventRow
                                         }px`,
-                                        ['--animal-calendar-bar-left' as string]: `calc((100% / 7) * ${col - 1} + 5px)`,
-                                        ['--animal-calendar-bar-width' as string]: `calc((100% / 7) * ${colSpan} - 10px)`,
+                                        ['--island-calendar-bar-left' as string]: `calc((100% / 7) * ${col - 1} + 5px)`,
+                                        ['--island-calendar-bar-width' as string]: `calc((100% / 7) * ${colSpan} - 10px)`,
                                     }}
                                 >
                                     {content}

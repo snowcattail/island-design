@@ -3,11 +3,11 @@
     width: 100%;
     min-width: 0;
     padding: 20px;
-    border: 1.5px solid var(--animal-border-color-light, #e8e2d6);
+    border: 1.5px solid var(--island-border-color-light, #e8e2d6);
     border-radius: 20px;
-    background: var(--animal-bg-color, #f8f8f0);
-    color: var(--animal-text-color, #794f27);
-    font-family: var(--animal-font-family, 'Nunito', 'Noto Sans SC');
+    background: var(--island-bg-color, #f8f8f0);
+    color: var(--island-text-color, #794f27);
+    font-family: var(--island-font-family, 'Nunito', 'Noto Sans SC');
 }
 .header {
     margin-bottom: 12px;
@@ -15,20 +15,20 @@
 .title {
     font-size: 17px;
     font-weight: 800;
-    color: var(--animal-text-color, #794f27);
+    color: var(--island-text-color, #794f27);
 }
 .description {
     margin-top: 6px;
     font-size: 12px;
     line-height: 1.7;
-    color: var(--animal-text-color-secondary, #8a7b66);
+    color: var(--island-text-color-secondary, #8a7b66);
 }
 .viewport {
     position: relative;
     width: 100%;
     overflow: auto;
     scrollbar-width: thin;
-    scrollbar-color: var(--animal-text-color-disabled, #c8bba3) transparent;
+    scrollbar-color: var(--island-text-color-disabled, #c8bba3) transparent;
 }
 .canvas {
     display: block;
@@ -39,51 +39,51 @@
 }
 .canvas :global(.chart-grid) {
     line {
-        stroke: var(--animal-border-color-light, #e4dcc9);
+        stroke: var(--island-border-color-light, #e4dcc9);
         stroke-dasharray: 3 6;
     }
     text {
-        fill: var(--animal-text-color-secondary, #8a7b66);
+        fill: var(--island-text-color-secondary, #8a7b66);
         font-size: 11px;
         font-weight: 600;
     }
 }
 .canvas :global(.chart-grid-line) {
-    stroke: var(--animal-border-color-light, #e4dcc9);
+    stroke: var(--island-border-color-light, #e4dcc9);
 }
 .canvas :global(.chart-zero) {
-    stroke: var(--animal-text-color-disabled, #b8a58b);
+    stroke: var(--island-text-color-disabled, #b8a58b);
     stroke-width: 1.5;
 }
 .canvas :global(.chart-axis-label) {
-    fill: var(--animal-text-color-secondary, #8a7b66);
+    fill: var(--island-text-color-secondary, #8a7b66);
     font-size: 11px;
     font-weight: 600;
 }
 .canvas :global(.chart-value-label) {
-    fill: var(--animal-text-color, #725d42);
+    fill: var(--island-text-color, #725d42);
     font-size: 12px;
     font-weight: 700;
     pointer-events: none;
 }
 .canvas :global(.chart-radar-grid) {
-    fill: var(--animal-bg-color, #fffdf7);
+    fill: var(--island-bg-color, #fffdf7);
     fill-opacity: 0.3;
-    stroke: var(--animal-border-color-light, #e4dcc9);
+    stroke: var(--island-border-color-light, #e4dcc9);
 }
 .canvas :global(.chart-center) text {
-    fill: var(--animal-text-color-secondary, #8a7b66);
+    fill: var(--island-text-color-secondary, #8a7b66);
     font-size: 12px;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
 }
 .canvas :global(.chart-center-value) {
-    fill: var(--animal-text-color-secondary, #725d42);
+    fill: var(--island-text-color-secondary, #725d42);
     font-size: 24px;
     font-weight: 900;
 }
 .canvas :global(.chart-center) :global(.chart-center-value) {
-    fill: var(--animal-text-color-secondary, #725d42);
+    fill: var(--island-text-color-secondary, #725d42);
     font-size: 24px;
     font-weight: 900;
 }
@@ -94,7 +94,7 @@
         opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
         filter 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     &:focus-visible {
-        outline: 2px solid var(--animal-primary-color, #19c8b9);
+        outline: 2px solid var(--island-primary-color, #19c8b9);
         outline-offset: 4px;
     }
 }
@@ -113,7 +113,7 @@
     pointer-events: none;
 }
 .crosshair line {
-    stroke: var(--animal-text-color-secondary, #725d42);
+    stroke: var(--island-text-color-secondary, #725d42);
     stroke-opacity: 0.55;
     stroke-dasharray: 4 5;
     stroke-width: 1;
@@ -123,17 +123,17 @@
     box-sizing: border-box;
     padding: 14px 16px;
     border-radius: 14px;
-    background: var(--animal-bg-color, #fffdf4);
+    background: var(--island-bg-color, #fffdf4);
     box-shadow: 0 4px 14px rgba(61, 52, 40, 0.16);
     overflow: auto;
     pointer-events: none;
     overscroll-behavior: contain;
     scrollbar-width: thin;
-    scrollbar-color: var(--animal-text-color-disabled, #c8bba3) transparent;
+    scrollbar-color: var(--island-text-color-disabled, #c8bba3) transparent;
     z-index: 1;
     font-size: 12px;
     overflow-wrap: anywhere;
-    color: var(--animal-text-color, #794f27);
+    color: var(--island-text-color, #794f27);
     line-height: 1.6;
     font-variant-numeric: tabular-nums;
     span,
@@ -152,7 +152,7 @@
     justify-content: space-between;
     gap: 8px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--animal-border-color-light, #e8e2d6);
+    border-bottom: 1px solid var(--island-border-color-light, #e8e2d6);
     font-size: 13px;
 }
 .locked {
@@ -185,7 +185,7 @@
 .tooltip-hint {
     margin-top: 12px;
     padding-top: 8px;
-    border-top: 1px solid var(--animal-border-color-light, #e8e2d6);
+    border-top: 1px solid var(--island-border-color-light, #e8e2d6);
     font-size: 11px;
 }
 .legend {
@@ -201,8 +201,8 @@
         padding: 5px 10px;
         border: 0;
         border-radius: 50px;
-        color: var(--animal-text-color, #725d42);
-        background: var(--animal-bg-color-secondary, #f0e8d8);
+        color: var(--island-text-color, #725d42);
+        background: var(--island-bg-color-secondary, #f0e8d8);
         font: inherit;
         font-size: 12px;
         cursor: pointer;
@@ -211,7 +211,7 @@
             background 0.2s cubic-bezier(0.4, 0, 0.2, 1),
             transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         &:hover {
-            background: var(--animal-border-color-light, #e5dcc8);
+            background: var(--island-border-color-light, #e5dcc8);
             transform: translateY(-1px);
         }
         &:active {
@@ -222,7 +222,7 @@
             text-decoration: line-through;
         }
         &:focus-visible {
-            outline: 2px solid var(--animal-primary-color, #19c8b9);
+            outline: 2px solid var(--island-primary-color, #19c8b9);
             outline-offset: 2px;
         }
     }
@@ -238,7 +238,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--animal-text-color-secondary, #8a7b66);
+    color: var(--island-text-color-secondary, #8a7b66);
     font-size: 14px;
     text-align: center;
     padding: 16px;
@@ -258,7 +258,7 @@
     gap: 8px 16px;
     margin-top: 12px;
     font-size: 12px;
-    color: var(--animal-text-color, #794f27);
+    color: var(--island-text-color, #794f27);
     span {
         color: inherit;
         overflow-wrap: anywhere;
@@ -266,16 +266,16 @@
     button {
         border: 0;
         border-radius: 50px;
-        background: var(--animal-bg-color-secondary, #f0e8d8);
+        background: var(--island-bg-color-secondary, #f0e8d8);
         color: inherit;
         font: inherit;
         padding: 6px 12px;
         cursor: pointer;
         &:hover {
-            background: var(--animal-border-color-light, #e5dcc8);
+            background: var(--island-border-color-light, #e5dcc8);
         }
         &:focus-visible {
-            outline: 2px solid var(--animal-primary-color, #19c8b9);
+            outline: 2px solid var(--island-primary-color, #19c8b9);
             outline-offset: 2px;
         }
     }
@@ -283,14 +283,14 @@
 .data {
     margin-top: 14px;
     font-size: 12px;
-    color: var(--animal-text-color-secondary, #8a7b66);
+    color: var(--island-text-color-secondary, #8a7b66);
     summary {
         cursor: pointer;
         width: fit-content;
         border-radius: 12px;
         padding: 4px;
         &:focus-visible {
-            outline: 2px solid var(--animal-primary-color, #19c8b9);
+            outline: 2px solid var(--island-primary-color, #19c8b9);
         }
     }
     table {
@@ -302,19 +302,19 @@
     th,
     td {
         padding: 8px 12px;
-        border-bottom: 1px solid var(--animal-border-color-light, #e8e2d6);
-        color: var(--animal-text-color, #725d42);
+        border-bottom: 1px solid var(--island-border-color-light, #e8e2d6);
+        color: var(--island-text-color, #725d42);
     }
     caption {
         text-align: left;
         padding: 8px 12px;
-        color: var(--animal-text-color, #725d42);
+        color: var(--island-text-color, #725d42);
     }
 }
 .tableScroll {
     overflow: auto;
     scrollbar-width: thin;
-    scrollbar-color: var(--animal-text-color-disabled, #c8bba3) transparent;
+    scrollbar-color: var(--island-text-color-disabled, #c8bba3) transparent;
     font-variant-numeric: tabular-nums;
 }
 .animated .canvas {

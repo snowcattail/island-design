@@ -21,7 +21,7 @@ shape, skeleton, naming, demo) live in [component-development.md](./component-de
 `vite.config.ts` and `vitest.config.ts` declare identical CSS Module settings, so class names resolve the same way in
 the build and in tests:
 
-- `generateScopedName: 'animal-[local]-[hash:base64:5]'` — produces class names like `animal-btn-primary-abc12`
+- `generateScopedName: 'island-[local]-[hash:base64:5]'` — produces class names like `island-btn-primary-abc12`
 - `localsConvention: 'camelCase'`
 - Less `additionalData` auto-injects `src/styles/variables.less`, so component `.less` files can use `@primary-color`
   and friends without an explicit `@import`
@@ -35,11 +35,11 @@ There are two token systems and they are not interchangeable:
 1. **Less compile-time variables** (`src/styles/variables.less`, `@` prefix): `@primary-color`, `@text-color`,
    `@bg-color`, `@border-radius-base`, `@motion-ease`, `@height-base`, … These are substituted with literals at build
    time and do not exist at runtime.
-2. **Runtime CSS custom properties** (`src/styles/themes/default.less`, `--animal-` prefix): `--animal-primary-color`,
-   `--animal-text-color`, `--animal-spacing-sm`, `--animal-font-family`, `--animal-shadow-sm`, … Component
-   `.module.less` files reference them through `var(--animal-*)`, and consumers can override them.
+2. **Runtime CSS custom properties** (`src/styles/themes/default.less`, `--island-` prefix): `--island-primary-color`,
+   `--island-text-color`, `--island-spacing-sm`, `--island-font-family`, `--island-shadow-sm`, … Component
+   `.module.less` files reference them through `var(--island-*)`, and consumers can override them.
 
-Prefer `var(--animal-*)` in component styles so downstream theming works. Reach for Less variables only when the value
+Prefer `var(--island-*)` in component styles so downstream theming works. Reach for Less variables only when the value
 must participate in compile-time computation (arithmetic, `darken()`, mixins).
 
 The values themselves are defined in [../design-system/design-tokens.md](../design-system/design-tokens.md) — do not

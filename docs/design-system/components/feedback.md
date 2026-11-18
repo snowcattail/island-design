@@ -132,7 +132,7 @@ interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
     background: #0b101a;               /* night-sky base */
     opacity: 1;
     transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: animal-loading-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: island-loading-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .loading.circle {                     /* circle variant: no enter fade */
     animation: none;
@@ -155,7 +155,7 @@ interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
     top: -30px;                        /* starts above the viewport */
     background: #fff;
     border-radius: 50%;
-    animation: animal-loading-snow 10s linear infinite;
+    animation: island-loading-snow 10s linear infinite;
     /* per-flake inline style (generated once per mount via useMemo):
        width/height: Math.random() * 5 + 1 px        (1–6px)
        left: Math.random() * 100 %
@@ -164,7 +164,7 @@ interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
                                                        so the first frame is already full of snow) */
 }
 
-@keyframes animal-loading-snow {
+@keyframes island-loading-snow {
     0%   { transform: translateY(0) rotate(0deg); }
     100% { transform: translateY(calc(100vh + 60px)) rotate(360deg); }
 }
@@ -203,14 +203,14 @@ The `tip` stays centred in the viewport (the shared `.tip` rule), so the caption
 **Wave (scrolls sideways, seamless):**
 ```css
 .waveTrack {
-    animation: animal-sailboat-wave 4s linear infinite;
+    animation: island-sailboat-wave 4s linear infinite;
 }
-@keyframes animal-sailboat-wave {
+@keyframes island-sailboat-wave {
     from { transform: translateX(0); }
-    to   { transform: translateX(var(--animal-sailboat-wave-scroll, 28.73px)); }  /* px = SVG user units here */
+    to   { transform: translateX(var(--island-sailboat-wave-scroll, 28.73px)); }  /* px = SVG user units here */
 }
 ```
-The naive-icons wave path spans 4.85 → 43.15 and is made of 4 identical segments of 9.575, so the wave form repeats every 38.3. The path is shifted by −4.85 so copy 0 starts at the canvas origin, then tiled every 38.3 (offsets −81.45 / −43.15 / −4.85 / 33.45). The scroll distance is one **28.74** unit window per cycle — the inline `--animal-sailboat-wave-scroll` custom property is set from the TypeScript constant so the two can never drift apart.
+The naive-icons wave path spans 4.85 → 43.15 and is made of 4 identical segments of 9.575, so the wave form repeats every 38.3. The path is shifted by −4.85 so copy 0 starts at the canvas origin, then tiled every 38.3 (offsets −81.45 / −43.15 / −4.85 / 33.45). The scroll distance is one **28.74** unit window per cycle — the inline `--island-sailboat-wave-scroll` custom property is set from the TypeScript constant so the two can never drift apart.
 
 **Shorter wave:** only the middle 3 wave periods are visible — a 28.74 unit window centred on the canvas, narrower than the 32.56 unit hull. The window is a plain SVG **clipPath** (a hard cut, no fade). The stroke is thinned to **1.9** to match: the naive-icons 2.5 was sized for the full 38.3 unit wave, and on a shorter wave it would turn into a thick band.
 
@@ -221,9 +221,9 @@ The wave group sits **1.2 units lower** than the icon's own artwork (the hull en
 **Boat (bobs and rocks):**
 ```css
 .boat {
-    animation: animal-sailboat-bob 1s ease-in-out infinite alternate;
+    animation: island-sailboat-bob 1s ease-in-out infinite alternate;
 }
-@keyframes animal-sailboat-bob {
+@keyframes island-sailboat-bob {
     from { transform: translateY(0) rotate(0deg); }
     to   { transform: translateY(-2px) rotate(1deg); }
 }
@@ -232,17 +232,17 @@ The wave group sits **1.2 units lower** than the icon's own artwork (the hull en
 
 **Circle expansion (exit):**
 ```css
-@property --animal-loading-mask-r {   /* registered → the radius can be transitioned */
+@property --island-loading-mask-r {   /* registered → the radius can be transitioned */
     syntax: '<length>'; inherits: false; initial-value: 0px;
 }
 .masking {
     -webkit-mask-image: radial-gradient(circle at center,
-        transparent var(--animal-loading-mask-r),
-        black calc(var(--animal-loading-mask-r) + 1px));
+        transparent var(--island-loading-mask-r),
+        black calc(var(--island-loading-mask-r) + 1px));
     mask-image: radial-gradient(circle at center,
-        transparent var(--animal-loading-mask-r),
-        black calc(var(--animal-loading-mask-r) + 1px));
-    transition: --animal-loading-mask-r var(--animal-loading-mask-duration, 0.6s) linear;
+        transparent var(--island-loading-mask-r),
+        black calc(var(--island-loading-mask-r) + 1px));
+    transition: --island-loading-mask-r var(--island-loading-mask-duration, 0.6s) linear;
     pointer-events: none;
 }
 ```
@@ -308,7 +308,7 @@ SkeletonAvatarProps { size?: 'small'|'middle'|'large'; shape?: 'circle'|'square'
 // shimmer animation
 .active::after {
     background: linear-gradient(90deg, transparent, @shimmer-mid, @shimmer-light, @shimmer-mid, transparent);
-    animation: animal-skeleton-shimmer 1.6s ease-in-out infinite;
+    animation: island-skeleton-shimmer 1.6s ease-in-out infinite;
 }
 
 // per-variant radius
@@ -417,7 +417,7 @@ interface CountdownProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'
 
 The default variant is a white 20px-radius panel with a warm border and soft elevation. `island` uses the parchment background `rgb(247,243,223)` with a 2px dashed `#d4c4a8` border. Each DD / HH / mm / ss token renders as its own 12px-radius digit tile (a cream gradient face `linear-gradient(180deg, #fff, #f8f8f0)`; a `#fffdf4→#f8f8f0` gradient on the island variant; the 1.5px `#d4c9b4` border is opt-in via `bordered`, off by default) while format literals such as `:` or `天` render as plain separators. Colons are sized with the digits, 900 weight, `#8b7355`. Inside each tile every digit is a vertical strip of two 0-9 cycles; all changes roll downward with a 0.35s `cubic-bezier(0.4, 0, 0.2, 1)` transition (odometer style). When a digit wraps past 0, the strip instantly teleports to the same digit in the next cycle and keeps rolling down, so the direction never reverses. Digits use the earth-tone `#8b7355`, 900 weight, tabular, sized 20/26/34px. The rolling strips are `aria-hidden` and a visually-hidden span carries the full formatted value; the root uses `role="timer"` and `aria-live="off"` so screen readers are not interrupted four times per second.
 
-`reminder` defaults to false. Set it to true for warm orange `#c77c34` at ≤60 seconds and the error token `var(--animal-error-color, #e05a5a)` at ≤10 seconds. An array of `{ seconds, color }` fully replaces these defaults; CSS colors and variables are accepted. Rules compare the ceiling-rounded displayed seconds: the smallest matching threshold wins regardless of order, with the first entry winning ties. Negative/non-finite thresholds and empty colors are ignored; an empty array disables reminders. Only digits, separators and enabled digit-tile borders change color (0.2s color transition); the prefix and panel retain their styling. Zero retains the matching reminder color; resetting outside all thresholds or disabling reminders restores the original color without changing timing or callbacks.
+`reminder` defaults to false. Set it to true for warm orange `#c77c34` at ≤60 seconds and the error token `var(--island-error-color, #e05a5a)` at ≤10 seconds. An array of `{ seconds, color }` fully replaces these defaults; CSS colors and variables are accepted. Rules compare the ceiling-rounded displayed seconds: the smallest matching threshold wins regardless of order, with the first entry winning ties. Negative/non-finite thresholds and empty colors are ignored; an empty array disables reminders. Only digits, separators and enabled digit-tile borders change color (0.2s color transition); the prefix and panel retain their styling. Zero retains the matching reminder color; resetting outside all thresholds or disabling reminders restores the original color without changing timing or callbacks.
 
 `shake` keeps boolean/numeric shortcuts and adds options for thresholds, escalation, periods, displacement, rotation and easing. It shakes the inner digit group only: the prefix, panel and layout stay still, and the rolling digits keep their own vertical transform. Loop timers stop offscreen and on hidden pages; resetting or disabling cleans up the effect. Reduced motion removes the shake. Full parameters and pixel specs: [Countdown motion](countdown-motion.md).
 
@@ -451,6 +451,6 @@ Both formats take dayjs **core** tokens (`dddd` / `ddd` / `MMM` / `M` / `D` / `Y
 Two layouts share the same content rules (`weekdayFormat` / `dateFormat` / `locale` apply to both):
 
 - **`default`** — the card: clock on top, weekday + month-day in one date capsule below.
-- **`game`** — a bare vertical HUD: **no card at all** (transparent, no shadow, no radius), 50px padding, clock on top, a hairline divider 8px below it, then the month-day in plain text and the weekday in its own capsule. Ported from the original island app: clock 40px / 900 weight / 2px letter-spacing in `#8b7355` (the colon sits at `top: -0.08em`, margin `0 1px`), divider a 2px `rgba(159, 146, 125, 0.35)` rule spanning the content width plus 5px, month-day 22px / 800 weight / 2px letter-spacing in `#8b7355`, weekday a `#fffbe7` pill (15px / 900 weight, `line-height: 1`, `padding: 7px 16px 5px` — 27px tall, with 1px extra above so CJK ink lands on the optical centre, and no letter-spacing so the text stays horizontally centred) with `#8b7355` text. **These colours are literal, not `--animal-*` tokens** — they are the source's own values, so overriding the library's colour variables will not restyle this variant.
+- **`game`** — a bare vertical HUD: **no card at all** (transparent, no shadow, no radius), 50px padding, clock on top, a hairline divider 8px below it, then the month-day in plain text and the weekday in its own capsule. Ported from the original island app: clock 40px / 900 weight / 2px letter-spacing in `#8b7355` (the colon sits at `top: -0.08em`, margin `0 1px`), divider a 2px `rgba(159, 146, 125, 0.35)` rule spanning the content width plus 5px, month-day 22px / 800 weight / 2px letter-spacing in `#8b7355`, weekday a `#fffbe7` pill (15px / 900 weight, `line-height: 1`, `padding: 7px 16px 5px` — 27px tall, with 1px extra above so CJK ink lands on the optical centre, and no letter-spacing so the text stays horizontally centred) with `#8b7355` text. **These colours are literal, not `--island-*` tokens** — they are the source's own values, so overriding the library's colour variables will not restyle this variant.
 
-The card is a vertically stacked inline-flex panel — background `var(--animal-bg-color)`, 20px radius, `--animal-shadow-sm` elevation, no border — fading in over `--animal-motion-duration-slow` on mount. The clock is 44px / 900 weight / `var(--animal-time-color, #8b7355)` with tabular numerals and 1px letter-spacing; the colon blinks every second (`step-end`, opacity 0 at 50%). The date capsule is a 999px-radius pill on `var(--animal-primary-color-bg)` holding the uppercase weekday in `var(--animal-primary-color)` (800 weight, 1px letter-spacing), a `·` separator in the disabled tone, and the month-day in `var(--animal-text-color-secondary)` (700 weight). The root uses `role="timer"` with `aria-live="off"` so the per-second refresh never interrupts screen readers.
+The card is a vertically stacked inline-flex panel — background `var(--island-bg-color)`, 20px radius, `--island-shadow-sm` elevation, no border — fading in over `--island-motion-duration-slow` on mount. The clock is 44px / 900 weight / `var(--island-time-color, #8b7355)` with tabular numerals and 1px letter-spacing; the colon blinks every second (`step-end`, opacity 0 at 50%). The date capsule is a 999px-radius pill on `var(--island-primary-color-bg)` holding the uppercase weekday in `var(--island-primary-color)` (800 weight, 1px letter-spacing), a `·` separator in the disabled tone, and the month-day in `var(--island-text-color-secondary)` (700 weight). The root uses `role="timer"` with `aria-live="off"` so the per-second refresh never interrupts screen readers.

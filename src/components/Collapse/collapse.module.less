@@ -4,12 +4,12 @@
 
 .faqCard {
     position: relative;
-    background: var(--animal-bg-color);
-    border-radius: var(--animal-border-radius-base);
-    border: var(--animal-border-width) solid var(--animal-border-color);
+    background: var(--island-bg-color);
+    border-radius: var(--island-border-radius-base);
+    border: var(--island-border-width) solid var(--island-border-color);
     overflow: hidden;
-    transition: border-color var(--animal-motion-duration-base) var(--animal-motion-ease);
-    margin-bottom: var(--animal-spacing-md);
+    transition: border-color var(--island-motion-duration-base) var(--island-motion-ease);
+    margin-bottom: var(--island-spacing-md);
 
     &.disabled {
         opacity: 0.6;
@@ -20,9 +20,9 @@
 .questionHeader {
     display: flex;
     align-items: center;
-    gap: var(--animal-spacing-md);
+    gap: var(--island-spacing-md);
     width: 100%;
-    padding: var(--animal-spacing-lg) var(--animal-spacing-xl);
+    padding: var(--island-spacing-lg) var(--island-spacing-xl);
     background: transparent;
     border: none;
     cursor: pointer;
@@ -39,7 +39,7 @@
     justify-content: center;
     width: 28px;
     height: 28px;
-    background: var(--animal-primary-color);
+    background: var(--island-primary-color);
     color: #fff;
     border-radius: 50%;
     font-size: 18px;
@@ -47,29 +47,29 @@
     line-height: 1;
     flex-shrink: 0;
     transition:
-        background-color var(--animal-motion-duration-base) var(--animal-motion-ease),
-        transform var(--animal-motion-duration-base) var(--animal-motion-ease);
+        background-color var(--island-motion-duration-base) var(--island-motion-ease),
+        transform var(--island-motion-duration-base) var(--island-motion-ease);
     box-shadow: 0 2px 4px rgba(25, 200, 185, 0.3);
 
     .expanded & {
-        background: var(--animal-primary-color-active);
+        background: var(--island-primary-color-active);
         transform: rotate(180deg);
     }
 }
 
 .questionText {
     flex: 1;
-    font-size: var(--animal-font-size-lg);
+    font-size: var(--island-font-size-lg);
     font-weight: 600;
-    color: var(--animal-text-color);
+    color: var(--island-text-color);
     line-height: 1.4;
 }
 
 .leafDecoration {
     opacity: 1;
     transition:
-        opacity var(--animal-motion-duration-base) var(--animal-motion-ease),
-        transform var(--animal-motion-duration-base) var(--animal-motion-ease);
+        opacity var(--island-motion-duration-base) var(--island-motion-ease),
+        transform var(--island-motion-duration-base) var(--island-motion-ease);
 
     .expanded & {
         opacity: 1;
@@ -90,30 +90,30 @@
 
 .answerContent {
     overflow: hidden;
-    padding: 0 var(--animal-spacing-xl);
-    color: var(--animal-text-color-secondary);
-    font-size: var(--animal-font-size-base);
+    padding: 0 var(--island-spacing-xl);
+    color: var(--island-text-color-secondary);
+    font-size: var(--island-font-size-base);
     line-height: 1.7;
-    transition: padding var(--animal-motion-duration-base) var(--animal-motion-ease);
+    transition: padding var(--island-motion-duration-base) var(--island-motion-ease);
 
     .expanded & {
-        padding-bottom: var(--animal-spacing-xl);
+        padding-bottom: var(--island-spacing-xl);
     }
 
     a {
-        color: var(--animal-primary-color);
+        color: var(--island-primary-color);
         text-decoration: none;
         font-weight: 500;
-        transition: color var(--animal-motion-duration-fast) var(--animal-motion-ease);
+        transition: color var(--island-motion-duration-fast) var(--island-motion-ease);
 
         &:hover {
-            color: var(--animal-primary-color-hover);
+            color: var(--island-primary-color-hover);
             text-decoration: underline;
         }
     }
 
     p {
-        margin: 0 0 var(--animal-spacing-sm) 0;
+        margin: 0 0 var(--island-spacing-sm) 0;
 
         &:last-child {
             margin-bottom: 0;
@@ -121,12 +121,12 @@
     }
 
     ul {
-        margin: var(--animal-spacing-sm) 0;
-        padding-left: var(--animal-spacing-xl);
+        margin: var(--island-spacing-sm) 0;
+        padding-left: var(--island-spacing-xl);
     }
 
     li {
-        margin-bottom: var(--animal-spacing-xs);
+        margin-bottom: var(--island-spacing-xs);
     }
 }
 
@@ -136,5 +136,5 @@
 .faqCardGroup {
     display: flex;
     flex-direction: column;
-    gap: var(--animal-spacing-sm);
+    gap: var(--island-spacing-sm);
 }

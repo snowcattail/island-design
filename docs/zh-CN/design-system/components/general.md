@@ -43,19 +43,19 @@ opacity: 0.5;
 
 ```css
 /* 静止 */
-box-shadow: var(--animal-shadow-sm); /* 0 2px 4px 0 rgba(61,52,40,0.06) */
+box-shadow: var(--island-shadow-sm); /* 0 2px 4px 0 rgba(61,52,40,0.06) */
 
 /* hover */
 color: #19c8b9;
 border-color: #19c8b9;
-box-shadow: var(--animal-shadow-base); /* 0 3px 10px 0 rgba(61,52,40,0.10) */
+box-shadow: var(--island-shadow-base); /* 0 3px 10px 0 rgba(61,52,40,0.10) */
 transform: translateY(-1px);
 
 /* active */
 color: #11a89b;
 border-color: #11a89b;
 transform: translateY(0);
-box-shadow: var(--animal-shadow-sm); /* 回落到静止态 */
+box-shadow: var(--island-shadow-sm); /* 回落到静止态 */
 ```
 
 > 不要把 primary 那套 `0 5px / 6px / 1px #bdaea0` 套到 default / dashed 上 —— 整体会显得过重过 cartoon。
@@ -68,9 +68,9 @@ border: 4px solid #4de2da;
 color: #fff;
 background-image: repeating-linear-gradient(-45deg, #0ec4b6, #0ec4b6 10px, #01b0a7 10px, #01b0a7 20px);
 background-size: 28.28px 28.28px;
-animation: animal-btn-loading 1s linear infinite;
+animation: island-btn-loading 1s linear infinite;
 
-@keyframes animal-btn-loading {
+@keyframes island-btn-loading {
     0% {
         background-position: 0 0;
     }
@@ -125,7 +125,7 @@ Props：
 </Cursor>
 ```
 
-样式文件为 **普通 CSS**（`cursor.css`，非 module）。`type` prop 选择两种风格，`forceAll` prop（默认 `true`）选择两种模式。根 `<div>` 挂 `animal-cursor` 加一个模式 class（雨滴风格追加 `animal-cursor--raindrop`）：
+样式文件为 **普通 CSS**（`cursor.css`，非 module）。`type` prop 选择两种风格，`forceAll` prop（默认 `true`）选择两种模式。根 `<div>` 挂 `island-cursor` 加一个模式 class（雨滴风格追加 `island-cursor--raindrop`）：
 
 - `'default'` —— 粗描边圆角箭头，32×32 内联 SVG，hotspot `8 5`
 - `'raindrop'` —— 蓝色水滴，32×32 内联 SVG，带浅色高光椭圆，hotspot `16 6`
@@ -146,7 +146,7 @@ Props：
 
 **选中文本。** `default` 变体还会重设其子树内的选区：底色 `#e9c46a`、文字 `#2b2620`。文字色不是可选项 —— 设计系统的正文色 `#794f27` 压在这个底上只有 **4.25:1**，正文达不到 AA；而 `#2b2620` 能到 **8.97:1**，过 WCAG AAA。
 
-两个变体靠自定义属性（`--animal-selection-bg` / `--animal-selection-fg`）区分，raindrop 那条规则把它们覆写成系统色 `Highlight` / `HighlightText`。这不是为了好看：写成 `.animal-cursor:not(.animal-cursor--raindrop) ::selection` 看着等价，实际会错两处，因为 Cursor 经常是嵌套在另一个 Cursor 里的（demo 就把整页包在一个 `default` Cursor 中）：
+两个变体靠自定义属性（`--island-selection-bg` / `--island-selection-fg`）区分，raindrop 那条规则把它们覆写成系统色 `Highlight` / `HighlightText`。这不是为了好看：写成 `.island-cursor:not(.island-cursor--raindrop) ::selection` 看着等价，实际会错两处，因为 Cursor 经常是嵌套在另一个 Cursor 里的（demo 就把整页包在一个 `default` Cursor 中）：
 
 - 后代组合器会命中**任意深度**上嵌套在 default 里的 raindrop，于是水滴被刷成 `#2b2620`
 - 顶层 raindrop 则**一条都匹配不上**，静默失去全部选区样式
@@ -157,68 +157,68 @@ Props：
 
 ```css
 /* 图像与热点只声明一次，由所有后代继承 */
-.animal-cursor {
-    --animal-cursor-img: url("data:image/svg+xml,…粗描边箭头…");
-    --animal-cursor-hotspot: 8 5;
+.island-cursor {
+    --island-cursor-img: url("data:image/svg+xml,…粗描边箭头…");
+    --island-cursor-hotspot: 8 5;
 }
-.animal-cursor--raindrop {
-    --animal-cursor-img: url("data:image/svg+xml,…水滴…");
-    --animal-cursor-hotspot: 16 6;
+.island-cursor--raindrop {
+    --island-cursor-img: url("data:image/svg+xml,…水滴…");
+    --island-cursor-hotspot: 16 6;
 }
 /* force 模式（默认，forceAll={true}）：所有后代都使用自定义光标。
    自定义属性会继承，因此后代自动解析到正确的风格。 */
-.animal-cursor--force,
-.animal-cursor--force * {
-    cursor: var(--animal-cursor-img) var(--animal-cursor-hotspot), default !important;
+.island-cursor--force,
+.island-cursor--force * {
+    cursor: var(--island-cursor-img) var(--island-cursor-hotspot), default !important;
 }
 
 /* scoped 模式（forceAll={false}）：仅容器自身使用自定义光标
    （双类选择器，使嵌套在 force 内的 scoped 仍能胜出） */
-.animal-cursor.animal-cursor--scoped {
-    cursor: var(--animal-cursor-img) var(--animal-cursor-hotspot), default !important;
+.island-cursor.island-cursor--scoped {
+    cursor: var(--island-cursor-img) var(--island-cursor-hotspot), default !important;
 }
 
 /* 后代回落到浏览器语义 */
-.animal-cursor--scoped *,
-.animal-cursor.animal-cursor--scoped * {
+.island-cursor--scoped *,
+.island-cursor.island-cursor--scoped * {
     cursor: auto !important;
 }
 
 /* 交互元素显式恢复 pointer */
-.animal-cursor--scoped a[href],
-.animal-cursor--scoped button,
-.animal-cursor--scoped [role='button'],
-.animal-cursor--scoped [role='link'],
-.animal-cursor--scoped label[for],
-.animal-cursor--scoped select,
-.animal-cursor--scoped summary,
-.animal-cursor--scoped input[type='button'],
-.animal-cursor--scoped input[type='submit'],
-.animal-cursor--scoped input[type='reset'],
-.animal-cursor--scoped input[type='checkbox'],
-.animal-cursor--scoped input[type='radio'],
-.animal-cursor--scoped [data-cursor='pointer'] {
+.island-cursor--scoped a[href],
+.island-cursor--scoped button,
+.island-cursor--scoped [role='button'],
+.island-cursor--scoped [role='link'],
+.island-cursor--scoped label[for],
+.island-cursor--scoped select,
+.island-cursor--scoped summary,
+.island-cursor--scoped input[type='button'],
+.island-cursor--scoped input[type='submit'],
+.island-cursor--scoped input[type='reset'],
+.island-cursor--scoped input[type='checkbox'],
+.island-cursor--scoped input[type='radio'],
+.island-cursor--scoped [data-cursor='pointer'] {
     cursor: pointer !important;
 }
 
 /* 文本输入控件保留 text */
-.animal-cursor--scoped input[type='text'],
-.animal-cursor--scoped input[type='search'],
-.animal-cursor--scoped input[type='email'],
-.animal-cursor--scoped input[type='password'],
-.animal-cursor--scoped input[type='number'],
-.animal-cursor--scoped input[type='tel'],
-.animal-cursor--scoped input[type='url'],
-.animal-cursor--scoped textarea {
+.island-cursor--scoped input[type='text'],
+.island-cursor--scoped input[type='search'],
+.island-cursor--scoped input[type='email'],
+.island-cursor--scoped input[type='password'],
+.island-cursor--scoped input[type='number'],
+.island-cursor--scoped input[type='tel'],
+.island-cursor--scoped input[type='url'],
+.island-cursor--scoped textarea {
     cursor: text !important;
 }
 
 /* 禁用态优先 */
-.animal-cursor--scoped [disabled],
-.animal-cursor--scoped [aria-disabled='true'] {
+.island-cursor--scoped [disabled],
+.island-cursor--scoped [aria-disabled='true'] {
     cursor: not-allowed !important;
 }
 ```
 
-- 图像只有内联 SVG —— 不存在 `cursor-icon.png`，也没有 base64 fallback；两种风格都在 `cursor.css` 里定义一次，经 `--animal-cursor-img` 传给每条规则
-- 每条规则都带 `!important`，保证模式语义不被组件级 cursor 样式覆盖；`className` 挂在根 `<div>` 上，与固定的 `animal-cursor` class 并存
+- 图像只有内联 SVG —— 不存在 `cursor-icon.png`，也没有 base64 fallback；两种风格都在 `cursor.css` 里定义一次，经 `--island-cursor-img` 传给每条规则
+- 每条规则都带 `!important`，保证模式语义不被组件级 cursor 样式覆盖；`className` 挂在根 `<div>` 上，与固定的 `island-cursor` class 并存

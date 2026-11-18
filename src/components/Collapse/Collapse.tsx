@@ -27,7 +27,7 @@ export const Collapse: React.FC<CollapseProps> = ({
 }) => {
     const [expanded, setExpanded] = useState(defaultExpanded);
 
-    const idPrefix = `animal-collapse-${useId().replace(/:/g, '')}`;
+    const idPrefix = `island-collapse-${useId().replace(/:/g, '')}`;
     const headerId = `${idPrefix}-header`;
     const panelId = `${idPrefix}-panel`;
 
