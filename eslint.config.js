@@ -9,6 +9,7 @@ export default tseslint.config(
     {
         ignores: [
             'dist/**',
+            'packages/*/dist/**',
             'demo-dist/**',
             'coverage/**',
             'node_modules/**',
@@ -30,7 +31,7 @@ export default tseslint.config(
 
     // 业务源码
     {
-        files: ['src/**/*.{ts,tsx}', 'demo/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}'],
+        files: ['src/**/*.{ts,tsx}', 'demo/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}', 'packages/hooks/src/**/*.{ts,tsx}'],
         languageOptions: {
             ecmaVersion: 2022,
             sourceType: 'module',

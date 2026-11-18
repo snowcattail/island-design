@@ -54,4 +54,5 @@ coverage/
 *.bak
 *.tmp
 *.temp
+.tmp/
 .npmrc

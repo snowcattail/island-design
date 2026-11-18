@@ -37,7 +37,7 @@ export default defineConfig({
         preprocessorOptions: {
             less: {
                 javascriptEnabled: true,
-                additionalData: `@import "${resolve(__dirname, 'src/styles/variables.less')}";`,
+                additionalData: `@import "${resolve(__dirname, 'packages/tokens/src/variables.less')}";`,
             },
         },
     },

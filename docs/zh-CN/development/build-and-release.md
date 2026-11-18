@@ -22,7 +22,7 @@
 `package.json` 已经为按需引入配好，保持这个状态：
 
 - `exports` 把 `.` 映射到 ES / CJS / types 三件套，`./style` 映射到 `dist/index.css`，`./es/*` 映射到保留模块结构的 ES 产物并带 `types` 条件指向 `dist/types/*`，深路径 import 在任何 `moduleResolution` 下都拿得到类型。
-- `sideEffects: false` 让打包器可以丢弃未使用的模块。
+- `sideEffects: ["**/*.css", "**/*.less"]` 让打包器可以丢弃未使用的模块。
 - `files` 把发布的 tarball 限制在构建产物加 README。
 - `dependencies` 只保留两个运行时依赖，都是无传递依赖的纯包：`naive-icons`（图标集）与 `dayjs`（日期层，见 [ADR 0005](../adr/0005-dayjs-as-the-date-layer.md)）。其余第三方包一律要么是 peerDependency，要么是 devDependency。`dayjs` **不**进入 `external` 列表，因此它被产出为 `dist/**/node_modules/dayjs/` 下的单份文件、由本包内的日期/时间组件共享，消费者无需额外安装；但宿主应用自己引入 `dayjs` 时仍可能出现互相独立的实例，二者不共享 locale 与插件注册。`preserveModules` 仍能让未引入日期或时间组件的消费者摇掉它。不得再新增运行时依赖。
 
@@ -35,3 +35,8 @@
 ## Demo 站点
 
 `npm run build:demo` 用 `vite.config.demo.ts` 把 demo 构建到 `demo-dist/`；`npm run deploy` 在此之后接上 `gh-pages -d demo-dist` 发布。demo 永远不进 npm 产物。
+
+
+## Workspace 子包
+
+根包通过 npm workspaces 管理 packages/*，pnpm-workspace.yaml 让 pnpm 识别相同的子包。@island-design/tokens 负责 Less 变量和默认 CSS 自定义属性主题；@island-design/hooks 提供独立构建、带类型声明的 React Hooks。根构建先构建两个子包。组件库使用 Token Less 源码，发布样式入口仍为 island-design/style。
