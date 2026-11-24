@@ -248,7 +248,7 @@ const CountUpDemo: React.FC = () => {
             </div>
 
             <CodeBlock
-                code={`import { CountUp } from 'island-design';
+                code={`import { CountUp } from '@snowcattail/island-design';
 
 // 游戏结算页：从 0 滚到总分，结束时庆祝一下
 <CountUp

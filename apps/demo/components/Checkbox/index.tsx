@@ -97,7 +97,7 @@ const CheckboxDemo: React.FC = () => {
 
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Checkbox } from 'island-design';
+import { Checkbox } from '@snowcattail/island-design';
 
 const options = [
     { label: '海滩', value: 'beach' },

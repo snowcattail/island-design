@@ -214,7 +214,7 @@ const ModalDemo: React.FC = () => {
             </Modal>
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Button, Modal } from 'island-design';
+import { Button, Modal } from '@snowcattail/island-design';
 
 const App = () => {
     const [open, setOpen] = useState(false);

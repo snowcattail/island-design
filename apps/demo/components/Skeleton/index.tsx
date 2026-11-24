@@ -141,7 +141,7 @@ const SkeletonDemo: React.FC = () => {
             </div>
 
             <CodeBlock
-                code={`import { Skeleton, SkeletonButton, SkeletonInput, SkeletonAvatar } from 'island-design';
+                code={`import { Skeleton, SkeletonButton, SkeletonInput, SkeletonAvatar } from '@snowcattail/island-design';
 
 // 文字骨架
 <Skeleton variant="text" width="100%" />

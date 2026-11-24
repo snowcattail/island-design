@@ -96,7 +96,7 @@ const TypewriterDemo: React.FC = () => {
             </div>
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Typewriter } from 'island-design';
+import { Typewriter } from '@snowcattail/island-design';
 
 const App = () => {
     const [key, setKey] = useState(0);

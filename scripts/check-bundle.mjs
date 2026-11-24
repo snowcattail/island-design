@@ -120,7 +120,7 @@ for (const out of ['es', 'cjs']) {
 // 产物 JS 里不能出现文件式导入（.css / .less / .svg …）：
 // Node 解析 ESM / CJS 时不认这些扩展名，命中就直接抛 ERR_UNKNOWN_FILE_EXTENSION
 // 或把 CSS 当 JS 解析的 SyntaxError —— 整个包在纯 Node 里就加载不了（SSR 同样中招）。
-// 样式统一走 `island-design/style`，场景图用 new URL(..., import.meta.url) 引用。
+// 样式统一走 `@snowcattail/island-design/style`，场景图用 new URL(..., import.meta.url) 引用。
 const fileImports = [];
 const scanFileImports = (dir) => {
     let entries;
@@ -168,7 +168,9 @@ if (violations.length > 0 || stale.length > 0 || fileImports.length > 0) {
     if (fileImports.length > 0) {
         console.error('[check:bundle] ✗ 产物 JS 里出现了文件式导入，Node 加载不了');
         for (const f of fileImports) console.error(`  · ${f}`);
-        console.error('  → 样式走 `island-design/style`；图片用 new URL(..., import.meta.url) 引用，不产生模块依赖');
+        console.error(
+            '  → 样式走 `@snowcattail/island-design/style`；图片用 new URL(..., import.meta.url) 引用，不产生模块依赖'
+        );
     }
     process.exit(1);
 }

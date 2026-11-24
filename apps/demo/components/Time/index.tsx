@@ -73,7 +73,7 @@ const TimeDemo: React.FC = () => (
         <Time className="my-time" aria-label="岛屿时间" />
 
         <CodeBlock
-            code={`import { Time } from 'island-design';
+            code={`import { Time } from '@snowcattail/island-design';
 
 <Time />
 <Time variant="game" />

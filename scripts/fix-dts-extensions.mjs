@@ -59,7 +59,7 @@ for (const file of collect(TYPES_DIR)) {
     const dir = dirname(file);
 
     // 1) 纯副作用导入：样式表在类型产物里没有对应文件（消费方通过
-    //    `island-design/style` 拿样式），留着只会在 node16/nodenext 下报 TS2882
+    //    `@snowcattail/island-design/style` 拿样式），留着只会在 node16/nodenext 下报 TS2882
     const withoutStyles = original.replace(/^[ \t]*import\s+['"](\.[^'"]+\.(?:less|css))['"];?[ \t]*\r?\n/gm, () => {
         dropped++;
         return '';

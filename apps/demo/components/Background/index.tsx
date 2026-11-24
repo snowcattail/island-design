@@ -103,7 +103,7 @@ const BackgroundDemo: React.FC = () => (
         </Background>
         <CodeBlock
             code={`import React from 'react';
-import { Background } from 'island-design';
+import { Background } from '@snowcattail/island-design';
 
 const App = () => {
     return (

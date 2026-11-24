@@ -23,8 +23,8 @@ export const QUICK_STEPS: QuickStep[] = [
     },
     {
         title: '正常提需求',
-        desc: '无需记住任何指令。描述里提到 Island Design 风格，或指定用 island-design 搭页面时，代理会自动加载技能。',
-        code: `# 对话里直接说即可\n用 island-design 做一个居民档案页：头像卡、里程进度、装备清单\n做一个 Island Design 风格的单文件 HTML 落地页，不要构建步骤`,
+        desc: '无需记住任何指令。描述里提到 island-design 风格，或指定用 island-design 搭页面时，代理会自动加载技能。',
+        code: `# 对话里直接说即可\n用 island-design 做一个居民档案页：头像卡、里程进度、装备清单\n做一个 island-design 风格的单文件 HTML 落地页，不要构建步骤`,
     },
     {
         title: '按规则验收',
@@ -211,7 +211,7 @@ export const RULE_GROUPS: RuleGroup[] = [
         icon: 'Map',
         color: 'app-blue',
         rules: [
-            "样式只导入一次：应用入口 `import 'island-design/style'`，否则组件无样式。",
+            "样式只导入一次：应用入口 `import '@snowcattail/island-design/style'`，否则组件无样式。",
             '只从包根与 style 入口导入 —— 禁止深路径导入。',
             '禁止用 className / style 覆盖组件的颜色、圆角、阴影；自定义元素用 var(--island-*) 令牌上色。',
         ],

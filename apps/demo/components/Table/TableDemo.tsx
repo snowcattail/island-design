@@ -128,7 +128,7 @@ const TableDemo: React.FC = () => {
 
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Table } from 'island-design';
+import { Table } from '@snowcattail/island-design';
 
 interface Person {
     key: string;

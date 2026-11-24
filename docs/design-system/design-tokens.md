@@ -73,7 +73,7 @@
 
 The design language uses two rounded typefaces, delivered in one of two ways depending on the scenario:
 
-- **Consuming the component library**: both fonts ship inside the package as `@fontsource` woff2 assets — `import 'island-design/style'` loads them, and no font `<link>` is needed.
+- **Consuming the component library**: both fonts ship inside the package as `@fontsource` woff2 assets — `import '@snowcattail/island-design/style'` loads them, and no font `<link>` is needed.
 - **Re-implementing the style without the library** (standalone HTML, demos, external tools): load them from Google Fonts as follows:
 
 ```html

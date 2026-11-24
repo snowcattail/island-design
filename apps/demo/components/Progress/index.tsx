@@ -220,7 +220,7 @@ const ProgressDemo: React.FC = () => {
 
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Progress, Button } from 'island-design';
+import { Progress, Button } from '@snowcattail/island-design';
 
 const App = () => {
     const [pct, setPct] = useState(45);

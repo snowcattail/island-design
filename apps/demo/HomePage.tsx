@@ -190,12 +190,12 @@ const BG_ICONS: string[] = [
 const S = {
     page: {
         width: '100%',
-        minHeight: '100vh',
+        minHeight: '100%',
         overflowY: 'auto',
         overflowX: 'hidden',
         position: 'relative',
         // 首页壁纸：图案由低透明度 Icon 背景层提供，此处置纯色底
-        background: '#88c9a1',
+        background: 'var(--demo-wallpaper)',
     } as React.CSSProperties,
 
     // 背景装饰层：各种 Icon 随机散落（固定种子定位 + 轻微旋转，漂浮动画在图标上）；fixed 铺满全屏，滚动时保持不动
@@ -213,7 +213,7 @@ const S = {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh',
+        minHeight: '100%',
         padding: '60px 40px 40px',
         position: 'relative',
         zIndex: 1,
@@ -234,7 +234,7 @@ const S = {
         fontWeight: 800,
         lineHeight: 1.08,
         letterSpacing: '-0.035em',
-        color: '#4b3e30',
+        color: 'var(--demo-text)',
         margin: '0 0 20px',
     } as React.CSSProperties,
     heroVersion: {
@@ -246,8 +246,8 @@ const S = {
         fontWeight: 600,
         padding: '4px 10px',
         borderRadius: 10,
-        background: '#e6f9f6',
-        color: '#19c8b9',
+        background: 'var(--island-primary-color-bg)',
+        color: 'var(--demo-text)',
         marginLeft: 12,
         verticalAlign: 'middle',
         textShadow: 'none',
@@ -255,7 +255,7 @@ const S = {
     heroSubtitle: {
         fontSize: 17,
         fontWeight: 500,
-        color: '#7c5734',
+        color: 'var(--demo-text)',
         lineHeight: 1.7,
         margin: '0 0 28px',
         maxWidth: 520,
@@ -280,13 +280,13 @@ const S = {
             "Nunito, 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
         fontSize: 24,
         fontWeight: 700,
-        color: '#725d42',
+        color: 'var(--demo-text)',
         margin: '0 0 8px',
         textAlign: 'center' as const,
     } as React.CSSProperties,
     sectionDesc: {
         fontSize: 14,
-        color: '#7c5734',
+        color: 'var(--demo-text)',
         textAlign: 'center' as const,
         marginBottom: 32,
     } as React.CSSProperties,
@@ -563,7 +563,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 <div style={S.heroContent}>
                     <div style={S.heroText}>
                         <h1 style={{ ...S.heroTitle, fontSize: isMobile ? 40 : 68 }}>
-                            Island Design
+                            island-design
                             <span style={S.heroVersion}>v1.0.0</span>
                         </h1>
                         <Typewriter speed={60}>
@@ -646,15 +646,15 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div style={{ ...S.section, padding: isMobile ? '32px 16px' : '48px 40px' }}>
                 <div style={S.sectionTitle}>安装</div>
                 <div style={S.sectionDesc}>一行命令即可安装</div>
-                <CodeBlock code={`// 使用 npm 安装\nnpm install island-design`} />
+                <CodeBlock code={`// 使用 npm 安装\nnpm install @snowcattail/island-design`} />
             </div>
 
             {/* Quick Start */}
             <div style={{ ...S.section, padding: isMobile ? '32px 16px' : '48px 40px' }}>
                 <div style={S.sectionTitle}>快速上手</div>
-                <div style={S.sectionDesc}>引入组件即可使用，样式自动加载</div>
+                <div style={S.sectionDesc}>引入组件和全局样式即可使用</div>
                 <CodeBlock
-                    code={`// 1. 引入组件\nimport { Button, Modal, Switch } from 'island-design';\nimport 'island-design/style';\n\nfunction App() {\n    return <Button>开始</Button>;\n}`}
+                    code={`// 1. 引入组件\nimport { Button, Modal, Switch } from '@snowcattail/island-design';\nimport '@snowcattail/island-design/style';\n\nfunction App() {\n    return <Button>开始</Button>;\n}`}
                 />
             </div>
 
@@ -693,7 +693,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                         GitHub
                     </span>
                 </div>
-                <div>© 2026 Island Design. All Rights Reserved · MIT License</div>
+                <div>© 2026 snowcattail · island-design All Rights Reserved · MIT License</div>
             </div>
         </div>
     );

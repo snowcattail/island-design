@@ -95,7 +95,7 @@ const RateDemo: React.FC = () => {
 
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Rate } from 'island-design';
+import { Rate } from '@snowcattail/island-design';
 
 const App = () => {
     const [score, setScore] = useState(3);

@@ -111,7 +111,7 @@ const InputDemo: React.FC = () => {
             </Card>
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Input } from 'island-design';
+import { Input } from '@snowcattail/island-design';
 import { PhoneIcon, LocationIcon } from 'naive-icons';
 
 const App = () => {

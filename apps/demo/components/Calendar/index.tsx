@@ -136,7 +136,7 @@ const CalendarDemo: React.FC = () => {
             </div>
 
             <CodeBlock
-                code={`import { Calendar } from 'island-design';
+                code={`import { Calendar } from '@snowcattail/island-design';
 
 const events = [
     { title: '每日签到', start: '2026-08-10 09:30', showTime: true },

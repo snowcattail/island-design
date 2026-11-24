@@ -374,7 +374,7 @@ const UploadDemo: React.FC = () => {
             </div>
 
             <CodeBlock
-                code={`import { Upload } from 'island-design';
+                code={`import { Upload } from '@snowcattail/island-design';
 
 // 基础:onChange 回传 { file, fileList, event? }
 <Upload

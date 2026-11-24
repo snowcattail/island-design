@@ -87,7 +87,7 @@ const CountdownDemo: React.FC = () => {
             </div>
 
             <CodeBlock
-                code={`import { Countdown } from 'island-design';
+                code={`import { Countdown } from '@snowcattail/island-design';
 
 <Countdown
     value={Date.now() + 24 * 60 * 60 * 1000}

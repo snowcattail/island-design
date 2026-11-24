@@ -159,7 +159,7 @@ const SelectDemo: React.FC = () => {
             </div>
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Select } from 'island-design';
+import { Select } from '@snowcattail/island-design';
 
 const options = [
     { key: 'option1', label: '选项一' },

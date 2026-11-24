@@ -76,7 +76,7 @@ const CollapseDemo: React.FC = () => (
         </div>
         <CodeBlock
             code={`import React from 'react';
-import { Collapse } from 'island-design';
+import { Collapse } from '@snowcattail/island-design';
 
 const App = () => {
     return (

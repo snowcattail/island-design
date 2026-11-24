@@ -22,15 +22,15 @@ export interface ApiRow {
 export const sectionStyle: React.CSSProperties = {
     marginBottom: 36,
     padding: 24,
-    background: '#fff',
+    background: 'var(--demo-surface)',
     borderRadius: 12,
-    border: '1px solid #e8e2d6',
+    border: '1px solid var(--island-border-color-light)',
 };
 
 export const sectionTitleStyle: React.CSSProperties = {
     fontSize: 18,
     fontWeight: 600,
-    color: '#725d42',
+    color: 'var(--demo-text)',
     display: 'flex',
     alignItems: 'center',
     gap: 8,
@@ -45,7 +45,7 @@ export const DemoTag: React.FC<{ children?: React.ReactNode; style?: React.CSSPr
 
 export const labelStyle: React.CSSProperties = {
     fontSize: 14,
-    color: '#a0936e',
+    color: 'var(--demo-muted)',
     marginTop: 20,
     marginBottom: 20,
     fontWeight: 500,
@@ -53,7 +53,7 @@ export const labelStyle: React.CSSProperties = {
 
 export const textStyle: React.CSSProperties = {
     fontSize: 13,
-    color: '#8a7b66',
+    color: 'var(--demo-muted)',
     marginTop: 8,
     marginBottom: 20,
 };
@@ -66,9 +66,9 @@ export const demoBodyStyle: React.CSSProperties = {
 export const demoBoxStyle: React.CSSProperties = {
     marginTop: 12,
     padding: 16,
-    background: '#faf8f3',
+    background: 'var(--island-bg-color)',
     borderRadius: 12,
-    border: '1px solid #e8e2d6',
+    border: '1px solid var(--island-border-color-light)',
 };
 
 export const demoDashedBoxStyle: React.CSSProperties = {
@@ -77,8 +77,8 @@ export const demoDashedBoxStyle: React.CSSProperties = {
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 16,
-    background: 'rgb(250, 248, 242)',
-    border: '1px dashed rgb(224, 216, 200)',
+    background: 'var(--island-bg-color)',
+    border: '1px dashed var(--island-border-color)',
     borderRadius: 18,
 };
 

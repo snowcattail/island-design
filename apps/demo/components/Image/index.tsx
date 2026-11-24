@@ -152,7 +152,7 @@ const ImageDemo: React.FC = () => (
 
         <CodeBlock
             code={`import React from 'react';
-import { Image } from 'island-design';
+import { Image } from '@snowcattail/island-design';
 
 const App = () => {
     return (

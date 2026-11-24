@@ -204,7 +204,7 @@ const BackTopDemo: React.FC = () => {
             <BackTop target={getTarget} visibilityHeight={400} />
 
             <CodeBlock
-                code={`import { BackTop } from 'island-design';
+                code={`import { BackTop } from '@snowcattail/island-design';
 
 // 基础用法 — 右下角上箭头返回顶部
 <BackTop visibilityHeight={400} />

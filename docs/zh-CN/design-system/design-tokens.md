@@ -73,7 +73,7 @@
 
 设计语言使用两款圆体字，按场景有两种交付方式：
 
-- **使用组件库时**：两款字体以 `@fontsource` woff2 资源打进包内，`import 'island-design/style'` 即完成加载，不需要任何字体 `<link>`
+- **使用组件库时**：两款字体以 `@fontsource` woff2 资源打进包内，`import '@snowcattail/island-design/style'` 即完成加载，不需要任何字体 `<link>`
 - **脱离组件库自行实现风格时**（单文件 HTML、demo、外部工具）：按以下方式从 Google Fonts 引入：
 
 ```html

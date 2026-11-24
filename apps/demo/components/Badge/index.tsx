@@ -198,7 +198,7 @@ const BadgeDemo: React.FC = () => (
             </div>
         </div>
         <CodeBlock
-            code={`import { Badge, Avatar } from 'island-design';
+            code={`import { Badge, Avatar } from '@snowcattail/island-design';
 import { BellIcon } from 'naive-icons';
 
 const App = () => (

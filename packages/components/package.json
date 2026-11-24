@@ -1,7 +1,7 @@
 {
-    "name": "island-design",
+    "name": "@snowcattail/island-design",
     "version": "1.0.0",
-    "description": "A nature-inspired React component library",
+    "description": "island-design, a React and TypeScript component library",
     "type": "module",
     "main": "dist/cjs/index.cjs",
     "module": "dist/es/index.js",
@@ -13,6 +13,7 @@
             "require": "./dist/cjs/index.cjs"
         },
         "./style": "./dist/index.css",
+        "./style.css": "./dist/index.css",
         "./dist/index.css": "./dist/index.css",
         "./package.json": "./package.json",
         "./es/*": {
@@ -42,8 +43,6 @@
         "react-dom": ">=18.0.0"
     },
     "dependencies": {
-        "@island-design/hooks": "file:../hooks",
-        "@island-design/tokens": "file:../tokens",
         "classnames": "^2.5.1",
         "dayjs": "^1.11.23",
         "naive-icons": "^1.14.0"
@@ -61,9 +60,12 @@
         "nature"
     ],
     "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "prepublishOnly": "npm run build --prefix ../.. && node ../../scripts/check-dts-esm.mjs",
-        "build": "vite build && tsc --project tsconfig.build.json --emitDeclarationOnly && node ../../scripts/fix-dts-extensions.mjs",
+        "build": "vite build && tsc --project tsconfig.build.json --emitDeclarationOnly && tsc --project ../hooks/tsconfig.json --emitDeclarationOnly --outDir dist/types/hooks/src && node ../../scripts/fix-dts-extensions.mjs",
         "test": "vitest",
         "test:run": "vitest run",
         "test:a11y": "vitest run --config vitest.a11y.config.ts",

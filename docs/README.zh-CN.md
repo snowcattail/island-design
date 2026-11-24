@@ -1,5 +1,5 @@
 <div align="center">
-  <h2>Island Design</h2>
+  <h2>island-design</h2>
   <p>
     <a href="https://github.com/snowcattail/island-design/stargazers"><img src="https://img.shields.io/github/stars/snowcattail/island-design?style=flat-square" alt="GitHub Stars"></a>
     <img src="https://img.shields.io/badge/React-18%20%7C%2019-149eca?style=flat-square&amp;logo=react" alt="React 18 | 19">
@@ -19,17 +19,17 @@
 
 **首页与主题表现**
 
-![Island Design 首页](images/home-overview.png)
+![island-design 首页](images/home-overview.png)
 
 **表单交互演练场**
 
-![Island Design 表单演练场](images/components-showcase.png)
+![island-design 表单演练场](images/components-showcase.png)
 
-业务开发者可以按职责使用 `@island-design/tokens` 的主题变量、`@island-design/hooks` 的通用逻辑和 `island-design` 的组件与类型声明。组件库保留 ESM 模块结构，支持消费端构建工具对未引用的 JavaScript 执行 Tree-Shaking；运行时可覆盖 `--island-*` CSS 变量调整主题。完整组件样式通过 `island-design/style` 引入，其体积不随 JavaScript Tree-Shaking 自动缩减。
+应用可从 `@snowcattail/island-design` 获取组件、类型声明和默认主题。主题 Token 和 React Hooks 在仓库中独立维护，随组件包构建和发布。组件库保留 ESM 模块结构，支持消费端构建工具对未引用的 JavaScript 执行 Tree-Shaking；运行时可覆盖 `--island-*` CSS 变量调整主题。完整组件样式通过 `@snowcattail/island-design/style` 引入，其体积不随 JavaScript Tree-Shaking 自动缩减。
 
 ## 核心功能
 
-企业级前端基础设施常遇到**多包职责耦合、全量打包体积失控、表单与浮层状态复杂、协作规范与无障碍基线缺失**四类问题。Island Design 从以下四层组织工程能力。
+企业级前端基础设施常遇到**多包职责耦合、全量打包体积失控、表单与浮层状态复杂、协作规范与无障碍基线缺失**四类问题。island-design 从以下四层组织工程能力。
 
 ### 📦 多包分层与按需构建
 
@@ -41,7 +41,7 @@
 
 ```text
 [npm Workspaces | TypeScript 5.7 | Vite 7]
-Packages   @island-design/tokens -> @island-design/hooks -> island-design (42 components)
+Packages   @snowcattail/island-design (42 components), @island-design/tokens, @island-design/hooks
 Demo       @island-design/demo
 Outputs    packages/components/dist/es/* | dist/cjs/* | dist/types/* | dist/index.css
 Contract   React / React DOM peerDependencies: >=18; styles marked as side effects

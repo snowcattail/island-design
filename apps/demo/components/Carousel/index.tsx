@@ -54,7 +54,7 @@ const CarouselDemo: React.FC = () => (
         </Carousel>
 
         <CodeBlock
-            code={`import { Carousel } from 'island-design';
+            code={`import { Carousel } from '@snowcattail/island-design';
 
 <Carousel autoplay interval={3500} aria-label="岛屿照片">
     <img src="/beach.jpg" alt="海滩" />

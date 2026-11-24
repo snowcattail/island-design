@@ -6,10 +6,12 @@ import bgSweetCorner from '../../packages/components/src/assets/image/sweet-corn
 import bgCoffeeBreak from '../../packages/components/src/assets/image/coffee-break.svg';
 import './fonts.css';
 import HomePage from './HomePage';
+import ThemeControls from './ThemeControls';
 import { PAGE_INFO } from './pageInfo';
 import { CHART_PAGES } from './chartPages';
 import { useIsMobile } from './tools';
 import logo from './assets/logo.png';
+import './theme.css';
 
 // Lazy-load ComponentPage so homepage does not pull in every demo on initial load
 const ComponentPage = lazy(() => import('./ComponentPage'));
@@ -17,11 +19,18 @@ const ComponentPage = lazy(() => import('./ComponentPage'));
 // ============================================
 // Simple hash router
 // ============================================
+const readRoute = () => {
+    const { hash, pathname } = window.location;
+    const base = import.meta.env.BASE_URL;
+    const key = pathname.startsWith(base) ? pathname.slice(base.length).replace(/\/$/, '') : '';
+    return hash.slice(1) || (Object.prototype.hasOwnProperty.call(PAGE_INFO, key) ? `/${key}` : '/');
+};
+
 const useHash = () => {
-    const [hash, setHash] = useState(() => window.location.hash.slice(1) || '/');
+    const [hash, setHash] = useState(readRoute);
 
     useEffect(() => {
-        const onHashChange = () => setHash(window.location.hash.slice(1) || '/');
+        const onHashChange = () => setHash(readRoute());
         window.addEventListener('hashchange', onHashChange);
         return () => window.removeEventListener('hashchange', onHashChange);
     }, []);
@@ -147,15 +156,15 @@ const MENU_ITEMS: MenuItem[] = [
 const S = {
     layout: {
         display: 'flex',
-        height: '100dvh',
+        height: 'calc(100dvh - var(--demo-toolbar-height))',
         overflow: 'hidden',
         fontFamily:
             "Nunito, 'Noto Sans SC', 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
-        // 波点壁纸（与首页 page 容器一致）：两层错位绿点 + 底色 #88c9a1
+        // 两层错位波点与 HomePage 共用主题底色
         background: `
             radial-gradient(circle, rgba(90, 160, 105, 0.4) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
             radial-gradient(circle, rgba(110, 180, 125, 0.3) 1px, transparent 1px) 7px 7px / 14px 14px,
-            #88c9a1
+            var(--demo-wallpaper)
         `,
     } as React.CSSProperties,
     sidebar: {
@@ -164,24 +173,24 @@ const S = {
         // 拼色底部：雾蓝 #a2b0e7ff 色块，顶部为平滑正弦曲线（谷峰高 75px、谷底高 60px，较上版整体上移 20px），上部保持奶油色
         background:
             "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='130' viewBox='0 0 220 130'%3E%3Cpath fill='%23a2b0e7ff' d='M0 70 Q55 40 110 70 T220 70 V130 H0 Z'/%3E%3C/svg%3E\") left bottom / 220px 130px no-repeat",
-        backgroundColor: '#faf8f3',
+        backgroundColor: 'var(--demo-surface)',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
         margin: '12px 0 12px 12px',
         borderRadius: 16,
-        border: '2px solid rgba(250, 250, 250, 1)',
+        border: '2px solid var(--island-border-color-light)',
         boxShadow: '0 4px 16px rgba(61, 52, 40, 0.10)',
-        height: 'calc(100dvh - 20px)',
+        height: 'calc(100dvh - var(--demo-toolbar-height) - 24px)',
     } as React.CSSProperties,
     sidebarHeader: {
         padding: '20px 20px 12px',
-        borderBottom: '1px solid #e8e2d6',
+        borderBottom: '1px solid var(--island-border-color-light)',
         fontFamily:
             "'GROBOLD', Nunito, 'Zen Maru Gothic', -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
         fontWeight: 700,
         fontSize: 15,
-        color: '#725d42',
+        color: 'var(--demo-text)',
         letterSpacing: 0,
         display: 'flex',
         alignItems: 'center',
@@ -207,8 +216,8 @@ const S = {
             fontWeight: 600,
             fontSize: 14,
             paddingLeft: 26,
-            color: active ? '#fff' : '#8a7b66',
-            background: active ? '#B7C6E5' : 'transparent',
+            color: active ? 'var(--demo-text)' : 'var(--demo-muted)',
+            background: active ? 'var(--demo-menu-active)' : 'transparent',
             borderRadius: 12,
             borderRight: 'none',
             transition: 'all 0.15s',
@@ -245,7 +254,7 @@ const SidebarContent: React.FC<{
         <div style={S.sidebarHeader} onClick={() => onNavigate('/')}>
             <img
                 src={logo}
-                alt="Island Design logo"
+                alt="island-design logo"
                 style={{
                     display: 'block',
                     width: 25,
@@ -255,7 +264,7 @@ const SidebarContent: React.FC<{
                     transform: 'translateY(-2px)',
                 }}
             />
-            Island Design
+            island-design
         </div>
         <nav style={S.menuList}>
             {MENU_ITEMS.map((item) => {
@@ -266,7 +275,7 @@ const SidebarContent: React.FC<{
                                 style={{
                                     padding: '12px 16px 4px',
                                     fontSize: 11,
-                                    color: '#a0936e',
+                                    color: 'var(--demo-muted)',
                                     fontWeight: 600,
                                     letterSpacing: 0.5,
                                 }}
@@ -288,19 +297,14 @@ const SidebarContent: React.FC<{
                                         }
                                     }}
                                     onMouseEnter={(e) => {
-                                        if (activeKey !== child.key) e.currentTarget.style.background = '#d6dff0';
+                                        if (activeKey !== child.key)
+                                            e.currentTarget.style.background = 'var(--demo-menu-hover)';
                                     }}
                                     onMouseLeave={(e) => {
                                         if (activeKey !== child.key) e.currentTarget.style.background = 'transparent';
                                     }}
                                 >
-                                    <span
-                                        style={{
-                                            color: activeKey === child.key ? '#fff' : '#8a7b66',
-                                        }}
-                                    >
-                                        {child.label}
-                                    </span>
+                                    <span>{child.label}</span>
                                     {child.isNew && <span style={S.menuBadge(activeKey === child.key)}>NEW</span>}
                                 </div>
                             ))}
@@ -313,13 +317,13 @@ const SidebarContent: React.FC<{
                         style={S.menuItem(activeKey === item.key)}
                         onClick={() => onNavigate(`/${item.key}`)}
                         onMouseEnter={(e) => {
-                            if (activeKey !== item.key) e.currentTarget.style.background = '#d6dff0';
+                            if (activeKey !== item.key) e.currentTarget.style.background = 'var(--demo-menu-hover)';
                         }}
                         onMouseLeave={(e) => {
                             if (activeKey !== item.key) e.currentTarget.style.background = 'transparent';
                         }}
                     >
-                        <span style={{ color: activeKey === item.key ? '#fff' : '#8a7b66' }}>{item.label}</span>
+                        <span>{item.label}</span>
                     </div>
                 );
             })}
@@ -415,6 +419,23 @@ const App: React.FC = () => {
                     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 6s-9 12-9 16a9 9 0 0 0 18 0c0-4-9-16-9-16z' fill='%2374ccff' stroke='%232e86ab' stroke-width='1.5'/%3E%3Cellipse cx='12.5' cy='19' rx='2' ry='3.2' fill='%23dff4ff' transform='rotate(-18 12.5 19)'/%3E%3C/svg%3E") 16 6, default !important;
                 }
             `}</style>
+            <header className="demo-toolbar">
+                <a className="demo-brand" href="#/" aria-label="island-design 首页">
+                    <img src={logo} alt="" width={28} height={28} />
+                    <span>island-design</span>
+                </a>
+                <ThemeControls />
+                {isMobile && !isHomePage && (
+                    <button
+                        type="button"
+                        aria-expanded={drawerOpen}
+                        aria-controls={drawerOpen ? 'demo-mobile-menu' : undefined}
+                        onClick={() => setDrawerOpen((open) => !open)}
+                    >
+                        组件菜单
+                    </button>
+                )}
+            </header>
             {isHomePage ? (
                 /* Home page — full screen, no sidebar */
                 <div
@@ -454,84 +475,25 @@ const App: React.FC = () => {
                         </aside>
                     )}
 
-                    {/* Mobile top bar */}
-                    {isMobile && (
-                        <div
-                            style={{
-                                position: 'fixed',
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                height: 52,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                padding: '0 12px',
-                                background: 'rgba(255,252,244,0.92)',
-                                backdropFilter: 'blur(8px)',
-                                borderBottom: '1px solid #e8e2d6',
-                                zIndex: 50,
-                                fontFamily: S.layout.fontFamily,
-                            }}
-                        >
-                            <button
-                                onClick={() => navigate('/')}
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    fontSize: 20,
-                                    color: '#725d42',
-                                    padding: '4px 8px',
-                                    borderRadius: 8,
-                                    lineHeight: 1,
-                                }}
-                            >
-                                ←
-                            </button>
-                            <span
-                                style={{
-                                    fontWeight: 700,
-                                    fontSize: 15,
-                                    color: '#725d42',
-                                }}
-                            >
-                                {PAGE_INFO[activeKey]?.title ?? '组件文档'}
-                            </span>
-                            <button
-                                onClick={() => setDrawerOpen(true)}
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    fontSize: 20,
-                                    color: '#725d42',
-                                    padding: '4px 8px',
-                                    borderRadius: 8,
-                                    lineHeight: 1,
-                                }}
-                            >
-                                ☰
-                            </button>
-                        </div>
-                    )}
-
                     {/* Mobile drawer overlay */}
                     {isMobile && drawerOpen && (
                         <>
                             <div
                                 style={{
                                     position: 'fixed',
-                                    inset: 0,
+                                    inset: 'var(--demo-toolbar-height) 0 0',
                                     background: 'rgba(0,0,0,0.35)',
                                     zIndex: 98,
                                 }}
                                 onClick={() => setDrawerOpen(false)}
                             />
                             <aside
+                                id="demo-mobile-menu"
                                 style={{
                                     ...S.sidebar,
                                     position: 'fixed',
                                     left: 0,
-                                    top: 0,
+                                    top: 'var(--demo-toolbar-height)',
                                     bottom: 0,
                                     width: 240,
                                     zIndex: 99,
@@ -550,7 +512,6 @@ const App: React.FC = () => {
                             position: 'relative',
                             zIndex: 1,
                             padding: isMobile ? '16px' : '32px 40px',
-                            paddingTop: isMobile ? 68 : 32,
                         }}
                     >
                         <Suspense fallback={<Loading type="circle" active />}>

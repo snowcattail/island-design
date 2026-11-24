@@ -382,7 +382,7 @@ const FormDemo: React.FC = () => {
 
             <CodeBlock
                 code={`import React from 'react';
-import { Form, FormItem, useForm, Input, Button } from 'island-design';
+import { Form, FormItem, useForm, Input, Button } from '@snowcattail/island-design';
 
 const App = () => {
     const [form] = useForm();

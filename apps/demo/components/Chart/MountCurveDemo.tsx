@@ -18,7 +18,7 @@ const chartProps: ChartProps = {
 /** 新增圆润山峰演示，保留默认尖顶并列对照，原有样式图集保持独立。 */
 export const MountCurveDemo: React.FC = () => {
     // 复用既有 smooth 属性控制峰顶曲线，复制示例即可用于业务页面。
-    const code = `import { Chart, type ChartProps } from 'island-design';\n\nconst chartProps: ChartProps = ${JSON.stringify(chartProps, null, 4)};\n\n<Chart {...chartProps} smooth title="圆润山峰" />`;
+    const code = `import { Chart, type ChartProps } from '@snowcattail/island-design';\n\nconst chartProps: ChartProps = ${JSON.stringify(chartProps, null, 4)};\n\n<Chart {...chartProps} smooth title="圆润山峰" />`;
     return (
         <section className={styles.gallery} aria-label="山峰弧度对照示例">
             <header className={styles.header}>

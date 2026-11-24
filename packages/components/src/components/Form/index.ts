@@ -28,5 +28,5 @@ export type {
     ValidateStatus,
 } from './types';
 
-// 兼容 `import Form from 'island-design'` 默认导入后使用 Form.Item
+// 兼容 `import Form from '@snowcattail/island-design'` 默认导入后使用 Form.Item
 export default Form;

@@ -29,7 +29,7 @@ const CodeBlockDemo: React.FC = () => {
             <div style={demoBoxStyle}>
                 <CodeBlock
                     code={`import React from 'react';
-import { Button } from 'island-design';
+import { Button } from '@snowcattail/island-design';
 
 const App = () => (
     <Button type="primary">按钮</Button>
@@ -48,7 +48,7 @@ export default App;`}
             <div style={demoBoxStyle}>
                 <CodeBlock
                     code={`import React from 'react';
-import { CodeBlock } from 'island-design';
+import { CodeBlock } from '@snowcattail/island-design';
 
 <CodeBlock
     code={codeString}
@@ -60,7 +60,7 @@ import { CodeBlock } from 'island-design';
             </div>
             <CodeBlockBase
                 code={`import React from 'react';
-import { CodeBlock } from 'island-design';
+import { CodeBlock } from '@snowcattail/island-design';
 
 const App = () => {
     return (
@@ -68,7 +68,7 @@ const App = () => {
             {/* 基础用法 */}
             <CodeBlock code={'
                 import React from 'react';
-                import { Footer } from 'island-design';
+                import { Footer } from '@snowcattail/island-design';
 
                 const App = () => {
                     return (

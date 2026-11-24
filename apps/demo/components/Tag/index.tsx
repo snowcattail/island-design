@@ -315,7 +315,7 @@ const TagDemo: React.FC = () => {
             </div>
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Tag } from 'island-design';
+import { Tag } from '@snowcattail/island-design';
 
 const App = () => {
     const [items, setItems] = useState([

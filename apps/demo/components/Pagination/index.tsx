@@ -119,7 +119,7 @@ const PaginationDemo: React.FC = () => {
             />
 
             <CodeBlock
-                code={`import { Pagination, Table } from 'island-design';
+                code={`import { Pagination, Table } from '@snowcattail/island-design';
 
 // 独立使用（受控）
 <Pagination

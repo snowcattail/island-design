@@ -274,7 +274,7 @@ const TooltipDemo: React.FC = () => {
 
             <CodeBlock
                 code={`import React from 'react';
-import { Tooltip, Button } from 'island-design';
+import { Tooltip, Button } from '@snowcattail/island-design';
 
 const App = () => {
     return (

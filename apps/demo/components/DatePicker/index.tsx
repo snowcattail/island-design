@@ -129,7 +129,7 @@ const DatePickerDemo: React.FC = () => {
             </div>
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { DatePicker } from 'island-design';
+import { DatePicker } from '@snowcattail/island-design';
 
 const disableWeekend = (date: Date) => date.getDay() === 0 || date.getDay() === 6;
 

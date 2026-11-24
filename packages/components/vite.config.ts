@@ -97,7 +97,7 @@ function stripWoffFallbackPlugin(): Plugin {
  * 改写 CSS 文本中 url() 引用的相对路径：
  * Vite 产出的 CSS 总是相对源 CSS 自身位置（如 url(../../files/x.svg)），
  * 但 dist/index.css 位于 dist 根目录，需要把 "../" 前缀剥掉改成
- * 相对 dist/ 的形式（url(files/x.svg)），消费者 `import 'island-design/style'`
+ * 相对 dist/ 的形式（url(files/x.svg)），消费者 `import '@snowcattail/island-design/style'`
  * 时 CSS 解析器才能正确定位到 dist/files/。
  *
  * sourceCssRelPath 是源 CSS 相对 dist/ 的路径，如 'es/styles/index.css' 或
@@ -115,12 +115,12 @@ function rewriteCssAssetUrls(text: string, sourceCssRelPath: string): string {
 
 /**
  * 把全局主题样式 + 全部组件 CSS 聚合为 dist/index.css，
- * 供 `island-design/style` 子路径一次性引入全量样式。
+ * 供 `@snowcattail/island-design/style` 子路径一次性引入全量样式。
  * cssCodeSplit 模式下：
  *   - 全局变量/reset：dist/es/styles/index.css
  *   - 组件 CSS：dist/es/components 下散落各组件目录的 .css（CSS Modules 与 Cursor 的 cursor.css 等普通 css）
  * 拼接顺序：全局 → 组件，保证组件样式可消费 :root CSS 变量。
- * 已聚合的源 chunk 随即删除：没有任何 JS 再引用它们（样式只经 `island-design/style`
+ * 已聚合的源 chunk 随即删除：没有任何 JS 再引用它们（样式只经 `@snowcattail/island-design/style`
  * 入口下发），留着只是包体积死重。
  */
 function emitGlobalStyleEntryPlugin(): Plugin {
@@ -220,7 +220,7 @@ function emitGlobalStyleEntryPlugin(): Plugin {
             };
             collectRefs(resolve(root, 'es'));
             collectRefs(resolve(root, 'cjs'));
-            // dist/index.css 也是引用源（island-design/style 入口）
+            // dist/index.css 也是引用源（@snowcattail/island-design/style 入口）
             const idxCss = resolve(root, 'index.css');
             try {
                 if (statSync(idxCss).isFile()) {
@@ -409,7 +409,11 @@ export default defineConfig({
         // 现代浏览器目标 —— Vite lib 默认 'modules'，显式声明可保留更多 ES2020+ 语法
         target: 'es2020',
         lib: {
-            entry: resolve(__dirname, 'src/index.ts'),
+            // Hooks aren't reachable from the component barrel, so Rollup needs a separate entry.
+            entry: {
+                index: resolve(__dirname, 'src/index.ts'),
+                'hooks/src/index': resolve(__dirname, '../hooks/src/index.ts'),
+            },
         },
         rollupOptions: {
             // peer 依赖（含子路径入口）保持 external，详见 isPeerDependency 的注释。

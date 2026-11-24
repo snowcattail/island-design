@@ -36,7 +36,7 @@ const SkillDemo: React.FC = () => {
                 <Section title="island-design-style" tags={['AI Skill', '可安装']}>
                     <p className={styles.lead}>
                         一个可安装的编码助手技能，教会 AI 代理（Claude Code、Codex、Cursor 等兼容 SKILL.md 的代理）按
-                        Island Design 风格搭建 UI：暖色羊皮纸背景、大地色文字、薄荷主色、胶囊形状与 3D
+                        island-design 风格搭建 UI：暖色羊皮纸背景、大地色文字、薄荷主色、胶囊形状与 3D
                         游戏按钮质感。它只是知识，不是代码 —— 约束代理「怎么写」，不改变你的工程结构。
                     </p>
                     <div className={styles.tagRow}>

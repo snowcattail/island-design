@@ -117,7 +117,7 @@ const LoadingDemo: React.FC = () => {
             </div>
 
             <CodeBlock
-                code={`import { Loading } from 'island-design';
+                code={`import { Loading } from '@snowcattail/island-design';
 
 // 全屏落雪（默认形态）
 <Loading active={active} />

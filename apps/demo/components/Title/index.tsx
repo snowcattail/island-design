@@ -173,7 +173,7 @@ const TitleDemo: React.FC = () => (
         </div>
 
         <CodeBlock
-            code={`import { Title } from 'island-design';
+            code={`import { Title } from '@snowcattail/island-design';
 
 const App = () => (
     <>

@@ -111,7 +111,7 @@ const RadioDemo: React.FC = () => {
 
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Radio } from 'island-design';
+import { Radio } from '@snowcattail/island-design';
 
 const options = [
     { label: '春天', value: 'spring' },

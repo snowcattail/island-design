@@ -347,7 +347,7 @@ const NotificationDemo: React.FC = () => {
 
             <CodeBlock
                 code={`import React from 'react';
-import { Notification, Button } from 'island-design';
+import { Notification, Button } from '@snowcattail/island-design';
 
 const App = () => {
     return (

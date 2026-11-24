@@ -152,7 +152,7 @@ const ButtonDemo: React.FC = () => (
         </div>
         <CodeBlock
             code={`import React from 'react';
-import { Button } from 'island-design';
+import { Button } from '@snowcattail/island-design';
 
 const App = () => {
     return (

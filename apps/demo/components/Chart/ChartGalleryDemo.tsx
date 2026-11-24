@@ -23,7 +23,7 @@ function exampleCode(example: ChartGalleryExample): string {
         .filter(([, format]) => format !== undefined)
         .map(([name, format]) => `    ${name}: ${format!.toString().replace(/\n/g, '\n    ')}`);
     const config = functions.length ? `${data.slice(0, -2)},\n${functions.join(',\n')}\n}` : data;
-    return `import { Chart, type ChartProps } from 'island-design';\n\nconst chartProps: ChartProps = ${config};\n\n<Chart {...chartProps} />`;
+    return `import { Chart, type ChartProps } from '@snowcattail/island-design';\n\nconst chartProps: ChartProps = ${config};\n\n<Chart {...chartProps} />`;
 }
 
 /** 一个真实可交互的样式示例，代码按需展开，避免长代码挤占展示区域。 */

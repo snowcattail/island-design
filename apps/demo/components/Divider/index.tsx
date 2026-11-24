@@ -76,7 +76,7 @@ const DividerDemo: React.FC = () => (
         ))}
         <CodeBlock
             code={`import React from 'react';
-import { Divider } from 'island-design';
+import { Divider } from '@snowcattail/island-design';
 import { FishIcon, StarIcon } from 'naive-icons';
 
 const App = () => {

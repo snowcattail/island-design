@@ -38,7 +38,7 @@ const FooterDemo: React.FC = () => {
 
             <CodeBlock
                 code={`import React from 'react';
-import { Footer } from 'island-design';
+import { Footer } from '@snowcattail/island-design';
 
 const App = () => (
     <div>

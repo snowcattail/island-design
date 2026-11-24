@@ -47,7 +47,7 @@ import { PAGE_INFO } from './pageInfo';
 import { ChartOverviewDemo, CHART_DEMO_PAGES } from './components/Chart';
 const pageDescStyle: React.CSSProperties = {
     fontSize: 14,
-    color: '#794f27',
+    color: 'var(--demo-text)',
     marginBottom: 20,
 };
 

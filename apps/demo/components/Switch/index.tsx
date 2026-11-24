@@ -84,7 +84,7 @@ const SwitchDemo: React.FC = () => {
             </div>
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { Switch } from 'island-design';
+import { Switch } from '@snowcattail/island-design';
 
 const App = () => {
     const [checked, setChecked] = useState(false);

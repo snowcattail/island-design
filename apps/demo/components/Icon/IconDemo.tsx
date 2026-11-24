@@ -752,7 +752,7 @@ const IconDemo: React.FC = () => (
         <div style={labelStyle}>
             图标为独立 npm 包{' '}
             <a
-                href="https://github.com/snowcattail/naive-icons"
+                href="https://www.npmjs.com/package/naive-icons"
                 target="_blank"
                 rel="noreferrer"
                 style={{ color: '#725d42' }}
@@ -769,12 +769,12 @@ const IconDemo: React.FC = () => (
         <div style={labelStyle}>
             文档与完整示例参考{' '}
             <a
-                href="https://github.com/snowcattail/naive-icons"
+                href="https://www.npmjs.com/package/naive-icons"
                 target="_blank"
                 rel="noreferrer"
                 style={{ color: '#725d42' }}
             >
-                https://github.com/snowcattail/naive-icons
+                https://www.npmjs.com/package/naive-icons
             </a>
         </div>
 

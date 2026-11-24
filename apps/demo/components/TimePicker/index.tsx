@@ -78,7 +78,7 @@ const TimePickerDemo: React.FC = () => {
             </div>
             <CodeBlock
                 code={`import React, { useState } from 'react';
-import { TimePicker } from 'island-design';
+import { TimePicker } from '@snowcattail/island-design';
 
 const App = () => {
     const [time, setTime] = useState('09:30:00');

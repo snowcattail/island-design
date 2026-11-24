@@ -144,7 +144,7 @@ const ChartTypeDemo: React.FC<{ type: ChartType }> = ({ type }) => {
                 </>
             )}
             <CodeBlock
-                code={`import { Chart, type ChartProps } from 'island-design';\n\nconst chartProps: ChartProps = ${code};\n\n<Chart {...chartProps} />`}
+                code={`import { Chart, type ChartProps } from '@snowcattail/island-design';\n\nconst chartProps: ChartProps = ${code};\n\n<Chart {...chartProps} />`}
             />
             <ChartInteractionDemo type={type} />
             <ApiTable rows={API} />

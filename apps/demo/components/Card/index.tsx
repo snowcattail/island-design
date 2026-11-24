@@ -192,7 +192,7 @@ const CardDemo: React.FC = () => (
         </div>
         <CodeBlock
             code={`import React from 'react';
-import { Card } from 'island-design';
+import { Card } from '@snowcattail/island-design';
 
 const App = () => {
     return (
